@@ -116,8 +116,16 @@ export class AppComponent {
     });
   }
 
+  movePage( pageURL ) {
+    //console.log('Page URL...', pageURL);
+    this.menuCtrl.close();
+    this.router.navigate([pageURL]);
+  }
+
   signOut() {
     this.userService.logout();
+    this.menuCtrl.enable(false);
+    this.menuCtrl.close();
     this.menuCtrl.enable(false);
     this.router.navigate(['/login']);
   }
