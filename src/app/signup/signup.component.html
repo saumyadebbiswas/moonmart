@@ -1,0 +1,55 @@
+<ion-content>
+  <ion-grid class="no-pad">
+    <ion-row class="justify-content-center">
+      <ion-col size-md="6" size-lg="5" size-xs="12" class="align-self-center no-pad">
+        <div class="back-bg">
+          <img src="/assets/images/back-bg2.png" alt="">
+          <div class="sing-text">
+            <h5>Sign Up</h5>
+            <img src="/assets/images/cart-icon.png" alt="">
+            <p>A whole grocery store<br> at your fingertips</p>
+          </div>
+        </div>
+
+        <div class="sing-frm">
+          <span><img src="/assets/images/user.png" alt=""></span>
+          <ion-input type="text" [(ngModel)]="username" class="info-frm" id="username" placeholder="Username"></ion-input>
+
+          <span><img src="/assets/images/mail-icon.png" alt="" class="mail-img"></span>
+          <ion-input type="email" [(ngModel)]="email" class="info-frm" id="email" placeholder="Email"></ion-input>
+          
+          <span><img src="/assets/images/lock-icon.png" alt="" class="lock-img"></span>
+          <ion-input type="password" [(ngModel)]="password" class="info-frm" id="password" placeholder="Password" ></ion-input>
+          
+          <span><img src="/assets/images/call.png" alt="" class="mob-img"></span>
+          <ion-input type="text" [(ngModel)]="mobile_no" class="info-frm" id="mobile_no" placeholder="Mobile Number"></ion-input>
+
+          <span><img src="/assets/images/share.png" alt=""  class="code-img"></span>
+          <ion-input type="text" [(ngModel)]="refer_code" class="info-frm" id="refer_code" placeholder="Referrral Code (Optional)"></ion-input>
+
+          <span><img src="/assets/images/cal.png" alt=""  class="bath-img"></span>
+          <!-- <ion-input type="text" [(ngModel)]="dob" class="info-frm" id="dob" placeholder="Date of Birth"></ion-input> -->
+          <ion-datetime [(ngModel)]="dob" class="info-date" displayFormat="MMM DD, YYYY" placeholder="Date of Birth"></ion-datetime>
+
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" (change)="ckeckBox()" class="custom-control-input" id="customCheck" name="example1">
+            <label class="custom-control-label" for="customCheck">I agree to use terms of Use & Privacy Policy </label>
+          </div>
+        </div>
+
+        <div class="sign-box">
+          <button type="button" (click)="onSubmit()" size="large" expand="block" class="btn sing-btn">Sign Up</button>
+
+          <p><a>Already have an account?</a></p> 
+          <p class="regi">
+            <a routerLink="/login">Sign In
+              <img src="/assets/images/arrow.png" alt="">
+              <hr>
+            </a>
+          </p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

@@ -1,0 +1,38 @@
+<ion-content>
+  <ion-grid class="no-pad">
+    <ion-row class="justify-content-center">
+      <ion-col size-md="6" size-lg="5" size-xs="12" class="align-self-center no-pad">
+        <div class="back-bg">
+          <img src="/assets/images/back-bg.png" alt="">
+          <div class="sing-text">
+            <h5>Sign In</h5>
+            <img src="/assets/images/cart-icon.png" alt="">
+            <p>A whole grocery store<br> at your fingertips</p>
+          </div>
+        </div>
+
+        <div class="sing-frm">
+          <span><img src="/assets/images/mail-icon.png" alt=""></span>
+          <ion-input type="text" class="info-frm" id="username" [(ngModel)]="username" placeholder="Username"></ion-input>
+
+          <span><img src="/assets/images/lock-icon.png" alt="" class="lock-img"></span>
+          <ion-input type="password" class="info-frm" id="password" [(ngModel)]="password" placeholder="Password" ></ion-input>
+          <span class="forgot"><a routerLink="/forgot">Forgot?</a></span>
+        </div>
+
+        <div class="sign-box">
+          <button type="button" (click)="onSubmit()" size="large" expand="block" class="btn sing-btn">Sign in</button>
+
+          <p><a>Don’t have an account?</a></p> 
+          <p class="regi">
+            <a routerLink="/singup">Sign up 
+              <img src="/assets/images/arrow.png" alt="">
+              <hr>
+            </a>
+          </p> 
+        </div>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

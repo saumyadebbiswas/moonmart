@@ -1,0 +1,30 @@
+<ion-app>
+  <ion-split-pane>
+    <ion-menu type="overlay">
+      <ion-content>
+        
+        <ion-menu-toggle auto-hide="false" >
+          <div class="user-details">
+            <img src="{{ user_profile_image }}" alt="" />
+            <h4>{{ user_name }}</h4>
+            <p>{{ user_email }}</p>
+  
+            <ul class="manu-link">
+              <li *ngFor="let p of appPages">
+                <span [routerLink]="[p.url]"> {{p.title}}</span>
+              </li>
+              
+              <li></li>
+              <li></li>
+              <li (click)="signOut()">Sign Out</li>
+            </ul>
+          </div>
+          
+        </ion-menu-toggle>
+      
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+    <!-- <app-footer *ngIf="showFooter"></app-footer> -->
+  </ion-split-pane>
+</ion-app>

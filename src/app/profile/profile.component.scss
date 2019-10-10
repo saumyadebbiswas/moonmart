@@ -1,0 +1,263 @@
+
+// -------------start header-------------
+
+.icon-inner svg{ display: none !important;} 
+
+.head{
+  width: 100%;
+  // background: #f73d42;
+  background-image: url("/assets/images/header-back-img.png");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: #fff;
+}
+.s-ion-icon{ display: none !important;}
+.text-center{
+  text-align: center;
+}
+.notification{
+  width: 48px;
+  text-align: right;
+  padding-top: 10px;
+  padding-right: 18px;
+}
+.notification img{
+  width: 18px;
+  position: absolute;
+  right: 18px;
+  top: 25px;
+}
+.notification span{
+  background: #fff;
+  border-radius: 50%;
+  color: #f73d42;
+  font-size: 8px;
+  width: 13px;
+  font-weight: bold;
+  height: 13px;
+  position: absolute;
+  right: 12px;
+  top: 25px;
+  text-align: center;
+}
+
+// -----end header------
+
+.no-pad{
+    padding: 0;
+} 
+
+.user-profile { 
+    width:100%;
+    padding: 0 20px;
+    display: flex;
+}
+
+.sing-text{
+    text-align: center;
+    color: #fff;
+    position: absolute;
+    top: 10%;
+    width: 100%;
+}
+
+.sing-text img{
+    width: 28%;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    margin-top: 14px;
+    margin-bottom: 25px;
+    letter-spacing: 34px;
+}
+
+.sing-text h5{
+    font-size: 1.2rem;
+    font-weight: bold; 
+}
+
+.sing-text p{
+    letter-spacing: 2px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.sing-frm{
+    width: 100%;
+    padding: 40px 20px;
+    position: relative;
+}
+
+.sing-frm img{
+    width: 13px;
+    position: absolute;
+    top: 50px;
+    left: 30px;
+}
+
+.info-frm{
+    width: 92%;
+    margin: auto;
+    margin-left: 30px;
+    padding: 0!important;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    font-size: 12px;
+}
+
+.info-frm .sc-ion-input-md{
+    padding-left: 0!important;
+}
+
+.info-date{
+    width: 92%;
+    margin: auto;
+    margin-left: 30px;
+    padding:10px 0!important;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    font-size: 12px;
+    font-weight: 100 !important;
+    color: rgba(0,0,0,0.58) !important;
+    font-family: "NexaLight" !important;
+}
+.datetime-text{ font-family: "NexaLight" !important; font-weight: normal !important;} 
+.info-date .sc-ion-input-md{
+    padding-left: 0!important;
+}
+
+.mail-img{
+    top: 111px!important;
+    width: 14px!important;
+}
+
+.lock-img{
+    top: 165px!important;
+    width: 13px!important;
+}
+
+.mob-img{
+    top: 228px!important;
+    width: 14px!important;
+}
+
+.code-img{
+    top: 285px!important;
+    width: 14px!important;
+}
+
+.bath-img{
+    top: 345px!important;
+    width: 14px!important;
+}
+
+
+
+.sign-box{
+    width: 100%;
+    text-align: center;
+}
+
+.sing-btn{
+    width: 75%;
+    background: #eb1d23;
+    color: #fff;
+    margin: auto;
+    border-radius: 50px;
+    font-weight: 500;
+    margin-bottom: 92px;
+}
+
+
+.sign-box p{
+    color: #000;
+    font-weight: 500;
+    font-size: 12px;
+    padding-top: 35px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.sign-box p a{
+    color: #000;
+    font-weight: bold;
+    font-size: 12px
+}
+
+.regi a{
+    color: #eb1d23!important;
+    font-size: 14px!important;
+}
+
+.regi img{
+    width: 9px;
+}
+
+hr{
+    width: 20%;
+    border: none;
+    height: 2px;
+    background: #ddd;
+    margin-top: 5px;
+    margin-bottom: 50px;
+}
+
+// ---------footer section-----------
+
+.footer-sec{
+  display: flex;
+  width: 100%;
+  margin: 0;
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid #ddd;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  background: #fff;
+  z-index: 9;
+}
+.footer{
+  width: 25%;
+  text-align: center;
+}
+
+.footer svg{
+  width: 20px;
+}
+
+.footer svg path{
+  fill: #bebebe;
+}
+
+.footer a{
+  color: #bebebe;
+  font-size: 11px;
+}
+
+.active a{
+  color: #111111;
+}
+
+.active svg path{
+  fill: #f73d42;
+}
+
+// ---------End footer section-----------
+
+@media only screen and (max-width: 320px) {
+  .offer-text{
+    float: right;
+    text-align: right;
+    position: relative;
+    right: -20px;
+    color: #fff;
+    font-weight: bold;
+  }
+  .offer-banner-sec img{
+    width: 15%;
+    margin-left: 0px;
+  }
+}

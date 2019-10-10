@@ -1,0 +1,251 @@
+
+// -------------start header-------------
+.head{
+    width: 100%;
+    background: #eb1d23;
+    // background-image: url("/assets/images/header-back-img.png");
+    // background-position: center;
+    // background-size: cover;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #fff;
+}
+.text-center{
+    text-align: center;
+}
+.notification{
+    width: 48px;
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 18px;
+}
+.notification img{
+    width: 18px;
+    position: absolute;
+    right: 18px;
+    top: 25px;
+}
+.notification span{
+    background: #fff;
+    border-radius: 50%;
+    color: #eb1d23;
+    font-size: 8px;
+    width: 13px;
+    font-weight: bold;
+    height: 13px;
+    position: absolute;
+    right: 12px;
+    top: 25px;
+    text-align: center;
+}
+
+// -----end header------
+
+.no-pad{
+    padding: 0;
+}
+
+.ex-pad-bottom{
+    padding-bottom: 70px;
+    z-index: 99999;
+    position: relative;
+    padding-top: 200px;
+}
+
+.search{
+    z-index: 999999;
+    position: fixed;
+    top: 70px;
+}
+
+.src-frm{
+    position: relative;
+    width: 80%;
+    text-align: center;
+    margin: auto;
+    top: -27px;
+    left: 9px;
+    transform: translate(9px, -24px);
+    background: none;
+}
+
+.src-frm i{
+    font-size: 10px;
+    color: #bebebe;
+    font-weight: bold;
+}
+
+.src-frm input{
+    margin: 0!important;
+    border: none;
+    font-size: 10px;
+    background: none;
+}
+
+.camara-img{
+    position: absolute;
+    float: right;
+    width: 15px;
+    top: 26px;
+    right: 57px;
+}
+
+.banner{
+    background-image: url(/assets/images/banner-bg.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    padding: 30px;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+}
+
+.banner img{
+    width: 200px;
+}
+
+.product-sec{
+    width: 100%;
+    // display: flex;
+}
+
+.offer-sec{
+    width: 44% !important;
+    // height: 205px;
+    background: #fff;
+    border-radius: 5px;
+    margin: 10px;
+    /* padding: 10px; */
+    margin-bottom: 10px;
+    box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.02), 0 -1px 4px 0 rgba(0, 0, 0, 0.13);
+}
+
+.offer-price{
+    color: #f73d42;
+    border: 1px solid #f73d42;
+    border-radius: 20px;
+    font-size: 8px;
+    font-weight: bold;
+    padding: 4px 11px;
+    text-align: center;
+    float: right;
+    margin: 7px;
+}
+
+.offer-sec img{
+    padding: 6px 15px;
+}
+
+hr{
+    width: 100%;
+    border: none;
+    height: 1px;
+    background: #ddd;
+    margin-top: 7px;
+    margin-bottom: 0;
+}
+
+.offer-sec h4{
+    font-size: 11px;
+    padding-left: 12px;
+    padding-right: 14px;
+    padding-bottom: 0;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.offer-sec p{
+    padding-left: 12px;
+    font-size: 12px;
+    color: #f73d42;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.offer-sec p span{
+    color: #c8c8c8;
+    text-decoration: line-through;
+    padding-right: 5px;
+}
+
+// ---------footer section-----------
+
+.footer-sec{
+    display: flex;
+    width: 100%;
+    margin: 0;
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid #ddd;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    background: #fff;
+    z-index: 9;
+}
+.footer{
+    width: 25%;
+    text-align: center;
+}
+
+.footer svg{
+    width: 20px;
+}
+
+.footer svg path{
+    fill: #bebebe;
+}
+
+.footer a{
+    color: #bebebe;
+    font-size: 11px;
+}
+
+.active a{
+    color: #111111;
+}
+
+.active svg path{
+    fill: #f73d42;
+}
+
+// ---------End footer section-----------
+
+@media only screen and (max-width: 375px){
+
+    .src-frm{
+        top: -25px;
+    }
+
+    .camara-img {
+        
+        top: 23px;
+        right: 52px;
+    }
+}
+
+@media only screen and (max-width: 360px){
+
+    .offer-sec {
+        width: 43% !important;
+        
+    }
+}
+
+@media only screen and (max-width: 320px){
+
+    .src-frm{
+        top: -21px;
+    }
+
+    .camara-img {
+        top: 20px;
+        right: 43px;
+    }
+
+}

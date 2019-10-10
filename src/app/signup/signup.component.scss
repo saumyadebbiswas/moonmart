@@ -1,0 +1,187 @@
+.back-bg{
+    width:100%;
+    height: auto;
+    // background-image: url("/assets/back-bg.png");
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    position: relative;
+}
+.no-pad{
+    padding: 0;
+}
+
+.sing-text{
+    text-align: center;
+    color: #fff;
+    position: absolute;
+    top: 10%;
+    width: 100%;
+}
+
+.sing-text img{
+    width: 28%;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    margin-top: 14px;
+    margin-bottom: 25px;
+    letter-spacing: 34px;
+}
+
+.sing-text h5{
+    font-size: 1.2rem;
+    font-weight: bold; 
+}
+
+.sing-text p{
+    letter-spacing: 2px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.sing-frm{
+    width: 100%;
+    padding: 40px 20px;
+    position: relative;
+}
+
+.sing-frm img{
+    width: 13px;
+    position: absolute;
+    top: 50px;
+    left: 30px;
+}
+
+.info-frm{
+    width: 92%;
+    margin: auto;
+    margin-left: 30px;
+    padding: 0!important;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    font-size: 12px;
+}
+
+.info-frm .sc-ion-input-md{
+    padding-left: 0!important;
+}
+
+.info-date{
+    width: 92%;
+    margin: auto;
+    margin-left: 30px;
+    padding:10px 0!important;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    font-size: 12px;
+    font-weight: 100 !important;
+    color: rgba(0,0,0,0.58) !important;
+    font-family: "NexaLight" !important;
+}
+.datetime-text{ font-family: "NexaLight" !important; font-weight: normal !important;} 
+.info-date .sc-ion-input-md{
+    padding-left: 0!important;
+}
+
+.mail-img{
+    top: 111px!important;
+    width: 14px!important;
+}
+
+.lock-img{
+    top: 165px!important;
+    width: 13px!important;
+}
+
+.mob-img{
+    top: 228px!important;
+    width: 14px!important;
+}
+
+.code-img{
+    top: 285px!important;
+    width: 14px!important;
+}
+
+.bath-img{
+    top: 345px!important;
+    width: 14px!important;
+}
+
+
+
+.sign-box{
+    width: 100%;
+    text-align: center;
+}
+
+.sing-btn{
+    width: 75%;
+    background: #eb1d23;
+    color: #fff;
+    margin: auto;
+    border-radius: 20px;
+    font-weight: 500;
+
+}
+
+
+.sign-box p{
+    color: #000;
+    font-weight: 500;
+    font-size: 12px;
+    padding-top: 35px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.sign-box p a{
+    color: #000;
+    font-weight: bold;
+    font-size: 12px
+}
+
+.regi a{
+    color: #eb1d23!important;
+    font-size: 14px!important;
+}
+
+.regi img{
+    width: 9px;
+}
+
+hr{
+    width: 20%;
+    border: none;
+    height: 2px;
+    background: #ddd;
+    margin-top: 5px;
+    margin-bottom: 50px;
+}
+
+// ----------custom checkbox------------
+.custom-control {
+    
+    padding-left: 2.2rem;
+}
+
+.custom-control-input:focus~.custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0);
+}
+
+.custom-control-input:focus:not(:checked)~.custom-control-label::before {
+    border-color: #eb1d23;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #eb1d23;
+    background-color: #eb1d23;
+}
+.custom-control-label {
+    position: relative;
+    margin-bottom: 0;
+    vertical-align: top;
+    font-size: 12px;
+    padding-top: 5px;
+    color: #5b5b5b;
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Moonmart",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

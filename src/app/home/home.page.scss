@@ -1,0 +1,337 @@
+
+// -------------start header-------------
+
+.icon-inner svg{ display: none !important;} 
+
+.head{
+  width: 100%;
+  // background: #f73d42;
+  background-image: url("/assets/images/header-back-img.png");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: #fff;
+}
+.s-ion-icon{ display: none !important;}
+.text-center{
+  text-align: center;
+}
+.notification{
+  width: 48px;
+  text-align: right;
+  padding-top: 10px;
+  padding-right: 18px;
+}
+.notification img{
+  width: 18px;
+  position: absolute;
+  right: 18px;
+  top: 25px;
+}
+.notification span{
+  background: #fff;
+  border-radius: 50%;
+  color: #f73d42;
+  font-size: 8px;
+  width: 13px;
+  font-weight: bold;
+  height: 13px;
+  position: absolute;
+  right: 12px;
+  top: 25px;
+  text-align: center;
+}
+
+// -----end header------
+
+.no-pad{
+  padding: 0;
+}
+
+.no-scroll{
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.back-bg-body{
+  background: #f1f1f1;
+  height: 100%;
+}
+
+.ex-pad-bottom{
+  padding-bottom: 70px;
+}
+
+
+.banner{
+  background-image: url(/assets/images/banner-bg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  padding: 0px;
+  // height: 240px;
+}
+
+.carousel-inner img {
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-indicators li{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 1;
+  border: 1px solid #fff;
+}
+
+.carousel-indicators .active{
+  border: 1px solid #f73d42;
+}
+
+.category-sec{
+    margin: 9px;
+    margin-bottom: 150px;
+    border-radius: 5px;
+    background: #fff;
+    padding: 0;
+}
+
+.category-sec h2{
+    background-image: url(/assets/images/header-bg.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    text-align: center;
+    padding: 9px;
+    margin: 0;
+    border-radius: 5px 5px 0 0;
+    color: #fff;
+    font-size: 20px;
+    text-shadow: 2px 2px 4px #000000b8; line-height: 8px;
+
+}
+
+.category-list-box{
+  height: 292px;
+  overflow: scroll;
+  padding-bottom: 20px;
+  // margin-bottom: 152px;
+}
+
+.cata-box{
+  width: 30%;
+  height: 109px;
+  margin: 10px 5px;
+  border-radius: 8px;
+  margin-bottom: 0;
+}
+
+.cata-box img{
+  width: 75px;
+  height: 55px;
+}
+
+.cata-box h4{
+  font-size: 15px;
+  margin: 0px;
+}
+
+.cata-box h4 a{
+  font-size: 9px;
+  color: #1b1b1b;
+  text-decoration: none;
+}
+
+.blue{
+  background-image: url(/assets/images/blue-bg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  padding: 15px;
+}
+
+.yellow{
+  background-image: url(/assets/images/yellow-bg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  padding: 15px;
+}
+.pink{
+  background-image: url(/assets/images/pink-bg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  padding: 15px;
+}
+
+.brown{
+  background-image: url(/assets/images/brown-bg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  padding: 15px;
+}
+
+.green{
+  background-image: url(/assets/images/green-bg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  padding: 15px;
+}
+
+.gray{
+  background-image: url(/assets/images/gray-bg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  padding: 15px;
+}
+
+.purple{
+  background-image: url(/assets/images/purple-bg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  padding: 15px;
+}
+
+
+.offer-banner-sec{
+    position: fixed;
+    margin: auto;
+    bottom: 62px;
+    left: 0;
+    background-image: url(/assets/images/offer-bg.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: cover;
+    text-align: center;
+    padding: 10px;
+    width: 96%;
+    margin: 2%;
+    display: flex;
+    border-radius: 5px;
+    z-index: 9;
+}
+
+.offer-banner-sec img{
+  width: 14%;
+  height: 50px;
+  padding-top: 5px;
+  margin-left: 18px;
+}
+
+.ban-text{
+  margin-left: 10px;
+  color: #fff;
+  text-align: left;
+}
+
+.ban-text h4{
+  margin: 0;
+  padding-top: 10px;
+}
+
+.ban-text span{
+  font-size: 13px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: -5px;
+  font-weight: normal;
+}
+
+.offer-text{
+  float: right;
+  text-align: right;
+  position: relative;
+  right: -33px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.offer-text span{
+  font-size: 11px;
+  font-weight: normal;
+}
+
+// ---------footer section-----------
+
+.footer-sec{
+  display: flex;
+  width: 100%;
+  margin: 0;
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid #ddd;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  background: #fff;
+  z-index: 9;
+}
+.footer{
+  width: 25%;
+  text-align: center;
+}
+
+.footer svg{
+  width: 20px;
+}
+
+.footer svg path{
+  fill: #bebebe;
+}
+
+.footer a{
+  color: #bebebe;
+  font-size: 11px;
+}
+
+.active a{
+  color: #111111;
+}
+
+.active svg path{
+  fill: #f73d42;
+}
+
+// ---------End footer section-----------
+
+@media only screen and (max-width: 320px) {
+  .offer-text{
+    float: right;
+    text-align: right;
+    position: relative;
+    right: -20px;
+    color: #fff;
+    font-weight: bold;
+  }
+  .offer-banner-sec img{
+    width: 15%;
+    margin-left: 0px;
+  }
+}
