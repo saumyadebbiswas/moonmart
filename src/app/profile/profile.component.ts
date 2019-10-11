@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
   ) {
     //--- Redirect to login page if user not log in
     if(this.userService.currentUserValue) {
-      console.log('Location: ProfileList');
+      console.log('Location: ProfileComponent');
 
       this.user_details = this.userService.currentUserValue;
       //console.log('Logged user details...', this.user_details);

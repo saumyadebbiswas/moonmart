@@ -53,3 +53,12 @@
 }
 .overscroll{ background:#eb1d23 !important;}
 .icon-inner svg{ display: none !important;}
+
+//--- For cross button - 11-10-2019
+.cross{
+    position: absolute;
+    float: right;
+    right: 20px;
+    top: 17px;
+    font-size: 30px;
+}

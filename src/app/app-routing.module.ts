@@ -9,6 +9,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { ProductsdetailsComponent } from './productsdetails/productsdetails.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ScanComponent } from './scan/scan.component';
+import { EnquiryComponent } from './enquiry/enquiry.component';
 
 const routes: Routes = [
   {
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: "notifications",  component: NotificationsComponent},
   { path: "productsdetails/:id",  component: ProductsdetailsComponent},
   { path: "profile",  component: ProfileComponent},
-  { path: "scan",  component: ScanComponent}
+  { path: "scan",  component: ScanComponent},
+  { path: "enquiry",  component: EnquiryComponent}
 ];
 
 @NgModule({

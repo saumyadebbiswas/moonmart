@@ -5,6 +5,7 @@
         
         <ion-menu-toggle auto-hide="false" >
           <div class="user-details">
+            <span class="cross" (click)="hideMenu()"><i class="fa fa-times-circle"></i></span>
             <img src="{{ user_profile_image }}" alt="" />
             <h4>{{ user_name }}</h4>
             <p>{{ user_email }}</p>

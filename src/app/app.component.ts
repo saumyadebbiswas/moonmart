@@ -20,18 +20,20 @@ export class AppComponent {
   public appPages = [
     {
       title: 'Home',
-      url: '/home',
-      icon: 'home'
+      url: '/home'
     },
     {
       title: 'Notifications',
-      url: '/notifications',
-      icon: 'notifications'
+      url: '/notifications'
     },
     {
       title: 'Order Receive',
       url: '/orderreceive',
       icon: 'orderreceive'
+    },
+    {
+      title: 'Enquiry',
+      url: '/enquiry'
     }
   ];
 
@@ -120,6 +122,11 @@ export class AppComponent {
     //console.log('Page URL...', pageURL);
     this.menuCtrl.close();
     this.router.navigate([pageURL]);
+  }
+
+  hideMenu() {
+    console.log('Menu hides...');
+    this.menuCtrl.close();
   }
 
   signOut() {

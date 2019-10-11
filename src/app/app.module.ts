@@ -21,6 +21,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { ProductsdetailsComponent } from './productsdetails/productsdetails.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ScanComponent } from './scan/scan.component';
+import { EnquiryComponent } from './enquiry/enquiry.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ScanComponent } from './scan/scan.component';
     NotificationsComponent,
     ProductsdetailsComponent,
     ProfileComponent,
-    ScanComponent
+    ScanComponent,
+    EnquiryComponent
   ],
   entryComponents: [],
   imports: [

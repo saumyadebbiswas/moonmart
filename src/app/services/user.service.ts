@@ -55,6 +55,10 @@ export class UserService {
   update_profile(sendData: any): Observable<any> {
     return this.http.post<any>(this.api_url+'/UpdateProfile', sendData, {headers: this.requestHeader});
   }
+	
+  enquiry(sendData: any): Observable<any> {
+    return this.http.post<any>(this.api_url+'/Enquiry', sendData, {headers: this.requestHeader});
+  }
 
   logout() {
     //--- Remove user from local storage to log user out

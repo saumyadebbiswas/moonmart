@@ -1,0 +1,30 @@
+<ion-content>
+  <ion-grid class="no-pad">
+    <ion-row class="justify-content-center">
+      <ion-col size-md="6" size-lg="5" size-xs="12" class="align-self-center no-pad">
+        <div class="back-bg">
+          <a routerLink="/home" class="back"><img src="/assets/images/back.png" alt=""></a>
+          <h2> Enquiry</h2>
+        </div>
+
+        <div class="sing-frm">
+          <ion-input type="text" [(ngModel)]="name" class="info-frm" id="name" placeholder="Name"></ion-input>
+          
+          <ion-input type="text" [(ngModel)]="mobile_no" class="info-frm" id="mobile_no" placeholder="Mobile Number"></ion-input>
+
+          <ion-input type="email" [(ngModel)]="email" class="info-frm" id="email" placeholder="Email (Optional)"></ion-input>
+          
+          <ion-input type="text" [(ngModel)]="subject" class="info-frm" id="subject" placeholder="Subject (Invoice No)" ></ion-input>
+
+          <ion-textarea [(ngModel)]="message" rows="3" class="info-frm" id="message" placeholder="Message"></ion-textarea>
+        </div>
+
+        <div class="sign-box">
+          <button type="button" (click)="onSubmit()" size="large" expand="block" class="btn sing-btn">Submit</button>
+        </div>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+  
