@@ -13,7 +13,6 @@ export class EnquiryComponent implements OnInit {
   userId: any;
   user_details: any = [];
   name: string = "";
-  mobile_no: string = "";
   email: string = "";
   subject: string = "";
   message: string = "";
@@ -45,21 +44,11 @@ export class EnquiryComponent implements OnInit {
 
     var mail_format = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    var phone_num_format = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
-
     //--- Check empty credentials
-    if(this.name.length == 0 || this.mobile_no.length == 0 || this.subject.length == 0 || this.message.length == 0) {
+    if(this.name.length == 0 || this.subject.length == 0 || this.message.length == 0) {
 
       const alert = await this.alertCtrl.create({
         message: 'Enter full credentials!',
-        buttons: ['OK']
-      });
-      alert.present();
-
-    } else if(!phone_num_format.test(this.mobile_no)) {
-
-      const alert = await this.alertCtrl.create({
-        message: 'Invalid mobile format!',
         buttons: ['OK']
       });
       alert.present();
@@ -83,7 +72,6 @@ export class EnquiryComponent implements OnInit {
       let sendData = {
         ID: this.userId,
         Name: this.name,
-        MobileNumber: this.mobile_no,
         EmailID: this.email,
         Subject: this.subject,
         Message: this.message

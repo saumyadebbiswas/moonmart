@@ -29,7 +29,6 @@ export class AppComponent {
     {
       title: 'Order Receive',
       url: '/orderreceive',
-      icon: 'orderreceive'
     },
     {
       title: 'Enquiry',
@@ -124,10 +123,30 @@ export class AppComponent {
     this.router.navigate([pageURL]);
   }
 
-  hideMenu() {
-    console.log('Menu hides...');
+  moveHome() {
     this.menuCtrl.close();
+    this.router.navigate(['/home']);
   }
+
+  moveNotifications() {
+    this.menuCtrl.close();
+    this.router.navigate(['/notifications']);
+  }
+
+  moveOrderReceive() {
+    this.menuCtrl.close();
+    this.router.navigate(['/orderreceive']);
+  }
+
+  moveEnquiry() {
+    this.menuCtrl.close();
+    this.router.navigate(['/enquiry']);
+  }
+
+  // hideMenu() {
+  //   console.log('Menu hides...');
+  //   this.menuCtrl.close();
+  // }
 
   signOut() {
     this.menuCtrl.close();

@@ -57,7 +57,7 @@ export class UserService {
   }
 	
   enquiry(sendData: any): Observable<any> {
-    return this.http.post<any>(this.api_url+'/Enquiry', sendData, {headers: this.requestHeader});
+    return this.http.post<any>(this.api_url+'/AddEnquiry', sendData, {headers: this.requestHeader});
   }
 
   logout() {

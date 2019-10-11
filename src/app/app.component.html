@@ -3,18 +3,22 @@
     <ion-menu type="overlay">
       <ion-content>
         
-        <!-- <ion-menu-toggle auto-hide="false" > -->
+        <ion-menu-toggle auto-hide="true" >
           <div class="user-details">
-            <span class="cross" (click)="hideMenu()"><i class="fa fa-times-circle"></i></span>
+            <!-- <span class="cross" (click)="hideMenu()"><i class="fa fa-times-circle"></i></span> -->
             <img src="{{ user_profile_image }}" alt="" />
             <h4>{{ user_name }}</h4>
             <p>{{ user_email }}</p>
   
             <ul class="manu-link">
-              <li *ngFor="let p of appPages">
-                <!-- <span [routerLink]="[p.url]"> {{p.title}}</span> -->
+              <!-- <li *ngFor="let p of appPages">
+                <span [routerLink]="[p.url]"> {{p.title}}</span>
                 <span (click)="movePage(p.url)"> {{p.title}}</span>
-              </li>
+              </li> -->
+              <li (click)="moveHome()">Home</li>
+              <li (click)="moveNotifications()">Notifications</li>
+              <li (click)="moveOrderReceive()">Order Receive</li>
+              <li (click)="moveEnquiry()">Enquiry</li>
               
               <li></li>
               <li></li>
@@ -22,7 +26,7 @@
             </ul>
           </div>
           
-        <!-- </ion-menu-toggle> -->
+        </ion-menu-toggle>
       
       </ion-content>
     </ion-menu>
