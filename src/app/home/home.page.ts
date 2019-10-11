@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, MenuController } from '@ionic/angular';
 import { UserService, CategoryService } from '../services';
 import { SITE_URL } from '../services/constants';
 
@@ -24,6 +24,7 @@ export class HomePage {
     {color: 'blue'}];
 
   constructor(
+    public menuCtrl: MenuController,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private userService: UserService,
@@ -34,6 +35,7 @@ export class HomePage {
     if(this.userService.currentUserValue){
       console.log('Location: HomePage');
 
+      this.menuCtrl.enable(true);
       this.site_url = SITE_URL;
     } else {			 
       this.router.navigate(['/login']);			  

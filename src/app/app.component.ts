@@ -130,9 +130,9 @@ export class AppComponent {
   }
 
   signOut() {
-    this.userService.logout();
     this.menuCtrl.close();
     this.menuCtrl.enable(false);
+    this.userService.logout();
     this.router.navigate(['/login']);
   }
 }
