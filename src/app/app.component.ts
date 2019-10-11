@@ -107,15 +107,15 @@ export class AppComponent {
     });
   }
 
-  ngOnInit() {
-    //--- Scroll to top after route change	
-    // this.router.events.subscribe((evt) => {
-    //   if(!(evt instanceof NavigationEnd)) {
-    //     return;
-    //   }
-    //   window.scrollTo(0, 0);
-    // });
-  }
+  // ngOnInit() {
+  //   //--- Scroll to top after route change	
+  //   // this.router.events.subscribe((evt) => {
+  //   //   if(!(evt instanceof NavigationEnd)) {
+  //   //     return;
+  //   //   }
+  //   //   window.scrollTo(0, 0);
+  //   // });
+  // }
 
   movePage( pageURL ) {
     //console.log('Page URL...', pageURL);
