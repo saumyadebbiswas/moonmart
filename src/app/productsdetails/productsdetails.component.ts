@@ -52,7 +52,7 @@ export class ProductsdetailsComponent implements OnInit {
       if(response.Result == true) {
         if(response.Data.IsActive == 'Y') {
           this.product = response.Data;
-          //console.log('Product details...', this.product);
+          console.log('Product details...', this.product);
 
           if(response.Data.ImgPath != null) {
             this.product_image = response.Data.ImgPath;

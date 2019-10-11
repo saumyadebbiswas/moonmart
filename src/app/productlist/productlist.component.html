@@ -1,20 +1,20 @@
 <ion-header>
-  <ion-toolbar>
-    <div class="head">
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title class="text-center">
-        Grocery Store
-      </ion-title>
-      <div class="notification">
-        <a routerLink="/notifications">
-          <img src="/assets/images/notification-icon.png" alt="">
-          <span>2</span>
-        </a>
-      </div>
+  <div class="head">
+    <ion-buttons slot="start">
+      <ion-menu-button>
+        <img src="/assets/images/manu.png" alt="" class="manu-icon">
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title class="text-center">
+      Grocery Store
+    </ion-title>
+    <div class="notification">
+      <a routerLink="/notifications">
+        <img src="/assets/images/notification-icon.png" alt="">
+        <span>2</span>
+      </a>
     </div>
-  </ion-toolbar>
+  </div>
 </ion-header>
 
 <ion-content>
@@ -28,8 +28,8 @@
           <div class="form-inline md-form form-sm active-purple active-purple-2 mt-2 src-frm">
             <i class="fa fa-search" aria-hidden="true"></i>
             <input type="text" (keyup)="searchProduct($event)" class="form-control form-control-sm ml-3 w-75" placeholder="Search Product Here" aria-label="Search">
+            <a><img src="/assets/images/camara-icon.png" alt="" class="camara-img"></a>
           </div>
-          <a><img src="/assets/images/camara-icon.png" alt="" class="camara-img"></a>
         </div>
       </ion-col>
       <!-- Category image section -->

@@ -108,12 +108,12 @@ export class AppComponent {
 
   ngOnInit() {
     //--- Scroll to top after route change	
-    this.router.events.subscribe((evt) => {
-      if(!(evt instanceof NavigationEnd)) {
-        return;
-      }
-      window.scrollTo(0, 0);
-    });
+    // this.router.events.subscribe((evt) => {
+    //   if(!(evt instanceof NavigationEnd)) {
+    //     return;
+    //   }
+    //   window.scrollTo(0, 0);
+    // });
   }
 
   movePage( pageURL ) {
@@ -124,7 +124,6 @@ export class AppComponent {
 
   signOut() {
     this.userService.logout();
-    this.menuCtrl.enable(false);
     this.menuCtrl.close();
     this.menuCtrl.enable(false);
     this.router.navigate(['/login']);

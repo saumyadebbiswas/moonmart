@@ -1,8 +1,5 @@
 
 // -------------start header-------------
-
-.icon-inner svg{ display: none !important;} 
-
 .head{
   width: 100%;
   // background: #f73d42;
@@ -12,11 +9,11 @@
   display: flex;
   padding: 0;
   margin: 0;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  padding-left: 6px;
   color: #fff;
 }
-.s-ion-icon{ display: none !important;}
 .text-center{
   text-align: center;
 }
@@ -59,7 +56,7 @@
 
 .back-bg-body{
   background: #f1f1f1;
-  height: 100%;
+  height: 54vh;
 }
 
 .ex-pad-bottom{
@@ -100,6 +97,7 @@
     border-radius: 5px;
     background: #fff;
     padding: 0;
+    padding-bottom: 10px;
 }
 
 .category-sec h2{
@@ -114,14 +112,13 @@
     border-radius: 5px 5px 0 0;
     color: #fff;
     font-size: 20px;
-    text-shadow: 2px 2px 4px #000000b8; line-height: 8px;
+    text-shadow: 2px 2px 4px #000000b8;
 
 }
 
 .category-list-box{
-  height: 292px;
+  height: 220px;
   overflow: scroll;
-  padding-bottom: 20px;
   // margin-bottom: 152px;
 }
 
@@ -139,8 +136,8 @@
 }
 
 .cata-box h4{
-  font-size: 15px;
-  margin: 0px;
+  font-size: 20px;
+  margin: 5px;
 }
 
 .cata-box h4 a{
@@ -320,6 +317,35 @@
 }
 
 // ---------End footer section-----------
+
+@media (min-width: 320px) and (max-width: 335px){
+  .category-list-box {
+    height: 140px;
+    
+}
+}
+
+@media (min-width: 335px) and (max-width: 375px){
+  .category-list-box {
+    height: 232px;
+    
+}
+}
+
+@media (min-width: 320px) and (max-width: 335px){
+  .category-list-box {
+    height: 140px;
+    
+}
+}
+
+@media (min-width: 320px) and (max-width: 335px){
+  .category-list-box {
+    height: 140px;
+    
+}
+}
+
 
 @media only screen and (max-width: 320px) {
   .offer-text{

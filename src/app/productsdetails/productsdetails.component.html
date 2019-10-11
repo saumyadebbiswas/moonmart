@@ -1,20 +1,18 @@
-<ion-header>
-  <ion-toolbar>
-    <div class="head">
-      <ion-buttons slot="start" class="manu-btn">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title class="text-center product-name">
-        Product Details
-      </ion-title>
-      <!-- <div class="notification">
-        <a href="/notifications"><img src="/assets/images/notification-icon.png" alt="">
-        <span>2</span>
-        </a>
-      </div> -->
-    </div>
-  </ion-toolbar>
-</ion-header>
+<div class="head">
+  <ion-buttons slot="start" class="manu-btn">
+    <ion-menu-button>
+      <img src="/assets/images/manu.png" alt="" class="manu-icon">
+    </ion-menu-button>
+  </ion-buttons>
+  <ion-title class="text-center product-name">
+    Product Details
+  </ion-title>
+  <div class="notification">
+    <!-- <a href="/notifications"><img src="/assets/images/notification-icon.png" alt="">
+    <span>2</span>
+    </a> -->
+  </div>
+</div>
 
 <ion-content>
   <ion-grid class="no-pad no-scroll">
@@ -37,18 +35,23 @@
       <div class="pro-detail-head">
         <h3>
           {{ product.ProductName }} 
-          <p *ngIf="product.OfferPrice != null">
+          <!-- <p *ngIf="product.OfferPrice != null">
             <span >₹{{ product.Price }}</span>
             ₹{{ product.OfferPrice }}
           </p>
           <p *ngIf="product.OfferPrice == null">
             ₹{{ product.Price }}
+          </p> -->
+          <p>
+            ₹{{ product.Price }}
           </p>
         </h3>
-        <p class="pro-detail-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-            when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-        <a class="btn call-btn">Call Now</a>
+        <!-- <p class="pro-detail-text">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+          when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+        </p>
+        <a class="btn call-btn">Call Now</a> -->
       </div>
     </ion-row>
 
@@ -77,8 +80,8 @@
               </h3> 
               
               <div class="btn-box">
-                <a class="more-btn" (click)="moveProductDetails(product.ProductID)">More Details</a>
-                <a class="call-now-btn">Call Now</a>
+                <a class="call-now-btn" (click)="moveProductDetails(product.ProductID)">More Details</a>
+                <!-- <a class="more-btn">Call Now</a> -->
               </div>
             </div>
           </div>

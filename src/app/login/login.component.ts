@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/home']);
         } else {
           const alert = await this.alertCtrl.create({
-            message: response.Message,
+            message: "Enter valid credentials!",
             buttons: ['OK']
           });
           alert.present();
@@ -76,7 +76,8 @@ export class LoginComponent implements OnInit {
         //--- In case of login error - dismiss loader, show error message
         loading.dismiss();
         const alert = await this.alertCtrl.create({
-          message: error.message,
+          //message: error.message,
+          message: "Internal error! Please try again.",
           buttons: ['OK']
         });
         alert.present();

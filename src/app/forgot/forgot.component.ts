@@ -32,11 +32,21 @@ export class ForgotComponent implements OnInit {
 
   async onSubmit() {
 
+    var mail_format = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     //--- Check empty credentials
     if(this.email.length == 0) {
 
       const alert = await this.alertCtrl.create({
         message: 'Enter full credentials!',
+        buttons: ['OK']
+      });
+      alert.present();
+
+    } else if(!mail_format.test(this.email)) {
+
+      const alert = await this.alertCtrl.create({
+        message: 'Invalid email format!',
         buttons: ['OK']
       });
       alert.present();

@@ -12,7 +12,7 @@
             <ul class="manu-link">
               <li *ngFor="let p of appPages">
                 <!-- <span [routerLink]="[p.url]"> {{p.title}}</span> -->
-                <span (click)="movePage(p.url)"> {{p.title}}</span>
+                <span menuClose (click)="movePage(p.url)"> {{p.title}}</span>
               </li>
               
               <li></li>

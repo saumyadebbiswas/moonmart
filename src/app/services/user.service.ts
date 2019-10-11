@@ -29,9 +29,9 @@ export class UserService {
 	}
 
   login(sendData: any): Observable<any> {
-    return this.http.post<any>(this.api_url+'/Login', sendData, {headers: this.requestHeader}).pipe(map(user => { 
+    return this.http.post<any>(this.api_url+'/UserLogin', sendData, {headers: this.requestHeader}).pipe(map(user => { 
       //--- Set current user details in local storage             
-			if(user) {
+			if(user.Result == true) {
 				localStorage.setItem('currentUser', JSON.stringify(user));
 				this.currentUserSubject.next(user);					
       }

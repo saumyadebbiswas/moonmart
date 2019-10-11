@@ -9,8 +9,9 @@
     display: flex;
     padding: 0;
     margin: 0;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: 6px;
     color: #fff;
 }
 .text-center{
@@ -58,16 +59,16 @@
 .search{
     z-index: 999999;
     position: fixed;
-    top: 70px;
+    top: 9%;
 }
 
 .src-frm{
-    position: relative;
+    position: absolute;
     width: 80%;
     text-align: center;
     margin: auto;
-    top: -27px;
-    left: 9px;
+    top: 55%;
+    left: 12%;
     transform: translate(9px, -24px);
     background: none;
 }
@@ -85,12 +86,16 @@
     background: none;
 }
 
+.form-control:focus {
+    box-shadow: none;
+}
+
 .camara-img{
     position: absolute;
     float: right;
     width: 15px;
-    top: 26px;
-    right: 57px;
+    top: 20%;
+    right: 10%;
 }
 
 .banner{
@@ -101,7 +106,7 @@
     text-align: center;
     padding: 30px;
     position: fixed;
-    top: 80px;
+    // top: 80px;
     left: 0;
     right: 0;
 }
@@ -216,36 +221,16 @@ hr{
 
 // ---------End footer section-----------
 
-@media only screen and (max-width: 375px){
 
-    .src-frm{
-        top: -25px;
-    }
-
-    .camara-img {
-        
-        top: 23px;
-        right: 52px;
-    }
-}
-
-@media only screen and (max-width: 360px){
+@media (min-width: 160px) and (max-width: 360px){
 
     .offer-sec {
-        width: 43% !important;
+        width: 40% !important;
         
     }
+
+    .search{
+        top: 11%;
+    }
 }
 
-@media only screen and (max-width: 320px){
-
-    .src-frm{
-        top: -21px;
-    }
-
-    .camara-img {
-        top: 20px;
-        right: 43px;
-    }
-
-}
