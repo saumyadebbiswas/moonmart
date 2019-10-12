@@ -23,4 +23,8 @@ export class ProductService {
   product_details(productId: any): Observable<any> {
     return this.http.post<any>(this.api_url+'/EditProduct?ID='+productId, {headers: this.requestHeader});
   }
+	
+  product_details_by_barcode(barcode: any): Observable<any> {
+    return this.http.get<any>(this.api_url+'/BarcodeSearch?Barcode='+barcode, {headers: this.requestHeader});
+  }
 }
