@@ -27,7 +27,7 @@ export class ProductsdetailsComponent implements OnInit {
   ) {
     //--- Redirect to login page if user not log in
     if(this.userService.currentUserValue){
-      console.log('Location: ProductDetails');
+      console.log('Location: ProductsdetailsComponent');
 
       this.site_url = SITE_URL;
     } else {			 
@@ -52,7 +52,7 @@ export class ProductsdetailsComponent implements OnInit {
       if(response.Result == true) {
         if(response.Data.IsActive == 'Y') {
           this.product = response.Data;
-          console.log('Product details...', this.product);
+          //console.log('Product details...', this.product);
 
           if(response.Data.ImgPath != null) {
             this.product_image = response.Data.ImgPath;
@@ -85,6 +85,7 @@ export class ProductsdetailsComponent implements OnInit {
           }
 
         } else {
+          loading.dismiss();
           const alert = await this.alertCtrl.create({
             message: 'This product is no more avialble.',
             buttons: ['OK']
@@ -92,6 +93,7 @@ export class ProductsdetailsComponent implements OnInit {
           alert.present();
         }
       } else {
+        loading.dismiss();
         const alert = await this.alertCtrl.create({
           message: response.Message,
           buttons: ['OK']

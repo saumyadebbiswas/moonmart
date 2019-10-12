@@ -51,9 +51,9 @@ export class ScanComponent implements OnInit {
       this.productService.product_details_by_barcode(barcode).subscribe(async response => {
         loading.dismiss();
         if(response.Result == true) {
-          if(response.Data.IsActive == 'Y') {
+          if(response.Data[0].IsActive == 'Y') {
             //--- Get the product id and navigate to product details page
-            let productId = response.Data.ProductID;
+            let productId = response.Data[0].ProductID;
             this.router.navigate(['/productsdetails/'+productId]);
 
           } else {

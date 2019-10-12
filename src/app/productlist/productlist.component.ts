@@ -29,7 +29,7 @@ export class ProductlistComponent implements OnInit {
   ) {
     //--- Redirect to login page if user not log in
     if(this.userService.currentUserValue){
-      console.log('Location: ProductList');
+      console.log('Location: ProductlistComponent');
 
       this.site_url = SITE_URL;
     } else {			 
