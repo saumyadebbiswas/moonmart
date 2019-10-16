@@ -23,6 +23,15 @@ export class HomePage {
     {color: 'purple'},
     {color: 'blue'}];
 
+  //--- Configuration for Slider
+  slideOptsOne = {
+    initialSlide: 0,
+    slidesPerView: 1,
+    autoplay:true
+  };
+  isBeginningSlide: any = true;
+  isEndSlide: any = false;
+
   constructor(
     public menuCtrl: MenuController,
     public alertCtrl: AlertController,
@@ -40,6 +49,31 @@ export class HomePage {
     } else {			 
       this.router.navigate(['/login']);			  
     }
+  }
+
+  //--- Method called when slide is changed by drag or navigation
+  SlideDidChange(object, slideView) {
+    this.checkIfNavDisabled(object, slideView);
+  }
+ 
+  //--- Call methods to check if slide is first or last to enable disbale navigation  
+  checkIfNavDisabled(object, slideView) {
+    this.checkisBeginning(object, slideView);
+    this.checkisEnd(object, slideView);
+  }
+ 
+  //--- Check slide begining
+  checkisBeginning(object, slideView) {
+    slideView.isBeginning().then((istrue) => {
+      this.isBeginningSlide = istrue;
+    });
+  }
+
+  //--- Check slide end
+  checkisEnd(object, slideView) {
+    slideView.isEnd().then((istrue) => {
+      this.isEndSlide = istrue;
+    });
   }
 
   async ionViewWillEnter() {

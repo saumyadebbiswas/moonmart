@@ -62,7 +62,7 @@ export class ScanComponent implements OnInit {
               buttons: ['OK']
             });
             alert.present();
-            this.router.navigate(['/home']);
+            this.router.navigate(['/alert']);
           }
         } else {
           const alert = await this.alertCtrl.create({
@@ -70,7 +70,7 @@ export class ScanComponent implements OnInit {
             buttons: ['OK']
           });
           alert.present();
-          this.router.navigate(['/home']);
+          this.router.navigate(['/alert']);
         }
       }, async error => {
         //--- In case of error - dismiss loader and show error message
@@ -80,7 +80,7 @@ export class ScanComponent implements OnInit {
           buttons: ['OK']
         });
         alert.present();
-        this.router.navigate(['/home']);
+        this.router.navigate(['/alert']);
       });
 
     }).catch(async err => {
@@ -89,7 +89,7 @@ export class ScanComponent implements OnInit {
         buttons: ['OK']
       });
       alert.present();
-      this.router.navigate(['/home']);
+      this.router.navigate(['/alert']);
     });
   }
 

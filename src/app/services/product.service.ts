@@ -27,4 +27,13 @@ export class ProductService {
   product_details_by_barcode(barcode: any): Observable<any> {
     return this.http.get<any>(this.api_url+'/BarcodeSearch?Barcode='+barcode, {headers: this.requestHeader});
   }
+	
+  offer_List(): Observable<any> {
+    return this.http.get<any>(this.api_url+'/ListOffers', {headers: this.requestHeader});
+  }
+	
+  products_by_offerID(offerID: any): Observable<any> {
+    return this.http.get<any>(this.api_url+'/ListSpecialOfferProduct?OfferID='+offerID, {headers: this.requestHeader});
+  }
+
 }

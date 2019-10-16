@@ -22,6 +22,8 @@ import { ProductsdetailsComponent } from './productsdetails/productsdetails.comp
 import { ProfileComponent } from './profile/profile.component';
 import { ScanComponent } from './scan/scan.component';
 import { EnquiryComponent } from './enquiry/enquiry.component';
+import { AlertComponent } from './alert/alert.component';
+import { OfferproductsComponent } from './offerproducts/offerproducts.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { EnquiryComponent } from './enquiry/enquiry.component';
     ProductsdetailsComponent,
     ProfileComponent,
     ScanComponent,
-    EnquiryComponent
+    EnquiryComponent,
+    AlertComponent,
+    OfferproductsComponent
   ],
   entryComponents: [],
   imports: [

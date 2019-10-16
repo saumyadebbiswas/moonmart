@@ -16,7 +16,8 @@ export class AppComponent {
   user_details: any = [];
   user_profile_image: string = "../../assets/images/user-img.png";
   user_name: string = "Mr. User";
-  user_email: string = "user@domain.com";
+  //user_email: string = "user@domain.com";
+  user_username: string;
   public appPages = [
     {
       title: 'Home',
@@ -67,15 +68,18 @@ export class AppComponent {
       this.user_details = this.userService.currentUserValue;
       //console.log('Logged user details...', this.user_details);
 
-      if(this.user_details.Data.Image != null){
+      if(this.user_details.Data.Image != null) {
         this.user_profile_image = this.user_details.Data.Image;
       }
-      if(this.user_details.Name != null){
+      if(this.user_details.Name != null) {
         this.user_name = this.user_details.Name;
       }
-      if(this.user_details.Data.EmailID != null){
-        this.user_email = this.user_details.Data.EmailID;
+      if(this.user_details.Data.UserName != null) {
+        this.user_username = this.user_details.Data.UserName;
       }
+      // if(this.user_details.Data.EmailID != null) {
+      //   this.user_email = this.user_details.Data.EmailID;
+      // }
     }
 
     //--- Get event data set at login time from login page
@@ -87,15 +91,18 @@ export class AppComponent {
         this.user_details = this.userService.currentUserValue;
         //console.log('Logged user details from event...', this.user_details);
 
-        if(this.user_details.Data.Image != null){
+        if(this.user_details.Data.Image != null) {
           this.user_profile_image = this.user_details.Data.Image;
         }
-        if(this.user_details.Name != null){
+        if(this.user_details.Name != null) {
           this.user_name = this.user_details.Name;
         }
-        if(this.user_details.Data.EmailID != null){
-          this.user_email = this.user_details.Data.EmailID;
+        if(this.user_details.Data.UserName != null) {
+          this.user_username = this.user_details.Data.UserName;
         }
+        // if(this.user_details.Data.EmailID != null){
+        //   this.user_email = this.user_details.Data.EmailID;
+        // }
       }
     });
   }
@@ -123,25 +130,25 @@ export class AppComponent {
     this.router.navigate([pageURL]);
   }
 
-  moveHome() {
-    this.menuCtrl.close();
-    this.router.navigate(['/home']);
-  }
+  // moveHome() {
+  //   this.menuCtrl.close();
+  //   this.router.navigate(['/home']);
+  // }
 
-  moveNotifications() {
-    this.menuCtrl.close();
-    this.router.navigate(['/notifications']);
-  }
+  // moveNotifications() {
+  //   this.menuCtrl.close();
+  //   this.router.navigate(['/notifications']);
+  // }
 
-  moveOrderReceive() {
-    this.menuCtrl.close();
-    this.router.navigate(['/orderreceive']);
-  }
+  // moveOrderReceive() {
+  //   this.menuCtrl.close();
+  //   this.router.navigate(['/orderreceive']);
+  // }
 
-  moveEnquiry() {
-    this.menuCtrl.close();
-    this.router.navigate(['/enquiry']);
-  }
+  // moveEnquiry() {
+  //   this.menuCtrl.close();
+  //   this.router.navigate(['/enquiry']);
+  // }
 
   // hideMenu() {
   //   console.log('Menu hides...');

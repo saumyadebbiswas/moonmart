@@ -1,28 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { DomController, AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, ProductService } from '../services';
 import { SITE_URL } from '../services/constants';
 
 @Component({
-  selector: 'app-productlist',
-  templateUrl: './productlist.component.html',
-  styleUrls: ['./productlist.component.scss'],
+  selector: 'app-offerproducts',
+  templateUrl: './offerproducts.component.html',
+  styleUrls: ['./offerproducts.component.scss'],
 })
-export class ProductlistComponent implements OnInit {
+export class OfferproductsComponent implements OnInit {
 
   site_url: string;
-  showSearchbar: boolean = false;
-  categoryID: any;
+  offerID: any;
   imagePath: string = '/assets/images/product-img.png'; //--- Default image [Set no-image-available]
   products: any = []; //--- This product list changed in serch time
   products_fixed:any = []; //--- This product list remain fixed even in serch
-  cat_image: any = true;
+  showOfferImage: any = true;
 
   constructor(
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
-    private domCtrl: DomController,
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
@@ -42,15 +40,15 @@ export class ProductlistComponent implements OnInit {
     //--- Check parameter type get from URL
     if(this.route.snapshot.paramMap.get('type') == 'ID') {
       //--- Get parameter value from URL
-      this.categoryID = this.route.snapshot.paramMap.get('value');
+      this.offerID = this.route.snapshot.paramMap.get('value');
 
       //--- Check image path get from URL and merge it with site_url
       if(this.route.snapshot.paramMap.get('imagePath') != null)
         this.imagePath = this.site_url + this.route.snapshot.paramMap.get('imagePath');
     } else {
-      this.categoryID = null;
+      this.offerID = null;
     }
-    //console.log('Product List category ID...', this.categoryID);
+    // console.log('Offer product List offer ID...', this.offerID);
   }
  
   logScrolling(event){
@@ -59,9 +57,9 @@ export class ProductlistComponent implements OnInit {
 
     if(scrollingPos > 0) {
       //this.show_search = false;
-      this.cat_image = false;
+      this.showOfferImage = false;
     } else {
-      this.cat_image = true;
+      this.showOfferImage = true;
     }
   }
 
@@ -71,13 +69,13 @@ export class ProductlistComponent implements OnInit {
     });
     loading.present();
 
-    this.productService.products_by_categoryID(this.categoryID).subscribe(async response => {
+    this.productService.products_by_offerID(this.offerID).subscribe(async response => {
       //--- After getting value - dismiss loader
       loading.dismiss();
       if(response.Result == true) {
         this.products_fixed =  response.Data;
         this.products = response.Data;
-        console.log('Product list...', this.products);
+        console.log('Offer product list...', this.products);
       } else {
         const alert = await this.alertCtrl.create({
           message: response.Message,
@@ -118,15 +116,6 @@ export class ProductlistComponent implements OnInit {
       //console.log('Product list after search...', this.products);
     } else {
       this.products = this.products_fixed;
-    }
-  }
-
-  //--- On scroll hide search bar [Not working now]
-  private adjustElementOnScroll(ev) {
-    if(ev) {
-      this.domCtrl.write(() => {
-        this.showSearchbar = true;
-      });
     }
   }
 

@@ -31,9 +31,25 @@
               <li data-target="#demo" data-slide-to="2"></li>
               <li data-target="#demo" data-slide-to="3"></li>
             </ul>
+
+            <!-- The slideshow -->
+            <ion-slides pager="true" class="carousel-inner" [options]="slideOptsOne" #slideWithNav (ionSlideDidChange)="SlideDidChange(sliderOne,slideWithNav)">
+              <ion-slide class="carousel-item active">
+                <img src="/assets/images/slider.png" alt="slider1" width="1100" height="500">
+              </ion-slide>
+              <ion-slide class="carousel-item">
+                <img src="/assets/images/slider.png" alt="slider2" width="1100" height="500">
+              </ion-slide>
+              <ion-slide class="carousel-item">
+                <img src="/assets/images/slider.png" alt="slider3" width="1100" height="500">
+              </ion-slide>
+              <ion-slide class="carousel-item">
+                <img src="/assets/images/slider.png" alt="slider4" width="1100" height="500">
+              </ion-slide>
+            </ion-slides>
             
             <!-- The slideshow -->
-            <div class="carousel-inner">
+            <!-- <div class="carousel-inner">
               <div class="carousel-item active">
                 <img src="/assets/images/slider.png" alt="slider1" width="1100" height="500">
               </div>
@@ -46,7 +62,7 @@
               <div class="carousel-item">
                 <img src="/assets/images/slider.png" alt="slider4" width="1100" height="500">
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </ion-col>

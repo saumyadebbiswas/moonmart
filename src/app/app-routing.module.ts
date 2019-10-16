@@ -10,6 +10,8 @@ import { ProductsdetailsComponent } from './productsdetails/productsdetails.comp
 import { ProfileComponent } from './profile/profile.component';
 import { ScanComponent } from './scan/scan.component';
 import { EnquiryComponent } from './enquiry/enquiry.component';
+import { AlertComponent } from './alert/alert.component';
+import { OfferproductsComponent } from './offerproducts/offerproducts.component';
 
 const routes: Routes = [
   {
@@ -34,7 +36,9 @@ const routes: Routes = [
   { path: "productsdetails/:id",  component: ProductsdetailsComponent},
   { path: "profile",  component: ProfileComponent},
   { path: "scan",  component: ScanComponent},
-  { path: "enquiry",  component: EnquiryComponent}
+  { path: "enquiry",  component: EnquiryComponent},
+  { path: "alert",  component: AlertComponent},
+  { path: "offerproducts",  component: OfferproductsComponent}
 ];
 
 @NgModule({

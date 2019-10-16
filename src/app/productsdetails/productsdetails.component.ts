@@ -16,6 +16,7 @@ export class ProductsdetailsComponent implements OnInit {
   product: any = [];
   product_image: string;
   populer_products: any = [];
+  discount: any = null;
 
   constructor(
     public alertCtrl: AlertController,
@@ -52,17 +53,31 @@ export class ProductsdetailsComponent implements OnInit {
       if(response.Result == true) {
         if(response.Data.IsActive == 'Y') {
           this.product = response.Data;
-          //console.log('Product details...', this.product);
+          console.log('Product details...', this.product);
 
-          if(response.Data.ImgPath != null) {
+          if(this.product.OfferPercentage && this.product.OfferPercentage != 0) {
+            this.discount = this.product.OfferPercentage;
+
+            // this.discount = ((this.product.Price - this.product.OfferPrice) / this.product.Price) * 100;
+
+            // //--- Check whether discount is integer or float 
+            // if(this.discount % 1 !== 0) {
+            //   //--- If float then format it like 1.23456 => 1.23
+            //   this.discount = (this.discount).toFixed(2);
+            // }
+          } else {
+            this.discount = null;
+          }
+
+          if(this.product.ImgPath != null) {
             this.product_image = response.Data.ImgPath;
           } else {
             this.product_image = '/assets/images/product-detail-img.png';
           }
           
-          if(response.Data.Category != null) {
+          if(this.product.Category != null) {
             //--- Get all other products under same category as populer products
-            this.productService.products_by_categoryID(response.Data.Category).subscribe(async response => {
+            this.productService.products_by_categoryID(this.product.Category).subscribe(async response => {
               //--- After getting value - dismiss loader
               loading.dismiss();
               if(response.Result == true) {
@@ -91,6 +106,8 @@ export class ProductsdetailsComponent implements OnInit {
             buttons: ['OK']
           });
           alert.present();
+
+          this.router.navigate(['/alert']);
         }
       } else {
         loading.dismiss();
@@ -99,6 +116,8 @@ export class ProductsdetailsComponent implements OnInit {
           buttons: ['OK']
         });
         alert.present();
+
+        this.router.navigate(['/alert']);
       }
     }, async error => {
       //--- In case of error - dismiss loader and show error message
@@ -108,6 +127,8 @@ export class ProductsdetailsComponent implements OnInit {
         buttons: ['OK']
       });
       alert.present();
+
+      this.router.navigate(['/alert']);
     });
   }
 

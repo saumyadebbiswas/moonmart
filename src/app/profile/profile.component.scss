@@ -53,9 +53,13 @@
 } 
 
 .user-profile { 
-    width:100%;
-    padding: 0 20px;
+    width: 100%;
+    padding: 10px 20px;
     display: flex;
+}
+
+.profile-info {
+  padding-left: 20px;
 }
 
 .sing-text{
@@ -87,14 +91,14 @@
 
 .sing-frm{
     width: 100%;
-    padding: 40px 20px;
+    padding: 20px 20px;
     position: relative;
 }
 
 .sing-frm img{
     width: 13px;
     position: absolute;
-    top: 50px;
+    top: 30px;
     left: 30px;
 }
 
@@ -130,27 +134,27 @@
 }
 
 .mail-img{
-    top: 111px!important;
+    top: 91px!important;
     width: 14px!important;
 }
 
 .lock-img{
-    top: 165px!important;
+    top: 145px!important;
     width: 13px!important;
 }
 
 .mob-img{
-    top: 228px!important;
+    top: 208px!important;
     width: 14px!important;
 }
 
 .code-img{
-    top: 285px!important;
+    top: 265px!important;
     width: 14px!important;
 }
 
 .bath-img{
-    top: 345px!important;
+    top: 325px!important;
     width: 14px!important;
 }
 

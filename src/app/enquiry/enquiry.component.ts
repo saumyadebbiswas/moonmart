@@ -45,7 +45,7 @@ export class EnquiryComponent implements OnInit {
     var mail_format = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     //--- Check empty credentials
-    if(this.name.length == 0 || this.subject.length == 0 || this.message.length == 0) {
+    if(this.name.length == 0 || this.email.length == 0 || this.subject.length == 0 || this.message.length == 0) {
 
       const alert = await this.alertCtrl.create({
         message: 'Enter full credentials!',
@@ -53,7 +53,7 @@ export class EnquiryComponent implements OnInit {
       });
       alert.present();
 
-    } else if(this.email.length != 0 && !mail_format.test(this.email)) {
+    } else if(!mail_format.test(this.email)) {
 
       const alert = await this.alertCtrl.create({
         message: 'Invalid email format!',
@@ -76,7 +76,7 @@ export class EnquiryComponent implements OnInit {
         Subject: this.subject,
         Message: this.message
       }
-      //console.log('Enquiry send data...', sendData);
+      // console.log('Enquiry send data...', sendData);
 
       this.userService.enquiry(sendData).subscribe(async response => {
         //--- After successful send message - dismiss loader and show success message

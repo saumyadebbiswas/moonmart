@@ -33,7 +33,7 @@
         </div>
       </ion-col>
       <!-- Category image section -->
-      <ion-col *ngIf="cat_image == true" class="align-self-center" size-md="6" size-lg="5" size-xs="12" class="no-pad">
+      <ion-col *ngIf="showOfferImage == true" class="align-self-center" size-md="6" size-lg="5" size-xs="12" class="no-pad">
         <div class="banner">
           <img src="{{ imagePath }}" alt="">
         </div>
@@ -45,16 +45,16 @@
 
         <div *ngFor="let product of products;" [ngClass]="product.IsActive == 'Y' ? 'no-pad offer-sec' : ''">
           <div *ngIf="product.IsActive == 'Y'" (click)="moveProductDetails(product.ProductID)">
-            <!-- <a routerLink="/productsdetails" class="offer-price">20% OFF</a> -->
+            <a class="offer-price">{{ product.OfferPercentage }}% OFF</a>
             <a>
-              <img *ngIf="product.ImgPath != null" src="{{ site_url + product.ImgPath }}" alt="">
+              <img *ngIf="product.ImgPath != null" src="{{ site_url + product.ImgPath }}" alt="" height="120px">
               <img *ngIf="product.ImgPath == null" src="/assets/images/pro1.png" alt="">
             </a> 
             <hr>
             <h4>{{ product.ProductName }}</h4>
             <p>
-              <!-- <span>₹{{ product.Price }}</span> -->
-              ₹{{ product.Price }}
+              <span>₹{{ product.Price }}</span>
+              ₹{{ product.OfferPrice }}
             </p>
           </div>
         </div>
@@ -141,3 +141,4 @@ viewBox="0 0 482.9 482.9" style="enable-background:new 0 0 482.9 482.9;" xml:spa
     </div>
   </ion-grid>
 </ion-content>
+  

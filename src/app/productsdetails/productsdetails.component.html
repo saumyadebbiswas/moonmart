@@ -19,7 +19,7 @@
 
     <ion-row class="justify-content-center product-sec">
       <div class="no-pad banner-sec">
-        <!-- <a class="offer-price">20% OFF</a> -->
+        <a *ngIf="discount != null" class="offer-price">{{ discount }}% OFF</a>
         <img src="{{ site_url + product.ImgPath }}" alt="">
         <p class="star">
           <img src="/assets/images/star.png" alt="">
@@ -35,14 +35,11 @@
       <div class="pro-detail-head">
         <h3>
           {{ product.ProductName }} 
-          <!-- <p *ngIf="product.OfferPrice != null">
+          <p *ngIf="product.OfferPrice != null">
             <span >₹{{ product.Price }}</span>
             ₹{{ product.OfferPrice }}
           </p>
           <p *ngIf="product.OfferPrice == null">
-            ₹{{ product.Price }}
-          </p> -->
-          <p>
             ₹{{ product.Price }}
           </p>
         </h3>
