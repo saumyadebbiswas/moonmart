@@ -100,7 +100,10 @@ export class SignupComponent implements OnInit {
 
       //--- Start loader
       const loading = await this.loadingController.create({
-        message: 'Please wait...'
+        message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+        translucent: true,
+        showBackdrop: false,
+        spinner: null,
       });
       loading.present();
 
@@ -131,7 +134,8 @@ export class SignupComponent implements OnInit {
             buttons: ['OK']
           });
           alert.present();
-          //this.router.navigate(['/login']);
+          
+          this.router.navigate(['/login']);
         } else {
           const alert = await this.alertCtrl.create({
             message: response.Message,

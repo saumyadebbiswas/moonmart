@@ -65,7 +65,10 @@ export class EnquiryComponent implements OnInit {
 
       //--- Start loader
       const loading = await this.loadingController.create({
-        message: 'Please wait...'
+        message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+        translucent: true,
+        showBackdrop: false,
+        spinner: null,
       });
       loading.present();
 

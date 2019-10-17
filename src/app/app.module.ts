@@ -24,6 +24,7 @@ import { ScanComponent } from './scan/scan.component';
 import { EnquiryComponent } from './enquiry/enquiry.component';
 import { AlertComponent } from './alert/alert.component';
 import { OfferproductsComponent } from './offerproducts/offerproducts.component';
+import { OfferproductdetailsComponent } from './offerproductdetails/offerproductdetails.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { OfferproductsComponent } from './offerproducts/offerproducts.component'
     ScanComponent,
     EnquiryComponent,
     AlertComponent,
-    OfferproductsComponent
+    OfferproductsComponent,
+    OfferproductdetailsComponent
   ],
   entryComponents: [],
   imports: [

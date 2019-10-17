@@ -7,18 +7,13 @@
           <div class="user-details">
             <!-- <span class="cross" (click)="hideMenu()"><i class="fa fa-times-circle"></i></span> -->
             <img src="{{ user_profile_image }}" alt="" />
-            <h4>{{ user_name }}</h4>
-            <p>{{ user_username }}</p>
+            <h4>{{ user_username }}</h4>
+            <p><!-- This p tag is needed for design purpose --></p>
   
             <ul class="manu-link">
               <li *ngFor="let p of appPages">
-                <!-- <span [routerLink]="[p.url]"> {{p.title}}</span> -->
                 <span (click)="movePage(p.url)"> {{p.title}}</span>
               </li>
-              <!-- <li (click)="moveHome()">Home</li>
-              <li (click)="moveNotifications()">Notifications</li>
-              <li (click)="moveOrderReceive()">Order Receive</li>
-              <li (click)="moveEnquiry()">Enquiry</li> -->
               
               <li></li>
               <li></li>
@@ -31,6 +26,5 @@
       </ion-content>
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>
-    <!-- <app-footer *ngIf="showFooter"></app-footer> -->
   </ion-split-pane>
 </ion-app>

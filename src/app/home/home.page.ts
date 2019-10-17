@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, MenuController } from '@ionic/angular';
-import { UserService, CategoryService } from '../services';
+import { UserService, CategoryService, ProductService } from '../services';
 import { SITE_URL } from '../services/constants';
 
 @Component({
@@ -12,6 +12,7 @@ import { SITE_URL } from '../services/constants';
 export class HomePage {
 
   site_url: string;
+  offers: any = [];
   catrgories: any = [];
   bg_color: any = [
     {color: 'blue'},
@@ -24,13 +25,13 @@ export class HomePage {
     {color: 'blue'}];
 
   //--- Configuration for Slider
-  slideOptsOne = {
-    initialSlide: 0,
-    slidesPerView: 1,
-    autoplay:true
-  };
-  isBeginningSlide: any = true;
-  isEndSlide: any = false;
+  // slideOptsOne = {
+  //   initialSlide: 0,
+  //   slidesPerView: 1,
+  //   autoplay:true
+  // };
+  // isBeginningSlide: any = true;
+  // isEndSlide: any = false;
 
   constructor(
     public menuCtrl: MenuController,
@@ -38,6 +39,7 @@ export class HomePage {
     public loadingController: LoadingController,
     private userService: UserService,
     private categoryService: CategoryService,
+    private productService: ProductService,
     private router: Router
   ) {
     //--- Redirect to login page if user not log in
@@ -46,39 +48,78 @@ export class HomePage {
 
       this.menuCtrl.enable(true);
       this.site_url = SITE_URL;
+
+
     } else {			 
       this.router.navigate(['/login']);			  
     }
   }
 
-  //--- Method called when slide is changed by drag or navigation
-  SlideDidChange(object, slideView) {
-    this.checkIfNavDisabled(object, slideView);
-  }
+  // //--- Method called when slide is changed by drag or navigation
+  // SlideDidChange(object, slideView) {
+  //   this.checkIfNavDisabled(object, slideView);
+  // }
  
-  //--- Call methods to check if slide is first or last to enable disbale navigation  
-  checkIfNavDisabled(object, slideView) {
-    this.checkisBeginning(object, slideView);
-    this.checkisEnd(object, slideView);
-  }
+  // //--- Call methods to check if slide is first or last to enable disbale navigation  
+  // checkIfNavDisabled(object, slideView) {
+  //   this.checkisBeginning(object, slideView);
+  //   this.checkisEnd(object, slideView);
+  // }
  
-  //--- Check slide begining
-  checkisBeginning(object, slideView) {
-    slideView.isBeginning().then((istrue) => {
-      this.isBeginningSlide = istrue;
-    });
-  }
+  // //--- Check slide begining
+  // checkisBeginning(object, slideView) {
+  //   slideView.isBeginning().then((istrue) => {
+  //     this.isBeginningSlide = istrue;
+  //   });
+  // }
 
-  //--- Check slide end
-  checkisEnd(object, slideView) {
-    slideView.isEnd().then((istrue) => {
-      this.isEndSlide = istrue;
-    });
-  }
+  // //--- Check slide end
+  // checkisEnd(object, slideView) {
+  //   slideView.isEnd().then((istrue) => {
+  //     this.isEndSlide = istrue;
+  //   });
+  // }
 
   async ionViewWillEnter() {
+    this.offers = [];
+    const loading1 = await this.loadingController.create({
+      message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      translucent: true,
+      showBackdrop: false,
+      spinner: null,
+    });
+    loading1.present();
+
+    this.productService.offer_List().subscribe(async response => {
+      //--- After getting value - dismiss loader
+      loading1.dismiss();
+      if(response.Result == true) {
+        response.Data.forEach(element => {
+          if(element.IsActive == 'Y') {
+            this.offers.push({ID: element.ID, ImgPathUrl: this.site_url + element.ImgPath, ImgPath: element.ImgPath});
+          }
+        });
+
+        if(this.offers.length == 0) {
+          this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});
+        }
+        console.log('Home offers list...', this.offers);
+      } else {
+        this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});
+        console.log('Home offers list error: ', response.Message);
+      }
+    }, async error => {
+      //--- In case of error - dismiss loader and show error message
+      loading1.dismiss();
+      this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});
+      console.log('Home offers list error1: ', error);
+    });
+
     const loading = await this.loadingController.create({
-      message: 'Please wait...'
+      message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      translucent: true,
+      showBackdrop: false,
+      spinner: null,
     });
     loading.present();
 
@@ -106,8 +147,15 @@ export class HomePage {
     });
   }
 
-  moveProductList( CategoryID, imagePath ) {
-    this.router.navigate(['/productlist', {type: 'ID', value: CategoryID, imagePath: imagePath}]);
+  moveProductList( CategoryID ) {
+    this.router.navigate(['/productlist', {type: 'ID', value: CategoryID}]);
+  }
+
+  moveOfferProductList(offerID, imagePath) {
+    //console.log('Home banner click...', offerID, imagePath);
+    if(offerID != null && offerID != 0) {
+      this.router.navigate(['/offerproducts', {type: 'ID', value: offerID, imagePath: imagePath}]);
+    }
   }
 
 }

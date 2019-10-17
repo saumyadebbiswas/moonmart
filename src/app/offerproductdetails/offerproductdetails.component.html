@@ -1,69 +1,93 @@
-<ion-header>
-  <div class="head">
-    <ion-buttons slot="start">
-      <ion-menu-button>
-        <img src="/assets/images/manu.png" alt="" class="manu-icon">
-      </ion-menu-button>
-    </ion-buttons>
-    <ion-title class="text-center">
-      Grocery Store
-    </ion-title>
-    <div class="notification">
-      <a routerLink="/notifications">
-        <img src="/assets/images/notification-icon.png" alt="">
-        <span>2</span>
-      </a>
-    </div>
-  </div>
-</ion-header>
-
-<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+<ion-content>
   <ion-grid class="no-pad">
-    <ion-row class="justify-content-center">
-      <!-- Search section -->
-      <ion-col size-md="6" size-lg="5" size-xs="12" class="align-self-center no-pad">
-        <div class="search">
-          <img src="/assets/images/search.png" alt="">
-          <!-- Search form -->
-          <div class="form-inline md-form form-sm active-purple active-purple-2 mt-2 src-frm">
-            <i class="fa fa-search" aria-hidden="true"></i>
-            <input type="text" (keyup)="searchProduct($event)" class="form-control form-control-sm ml-3 w-75" placeholder="Search Product Here" aria-label="Search">
-            <a (click)="scanProduct()"><img src="/assets/images/camara-icon.png" alt="" class="camara-img"></a>
-          </div>
-        </div>
-      </ion-col>
-      <!-- Category image section -->
-      <ion-col *ngIf="showOfferImage == true" class="align-self-center" size-md="6" size-lg="5" size-xs="12" class="no-pad">
-        <div class="banner">
-          <img src="{{ imagePath }}" alt="">
+    <ion-row justify-content-center>
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12" class="no-pad">
+        <div class="back-bg">
+          <a (click)="moveOfferProductList()" class="back"><img src="/assets/images/back.png" alt=""></a>
+          <h2> Product Details</h2>
         </div>
       </ion-col>
     </ion-row>
+  </ion-grid>
 
-    <div class="padding ex-pad-bottom">
-      <ion-row class="justify-content-center product-sec">
+  <ion-grid class="no-pad no-scroll">
 
-        <div *ngFor="let product of products;" [ngClass]="product.IsActive == 'Y' ? 'no-pad offer-sec' : ''">
-          <div *ngIf="product.IsActive == 'Y'" (click)="moveProductDetails(product.ProductID)">
-            <a class="offer-price">{{ product.OfferPercentage }}% OFF</a>
-            <a>
-              <img *ngIf="product.ImgPath != null" src="{{ site_url + product.ImgPath }}" alt="" height="120px">
+    <ion-row class="justify-content-center product-sec">
+      <div class="no-pad banner-sec">
+        <a *ngIf="discount != null" class="offer-price">{{ discount }}% OFF</a>
+        <img src="{{ site_url + product.ImgPath }}" alt="">
+        <!-- <p class="star">
+          <img src="/assets/images/star.png" alt="">
+          <img src="/assets/images/star.png" alt="">
+          <img src="/assets/images/star.png" alt="">
+          <img src="/assets/images/star.png" alt="">
+          <img src="/assets/images/star2.png" alt="">
+        </p> -->
+      </div>
+    </ion-row>
+
+    <ion-row class="justify-content-center product-sec">
+      <div class="pro-detail-head">
+        <h3>
+          {{ product.ProductName }} 
+          <p *ngIf="product.OfferPrice != null">
+            <span >₹{{ product.Price }}</span>
+            ₹{{ product.OfferPrice }}
+          </p>
+          <p *ngIf="product.OfferPrice == null">
+            ₹{{ product.Price }}
+          </p>
+        </h3>
+        <!-- <p class="pro-detail-text">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+          when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+        </p>
+        <a class="btn call-btn">Call Now</a> -->
+      </div>
+    </ion-row>
+
+    <ion-row *ngIf="populer_products.length != 0" class="justify-content-center product-sec">
+      <div class="product-slider">
+        <h4 class="slider-heading">Related Products</h4>
+        <div class="slider-products">
+
+          <div *ngFor="let product of populer_products;" [ngClass]="product.IsActive == 'Y' ? 'no-pad slider-box' : ''">
+            <div *ngIf="product.IsActive == 'Y'">
+              <!-- <a class="offer-price">20% OFF</a> -->
+              <img *ngIf="product.ImgPath != null" src="{{ site_url + product.ImgPath }}" alt="">
               <img *ngIf="product.ImgPath == null" src="/assets/images/pro1.png" alt="">
-            </a> 
-            <hr>
-            <h4>{{ product.ProductName }}</h4>
-            <p>
-              <span>₹{{ product.Price }}</span>
-              ₹{{ product.OfferPrice }} 
-            </p>
+              <h3>{{ product.ProductName }} 
+                <p>
+                  <span>₹{{ product.Price }}</span>
+                  ₹{{ product.OfferPrice }}
+                </p>
+                
+              </h3>
+              <hr>
+              <!-- <h3 class="qty">
+                <p class="star2">
+                  <img src="/assets/images/star.png" alt="">
+                  <img src="/assets/images/star.png" alt="">
+                  <img src="/assets/images/star.png" alt="">
+                  <img src="/assets/images/star.png" alt="">
+                  <img src="/assets/images/star2.png" alt="">
+                </p>
+              </h3>  -->
+              
+              <div class="btn-box">
+                <a class="call-now-btn" (click)="moveOfferProductDetails(product.ProductID)">More Details</a>
+                <!-- <a class="more-btn">Call Now</a> -->
+              </div>
+            </div>
           </div>
+
         </div>
+      </div>
+    </ion-row>
 
-      </ion-row>
-
-      <!-- Footer icon link section -->
-      <ion-row class="justify-content-center">
-        <div class="footer-sec">
+    <ion-row class="justify-content-center">
+      <div class="footer-sec">
         <div class="footer active">
           <a routerLink="/home">
             <!-- <ion-icon ios="ios-home" md="md-home"></ion-icon> -->
@@ -158,8 +182,6 @@ viewBox="0 0 482.9 482.9" style="enable-background:new 0 0 482.9 482.9;" xml:spa
           </a>
         </div>
       </div>
-      </ion-row>
-    </div>
+    </ion-row>
   </ion-grid>
 </ion-content>
-  

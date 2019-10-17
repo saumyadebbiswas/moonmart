@@ -62,6 +62,35 @@
 
 // -----end header------
 
+.back-bg{
+  width: 100%;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  padding: 30px;
+  background: #f63a3f;
+}
+
+.back-bg h2{
+  padding: 0;
+  margin: 0;
+  color: #fff;
+}
+
+.back{
+    // color: #fff;
+    // font-size: 17px;
+    // position: absolute;
+    // top: 24px;
+    // left: 10px;
+}
+
+.back img{
+    width: 38%;
+   
+}
+
 .no-pad{
   padding: 0;
 }
@@ -71,14 +100,15 @@
 }
 
 .banner-sec{
-width: 100% !important;
-position: relative;
-background: #fff;
-border-radius: 5px;
-margin: 10px;
-margin-top: 30px;
-margin-bottom: 10px;
-box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.02), 0 -1px 4px 0 rgba(0, 0, 0, 0.13);
+  width: 100% !important;
+  position: relative;
+  background: #fff;
+  border-radius: 5px;
+  margin: 10px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.02), 0 -1px 4px 0 rgba(0, 0, 0, 0.13);
+  text-align: center;
 }
 
 // .banner-sec img {
@@ -185,9 +215,10 @@ color: #000;
 }
 
 .slider-products{
-display: -webkit-box;
-width: auto;
-overflow-x: scroll;
+  display: -webkit-box;
+  width: auto;
+  overflow-x: scroll;
+  margin-right: 10px;
 }
 
 .slider-products::-webkit-scrollbar { width: 0 !important; }
@@ -279,7 +310,7 @@ border-top: 1px solid #c8c8c8;
 
 .call-now-btn{
 width: 100%;
-color: #fff;
+color: #fff !important;
 background: #f73d42;
 padding: 8px 5px;
 float: right;

@@ -55,18 +55,25 @@ export class ForgotComponent implements OnInit {
 
       //--- Start loader
       const loading = await this.loadingController.create({
-        message: 'Please wait...'
+        message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+        translucent: true,
+        showBackdrop: false,
+        spinner: null,
       });
       loading.present();
 
       console.log('Forgot password email data...', this.email);
 
-      //*** Error: Forgot password link not aavilable - saumya 03-10-2019 */
       this.userService.forgot_Password(this.email).subscribe(async response => {
-        //console.log('Login response...', response);
-        //--- After successful login - dismiss loader, enable side menu, navigate to dashboard
+        //console.log('Forgot password response...', response);
         loading.dismiss();
         if(response.Result == true) {
+          const alert = await this.alertCtrl.create({
+            message: "New password send to your mail ID.",
+            buttons: ['OK']
+          });
+          alert.present();
+
           this.router.navigate(['/login']);
         } else {
           const alert = await this.alertCtrl.create({

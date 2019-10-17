@@ -15,7 +15,6 @@ export class ProfileComponent implements OnInit {
   user_details: any = [];
   userId: any;
   user_profile_image: string = "../../assets/images/user-img.png";
-  name: string = "Mr. User";
   username: string = "";
   email: string = "";
   password: string = "";
@@ -42,9 +41,6 @@ export class ProfileComponent implements OnInit {
       if(this.user_details.Data.Image != null) {
         this.user_profile_image = this.user_details.Data.Image;
       }
-      if(this.user_details.Name != null) {
-        this.name = this.user_details.Name;
-      }
 
       this.site_url = SITE_URL;
     } else {			 
@@ -56,11 +52,15 @@ export class ProfileComponent implements OnInit {
 
   async ionViewWillEnter() {
     const loading = await this.loadingController.create({
-      message: 'Please wait...'
+      message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      translucent: true,
+      showBackdrop: false,
+      spinner: null,
     });
     loading.present();
 
     this.userService.edit_profile(this.userId).subscribe(async response => {
+      console.log('User details...', response);
       //--- After getting value - dismiss loader
       loading.dismiss();
       if(response.Result == true) {
@@ -70,7 +70,6 @@ export class ProfileComponent implements OnInit {
         this.mobile_no = response.Data.MobileNumber;
         this.refer_code = response.Data.ReferralCode;
         this.dob = response.Data.DateofBirth;
-        //console.log('User details...', response);
       } else {
         const alert = await this.alertCtrl.create({
           message: response.Message,
@@ -124,7 +123,10 @@ export class ProfileComponent implements OnInit {
 
       //--- Start loader
       const loading = await this.loadingController.create({
-        message: 'Please wait...'
+        message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+        translucent: true,
+        showBackdrop: false,
+        spinner: null,
       });
       loading.present();
 

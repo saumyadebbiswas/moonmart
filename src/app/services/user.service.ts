@@ -45,7 +45,7 @@ export class UserService {
   }
 	
   forgot_Password(emailId: any): Observable<any> {
-    return this.http.post<any>(this.api_url+'/ForgetPaswword?Eml='+emailId,  {headers: this.requestHeader});
+    return this.http.post<any>(this.api_url+'/ForgetPassword?Eml='+emailId,  {headers: this.requestHeader});
   }
 	
   edit_profile(userId: any): Observable<any> {

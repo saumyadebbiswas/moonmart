@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BarcodeScannerOptions, BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, ProductService } from '../services';
@@ -13,12 +14,15 @@ export class OfferproductsComponent implements OnInit {
 
   site_url: string;
   offerID: any;
-  imagePath: string = '/assets/images/product-img.png'; //--- Default image [Set no-image-available]
+  imagePath: string;
+  imagePathFixed: string = "";
   products: any = []; //--- This product list changed in serch time
   products_fixed:any = []; //--- This product list remain fixed even in serch
   showOfferImage: any = true;
+  barcodeScannerOptions: BarcodeScannerOptions;
 
   constructor(
+    private barcodeScanner: BarcodeScanner,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private route: ActivatedRoute,
@@ -31,6 +35,12 @@ export class OfferproductsComponent implements OnInit {
       console.log('Location: ProductlistComponent');
 
       this.site_url = SITE_URL;
+
+      //--- Options of barcode
+      this.barcodeScannerOptions = {
+        showTorchButton: true,
+        showFlipCameraButton: true
+      };
     } else {			 
       this.router.navigate(['/login']);
     }
@@ -43,8 +53,12 @@ export class OfferproductsComponent implements OnInit {
       this.offerID = this.route.snapshot.paramMap.get('value');
 
       //--- Check image path get from URL and merge it with site_url
-      if(this.route.snapshot.paramMap.get('imagePath') != null)
+      if(this.route.snapshot.paramMap.get('imagePath') != null) {
         this.imagePath = this.site_url + this.route.snapshot.paramMap.get('imagePath');
+        this.imagePathFixed = this.route.snapshot.paramMap.get('imagePath');
+      } else {
+        this.imagePath = '/assets/images/product-img.png'; //--- Default image [Set no-image-available]
+      }
     } else {
       this.offerID = null;
     }
@@ -65,7 +79,10 @@ export class OfferproductsComponent implements OnInit {
 
   async ionViewWillEnter() {
     const loading = await this.loadingController.create({
-      message: 'Please wait...'
+      message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      translucent: true,
+      showBackdrop: false,
+      spinner: null,
     });
     loading.present();
 
@@ -75,7 +92,7 @@ export class OfferproductsComponent implements OnInit {
       if(response.Result == true) {
         this.products_fixed =  response.Data;
         this.products = response.Data;
-        console.log('Offer product list...', this.products);
+        //console.log('Offer product list...', this.products);
       } else {
         const alert = await this.alertCtrl.create({
           message: response.Message,
@@ -119,8 +136,65 @@ export class OfferproductsComponent implements OnInit {
     }
   }
 
+  scanProduct() {
+    //console.log('Barcode scanner enter...');
+    this.barcodeScanner.scan().then(async barcodeData => {
+      let barcode = barcodeData.text;
+
+      const loading = await this.loadingController.create({
+        message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+        translucent: true,
+        showBackdrop: false,
+        spinner: null,
+      });
+      loading.present();
+  
+      this.productService.product_details_by_barcode(barcode).subscribe(async response => {
+        loading.dismiss();
+        if(response.Result == true) {
+          if(response.Data[0].IsActive == 'Y') {
+            //--- Get the product id and navigate to offer product details page
+            let productId = response.Data[0].ProductID;
+            this.router.navigate(['/offerproductdetails', {id: productId, imagePath: this.imagePathFixed}]);
+          } else {
+            const alert = await this.alertCtrl.create({
+              message: 'This product is no more avialble.',
+              buttons: ['OK']
+            });
+            alert.present();
+            //this.router.navigate(['/alert']);
+          }
+        } else {
+          const alert = await this.alertCtrl.create({
+            message: response.Message,
+            buttons: ['OK']
+          });
+          alert.present();
+          //this.router.navigate(['/alert']);
+        }
+      }, async error => {
+        //--- In case of error - dismiss loader and show error message
+        loading.dismiss();
+        const alert = await this.alertCtrl.create({
+          message: 'Internal Error: ' + error,
+          buttons: ['OK']
+        });
+        alert.present();
+        //this.router.navigate(['/alert']);
+      });
+
+    }).catch(async err => {
+      const alert = await this.alertCtrl.create({
+        message: "Internal error: " + err,
+        buttons: ['OK']
+      });
+      alert.present();
+      //this.router.navigate(['/alert']);
+    });
+  }
+
   moveProductDetails(productID) {
-    this.router.navigate(['/productsdetails/'+productID]);
+    this.router.navigate(['/offerproductdetails', {id: productID, imagePath: this.imagePathFixed}]);
   }
 
 }

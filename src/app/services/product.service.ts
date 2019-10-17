@@ -16,12 +16,20 @@ export class ProductService {
     this.requestHeader.append('Content-Type', 'application/json');
   }
 	
+  category_details(categoryID: any): Observable<any> {
+    return this.http.post<any>(this.api_url+'/EditProductCategory?CategoryID='+categoryID, {headers: this.requestHeader});
+  }
+	
   products_by_categoryID(categoryID: any): Observable<any> {
     return this.http.get<any>(this.api_url+'/ListProductCategorySearch?CategoryID='+categoryID, {headers: this.requestHeader});
   }
 	
   product_details(productId: any): Observable<any> {
     return this.http.post<any>(this.api_url+'/EditProduct?ID='+productId, {headers: this.requestHeader});
+  }
+	
+  offer_product_details(productId: any): Observable<any> {
+    return this.http.post<any>(this.api_url+'/editOfferProduct?ID='+productId, {headers: this.requestHeader});
   }
 	
   product_details_by_barcode(barcode: any): Observable<any> {

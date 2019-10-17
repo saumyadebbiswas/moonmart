@@ -12,6 +12,7 @@ import { ScanComponent } from './scan/scan.component';
 import { EnquiryComponent } from './enquiry/enquiry.component';
 import { AlertComponent } from './alert/alert.component';
 import { OfferproductsComponent } from './offerproducts/offerproducts.component';
+import { OfferproductdetailsComponent } from './offerproductdetails/offerproductdetails.component';
 
 const routes: Routes = [
   {
@@ -38,7 +39,8 @@ const routes: Routes = [
   { path: "scan",  component: ScanComponent},
   { path: "enquiry",  component: EnquiryComponent},
   { path: "alert",  component: AlertComponent},
-  { path: "offerproducts",  component: OfferproductsComponent}
+  { path: "offerproducts",  component: OfferproductsComponent},
+  { path: "offerproductdetails",  component: OfferproductdetailsComponent}
 ];
 
 @NgModule({

@@ -31,7 +31,10 @@ export class NotificationsComponent implements OnInit {
 
   async ionViewWillEnter() {
     const loading = await this.loadingController.create({
-      message: 'Please wait...'
+      message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      translucent: true,
+      showBackdrop: false,
+      spinner: null,
     });
     loading.present();
 
@@ -64,7 +67,6 @@ export class NotificationsComponent implements OnInit {
   }
 
   moveOfferProductList(offerID, imagePath) {
-    this.router.navigate(['/offerproducts/'+offerID]);
     this.router.navigate(['/offerproducts', {type: 'ID', value: offerID, imagePath: imagePath}]);
   }
 
