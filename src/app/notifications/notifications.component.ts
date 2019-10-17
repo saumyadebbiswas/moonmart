@@ -31,10 +31,10 @@ export class NotificationsComponent implements OnInit {
 
   async ionViewWillEnter() {
     const loading = await this.loadingController.create({
-      message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      translucent: true,
-      showBackdrop: false,
-      spinner: null,
+      // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      // translucent: true,
+      // showBackdrop: false,
+      spinner: 'bubbles'
     });
     loading.present();
 

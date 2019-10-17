@@ -79,10 +79,10 @@ export class OfferproductsComponent implements OnInit {
 
   async ionViewWillEnter() {
     const loading = await this.loadingController.create({
-      message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      translucent: true,
-      showBackdrop: false,
-      spinner: null,
+      // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      // translucent: true,
+      // showBackdrop: false,
+      spinner: 'bubbles'
     });
     loading.present();
 
@@ -142,10 +142,10 @@ export class OfferproductsComponent implements OnInit {
       let barcode = barcodeData.text;
 
       const loading = await this.loadingController.create({
-        message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-        translucent: true,
-        showBackdrop: false,
-        spinner: null,
+        // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+        // translucent: true,
+        // showBackdrop: false,
+        spinner: 'bubbles'
       });
       loading.present();
   

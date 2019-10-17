@@ -83,10 +83,10 @@ export class HomePage {
   async ionViewWillEnter() {
     this.offers = [];
     const loading1 = await this.loadingController.create({
-      message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      translucent: true,
-      showBackdrop: false,
-      spinner: null,
+      // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      // translucent: true,
+      // showBackdrop: false,
+      spinner: 'bubbles'
     });
     loading1.present();
 
@@ -116,10 +116,10 @@ export class HomePage {
     });
 
     const loading = await this.loadingController.create({
-      message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      translucent: true,
-      showBackdrop: false,
-      spinner: null,
+      // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      // translucent: true,
+      // showBackdrop: false,
+      spinner: 'bubbles'
     });
     loading.present();
 

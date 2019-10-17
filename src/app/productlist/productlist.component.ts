@@ -59,7 +59,10 @@ export class ProductlistComponent implements OnInit {
 
       //--- Get category image using category ID
       const loading = await this.loadingController.create({
-        message: 'Please wait...'
+        // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+        // translucent: true,
+        // showBackdrop: false,
+        spinner: 'bubbles'
       });
       loading.present();
   
@@ -105,10 +108,10 @@ export class ProductlistComponent implements OnInit {
 
   async ionViewWillEnter() {
     const loading = await this.loadingController.create({
-      message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      translucent: true,
-      showBackdrop: false,
-      spinner: null,
+      // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      // translucent: true,
+      // showBackdrop: false,
+      spinner: 'bubbles'
     });
     loading.present();
 
@@ -168,10 +171,10 @@ export class ProductlistComponent implements OnInit {
       let barcode = barcodeData.text;
 
       const loading = await this.loadingController.create({
-        message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-        translucent: true,
-        showBackdrop: false,
-        spinner: null,
+        // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+        // translucent: true,
+        // showBackdrop: false,
+        spinner: 'bubbles'
       });
       loading.present();
   
