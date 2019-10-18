@@ -26,7 +26,7 @@
           <div id="demo" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ul class="carousel-indicators">
-              <li *ngFor="let offer of offers; let i = index;" data-target="#demo" data-slide-to="i" [ngClass]="i == 0 ? 'active' : ''"></li>
+              <li *ngFor="let offer of offers; let i = index;" data-target="#demo" attr.data-slide-to="{{i}}" [ngClass]="i == 0 ? 'active' : ''"></li>
               <!-- <li data-target="#demo" data-slide-to="0" class="active"></li>
               <li data-target="#demo" data-slide-to="1"></li>
               <li data-target="#demo" data-slide-to="2"></li>
@@ -241,6 +241,32 @@
   <div class="vertical-align-wrap2">
     <div class="vertical-align vertical-align--middle">
       <img src="/assets/spinner.gif" alt="" >
+    </div>
+  </div>
+</div>
+
+<div class="overlay_alert" *ngIf="showErrorAlert">
+  <div class="vertical-align-wrap1">
+    <div class="vertical-align vertical-align--middle">
+      <div class="alert alert-danger">
+        <strong>ERROR!</strong> {{ error_message }}
+        <button type="button" (click)="hideErrorAlert()" class="close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay_alert" *ngIf="showInfoAlert">
+  <div class="vertical-align-wrap1">
+    <div class="vertical-align vertical-align--middle">
+      <div class="alert alert-primary">
+        {{ info_message }}
+        <button type="button" (click)="hideInfoAlert()" class="close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     </div>
   </div>
 </div>

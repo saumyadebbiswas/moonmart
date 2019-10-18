@@ -45,12 +45,12 @@
   </div>
 </div>
 
-<div class="overlay_alert" *ngIf="showSucessAlert">
+<div class="overlay_alert" *ngIf="showErrorAlert">
   <div class="vertical-align-wrap1">
     <div class="vertical-align vertical-align--middle">
       <div class="alert alert-danger">
         <strong>Error!</strong> {{ error_message }}
-        <button type="button" (click)="hideSucessAlert()" class="close">
+        <button type="button" (click)="hideErrorAlert()" class="close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

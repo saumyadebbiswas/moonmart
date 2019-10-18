@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService, UserService } from '../services';
 import { SITE_URL } from '../services/constants';
-import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-productsdetails',
@@ -17,10 +16,13 @@ export class ProductsdetailsComponent implements OnInit {
   product_image: string;
   populer_products: any = [];
   showLoader: boolean;
+  showErrorAlert: boolean;
+  error_message: string;
+  showInfoAlert: boolean;
+  info_message: string;
+  navigate_alert: boolean = false;
 
   constructor(
-    public alertCtrl: AlertController,
-    public loadingController: LoadingController,
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
@@ -43,18 +45,23 @@ export class ProductsdetailsComponent implements OnInit {
     }
   }
 
-  async ionViewWillEnter() {
+  hideErrorAlert() {
+    this.showErrorAlert = false;
+
+    if(this.navigate_alert) {
+      this.router.navigate(['/alert']);
+    }
+  }
+
+  hideInfoAlert() {
+    this.showInfoAlert = false;
+  }
+
+  ionViewWillEnter() {
     this.populer_products = [];
-    // const loading = await this.loadingController.create({
-    //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-    //   // translucent: true,
-    //   // showBackdrop: false,
-    //   spinner: 'bubbles'
-    // });
-    // loading.present();
     this.showLoader = true;
 
-    this.productService.product_details(this.productId).subscribe(async response => {
+    this.productService.product_details(this.productId).subscribe(response => {
       this.showLoader = false;
       if(response.Result == true) {
         if(response.Data.IsActive == 'Y') {
@@ -70,9 +77,8 @@ export class ProductsdetailsComponent implements OnInit {
           if(this.product.Category != null) {
             this.showLoader = true;
             //--- Get all other products under same category as populer products
-            this.productService.products_by_categoryID(this.product.Category).subscribe(async response => {
+            this.productService.products_by_categoryID(this.product.Category).subscribe(response => {
               //--- After getting value - dismiss loader
-              // loading.dismiss();
               this.showLoader = false;
               if(response.Result == true) {
                 //--- Discard the current product from populer products
@@ -84,48 +90,34 @@ export class ProductsdetailsComponent implements OnInit {
                 });
                 //console.log('Populer products list...', this.populer_products);
               } else {
+                this.showLoader = false;
                 console.log('Product list unavilable...');
               }
             });
           } else {
             //--- If category id not found - dismiss loader
-            // loading.dismiss();
             this.showLoader = false;
             console.log('Product category null...');
           }
 
         } else {
-          // loading.dismiss();
-          this.showLoader = false;
-          const alert = await this.alertCtrl.create({
-            message: 'This product is no more avialble.',
-            buttons: ['OK']
-          });
-          alert.present();
-
+          // this.showErrorAlert = true;
+          // this.error_message = 'This product is no more available!';
+          // this.navigate_alert = true;
           this.router.navigate(['/alert']);
         }
       } else {
-        // loading.dismiss();
-        this.showLoader = false;
-        const alert = await this.alertCtrl.create({
-          message: response.Message,
-          buttons: ['OK']
-        });
-        alert.present();
-
+        // this.showErrorAlert = true;
+        // this.error_message = 'No product found!';
+        // this.navigate_alert = true;
         this.router.navigate(['/alert']);
       }
-    }, async error => {
+    }, error => {
       //--- In case of error - dismiss loader and show error message
-      // loading.dismiss();
       this.showLoader = false;
-      const alert = await this.alertCtrl.create({
-        message: 'Internal Error! Unable to load product details.',
-        buttons: ['OK']
-      });
-      alert.present();
-
+      // this.showErrorAlert = true;
+      // this.error_message = 'Internal Error!';
+      // this.navigate_alert = true;
       this.router.navigate(['/alert']);
     });
   }

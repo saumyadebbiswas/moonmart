@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-enquiry',
@@ -17,10 +16,12 @@ export class EnquiryComponent implements OnInit {
   subject: string = "";
   message: string = "";
   showLoader: boolean;
+  showErrorAlert: boolean;
+  error_message: string;
+  showInfoAlert: boolean;
+  info_message: string;
 
   constructor(
-    public alertCtrl: AlertController,
-    public loadingController: LoadingController,
     private router: Router,
     private userService: UserService
   ) {
@@ -41,37 +42,30 @@ export class EnquiryComponent implements OnInit {
 
   ngOnInit() {}
 
-  async onSubmit() {
+  hideErrorAlert() {
+    this.showErrorAlert = false;
+  }
+
+  hideInfoAlert() {
+    this.showInfoAlert = false;
+  }
+
+  onSubmit() {
 
     var mail_format = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     //--- Check empty credentials
     if(this.name.length == 0 || this.email.length == 0 || this.subject.length == 0 || this.message.length == 0) {
-
-      const alert = await this.alertCtrl.create({
-        message: 'Enter full credentials!',
-        buttons: ['OK']
-      });
-      alert.present();
+      this.showErrorAlert = true;
+      this.error_message = "Enter full credentials!";
 
     } else if(!mail_format.test(this.email)) {
 
-      const alert = await this.alertCtrl.create({
-        message: 'Invalid email format!',
-        buttons: ['OK']
-      });
-      alert.present();
+      this.showErrorAlert = true;
+      this.error_message = "Invalid email format!";
 
     } else {
 
-      //--- Start loader
-      // const loading = await this.loadingController.create({
-      //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      //   // translucent: true,
-      //   // showBackdrop: false,
-      //   spinner: 'bubbles'
-      // });
-      // loading.present();
       this.showLoader = true;
 
       let sendData = {
@@ -83,33 +77,22 @@ export class EnquiryComponent implements OnInit {
       }
       // console.log('Enquiry send data...', sendData);
 
-      this.userService.enquiry(sendData).subscribe(async response => {
+      this.userService.enquiry(sendData).subscribe(response => {
         //--- After successful send message - dismiss loader and show success message
-        // loading.dismiss();
         this.showLoader = false;
         if(response.Result == true) {
-          //console.log('Update response...', response);
-          const alert = await this.alertCtrl.create({
-            message: "Message send successfully!",
-            buttons: ['OK']
-          });
-          alert.present();
+          // console.log('Update response...', response);
+          this.showInfoAlert = true;
+          this.info_message = "Message send successfully!";
         } else {
-          const alert = await this.alertCtrl.create({
-            message: "Unable to send message!",
-            buttons: ['OK']
-          });
-          alert.present();
+          this.showErrorAlert = true;
+          this.error_message = "Unable to send message!";
         }
-      }, async error => {
+      }, error => {
         //--- In case of error - dismiss loader and show error message
-        // loading.dismiss();
         this.showLoader = false;
-        const alert = await this.alertCtrl.create({
-          message: "Internal Error! Please try again.",
-          buttons: ['OK']
-        });
-        alert.present();
+        this.showErrorAlert = true;
+        this.error_message = "Internal problem!";
       });
     }
   }
