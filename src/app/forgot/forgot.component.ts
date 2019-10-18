@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController, MenuController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 import { UserService } from '../services';
 
 @Component({
@@ -12,11 +12,13 @@ export class ForgotComponent implements OnInit {
 
   email: string = "";
   showLoader: boolean;
+  showErrorAlert: boolean;
+  error_message: string;
+  showInfoAlert: boolean;
+  info_message: string;
 
   constructor(
     public menuCtrl: MenuController,
-    public alertCtrl: AlertController,
-    public loadingController: LoadingController,
     private userService: UserService,
     private router: Router
   ) {
@@ -29,71 +31,52 @@ export class ForgotComponent implements OnInit {
     }
   }
 
+  hideErrorAlert() {
+    this.showErrorAlert = false;
+  }
+
+  hideInfoAlert() {
+    this.showInfoAlert = false;
+    this.router.navigate(['/login']);
+  }
+
   ngOnInit() {}
 
-  async onSubmit() {
+  onSubmit() {
 
     var mail_format = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     //--- Check empty credentials
     if(this.email.length == 0) {
 
-      const alert = await this.alertCtrl.create({
-        message: 'Enter full credentials!',
-        buttons: ['OK']
-      });
-      alert.present();
+      this.showErrorAlert = true;
+      this.error_message = "Enter full credentials!";
 
     } else if(!mail_format.test(this.email)) {
 
-      const alert = await this.alertCtrl.create({
-        message: 'Invalid email format!',
-        buttons: ['OK']
-      });
-      alert.present();
+      this.showErrorAlert = true;
+      this.error_message = "Invalid email format!";
 
     } else {
-
-      //--- Start loader
-      // const loading = await this.loadingController.create({
-      //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      //   // translucent: true,
-      //   // showBackdrop: false,
-      //   spinner: 'bubbles'
-      // });
-      // loading.present();
       this.showLoader = true;
 
-      console.log('Forgot password email data...', this.email);
+      // console.log('Forgot password email data...', this.email);
 
-      this.userService.forgot_Password(this.email).subscribe(async response => {
+      this.userService.forgot_Password(this.email).subscribe(response => {
         //console.log('Forgot password response...', response);
-        // loading.dismiss();
         this.showLoader = false;
         if(response.Result == true) {
-          const alert = await this.alertCtrl.create({
-            message: "New password send to your mail ID.",
-            buttons: ['OK']
-          });
-          alert.present();
-
-          this.router.navigate(['/login']);
+          this.showInfoAlert = true;
+          this.info_message = "New password send to " + this.email;
         } else {
-          const alert = await this.alertCtrl.create({
-            message: response.Message,
-            buttons: ['OK']
-          });
-          alert.present();
+          this.showErrorAlert = true;
+          this.error_message = response.Message;
         }
       }, async error => {
         //--- In case of login error - dismiss loader, show error message
-        // loading.dismiss();
         this.showLoader = false;
-        const alert = await this.alertCtrl.create({
-          message: error.message,
-          buttons: ['OK']
-        });
-        alert.present();
+        this.showErrorAlert = true;
+        this.error_message = "Internal problem!";
       });
     }
   }

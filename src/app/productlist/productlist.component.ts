@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScannerOptions, BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { DomController, AlertController, LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, ProductService } from '../services';
 import { SITE_URL } from '../services/constants';
@@ -13,7 +12,6 @@ import { SITE_URL } from '../services/constants';
 export class ProductlistComponent implements OnInit {
 
   site_url: string;
-  showSearchbar: boolean = false;
   categoryID: any;
   imagePath: string;
   products: any = []; //--- This product list changed in serch time
@@ -21,12 +19,14 @@ export class ProductlistComponent implements OnInit {
   cat_image: any = true;
   barcodeScannerOptions: BarcodeScannerOptions;
   showLoader: boolean;
+  showErrorAlert: boolean;
+  error_message: string;
+  showInfoAlert: boolean;
+  info_message: string;
+  navigate_alert: boolean = false;
 
   constructor(
     private barcodeScanner: BarcodeScanner,
-    public alertCtrl: AlertController,
-    public loadingController: LoadingController,
-    private domCtrl: DomController,
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
@@ -48,30 +48,17 @@ export class ProductlistComponent implements OnInit {
     }
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     //--- Check parameter type get from URL
     if(this.route.snapshot.paramMap.get('type') == 'ID') {
       //--- Get parameter value from URL
       this.categoryID = this.route.snapshot.paramMap.get('value');
 
-      //--- Check image path get from URL and merge it with site_url
-      // if(this.route.snapshot.paramMap.get('imagePath') != null)
-      //   this.imagePath = this.site_url + this.route.snapshot.paramMap.get('imagePath');
-
-      //--- Get category image using category ID
-      // const loading = await this.loadingController.create({
-      //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      //   // translucent: true,
-      //   // showBackdrop: false,
-      //   spinner: 'bubbles'
-      // });
-      // loading.present();
       this.showLoader = true;
   
-      this.productService.category_details(this.categoryID).subscribe(async response => {
+      this.productService.category_details(this.categoryID).subscribe(response => {
         console.log('Product list category details response...', response);
         //--- After getting value - dismiss loader
-        // loading.dismiss();
         this.showLoader = false;
         if(response.Result == true) {
           if(response.Data.ImgPath != null) {
@@ -86,7 +73,6 @@ export class ProductlistComponent implements OnInit {
         }
       }, async error => {
         //--- In case of error - dismiss loader and show error message
-        // loading.dismiss();
         this.showLoader = false;
         this.imagePath = '/assets/images/product-img.png'; //--- Default image [Set no-image-available]
         console.log('Product list category details error: ', error);
@@ -96,6 +82,18 @@ export class ProductlistComponent implements OnInit {
       this.categoryID = null;
     }
     // console.log('Product List category ID...', this.categoryID);
+  }
+
+  hideErrorAlert() {
+    this.showErrorAlert = false;
+
+    if(this.navigate_alert) {
+      this.router.navigate(['/alert']);
+    }
+  }
+
+  hideInfoAlert() {
+    this.showInfoAlert = false;
   }
  
   logScrolling(event){
@@ -110,17 +108,10 @@ export class ProductlistComponent implements OnInit {
     }
   }
 
-  async ionViewWillEnter() {
-    // const loading = await this.loadingController.create({
-    //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-    //   // translucent: true,
-    //   // showBackdrop: false,
-    //   spinner: 'bubbles'
-    // });
-    // loading.present();
+  ionViewWillEnter() {
     this.showLoader = true;
 
-    this.productService.products_by_categoryID(this.categoryID).subscribe(async response => {
+    this.productService.products_by_categoryID(this.categoryID).subscribe(response => {
       //--- After getting value - dismiss loader
       // loading.dismiss();
       this.showLoader = false;
@@ -129,24 +120,17 @@ export class ProductlistComponent implements OnInit {
         this.products = response.Data;
         //console.log('Product list...', this.products);
       } else {
-        const alert = await this.alertCtrl.create({
-          message: response.Message,
-          buttons: ['OK']
-        });
-        alert.present();
-
+        // this.showErrorAlert = true;
+        // this.error_message = 'No product found!';
+        // this.navigate_alert = true;
         this.router.navigate(['/alert']);
       }
-    }, async error => {
+    }, error => {
       //--- In case of error - dismiss loader and show error message
-      // loading.dismiss();
       this.showLoader = false;
-      const alert = await this.alertCtrl.create({
-        message: 'Internal Error! Unable to load products.',
-        buttons: ['OK']
-      });
-      alert.present();
-
+      // this.showErrorAlert = true;
+      // this.error_message = 'Internal Error!';
+      // this.navigate_alert = true;
       this.router.navigate(['/alert']);
     });
   }
@@ -177,16 +161,9 @@ export class ProductlistComponent implements OnInit {
     this.barcodeScanner.scan().then(async barcodeData => {
       let barcode = barcodeData.text;
 
-      // const loading = await this.loadingController.create({
-      //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      //   // translucent: true,
-      //   // showBackdrop: false,
-      //   spinner: 'bubbles'
-      // });
-      // loading.present();
       this.showLoader = true;
   
-      this.productService.product_details_by_barcode(barcode).subscribe(async response => {
+      this.productService.product_details_by_barcode(barcode).subscribe(response => {
         // loading.dismiss();
         this.showLoader = false;
         if(response.Result == true) {
@@ -195,50 +172,24 @@ export class ProductlistComponent implements OnInit {
             let productId = response.Data[0].ProductID;
             this.router.navigate(['/productsdetails/'+productId]);
           } else {
-            const alert = await this.alertCtrl.create({
-              message: 'This product is no more avialble.',
-              buttons: ['OK']
-            });
-            alert.present();
-            //this.router.navigate(['/alert']);
+            this.showInfoAlert = true;
+            this.info_message = 'This product is no more avialble!';
           }
         } else {
-          const alert = await this.alertCtrl.create({
-            message: response.Message,
-            buttons: ['OK']
-          });
-          alert.present();
-          //this.router.navigate(['/alert']);
+          this.showErrorAlert = true;
+          this.error_message = "No product found!";
         }
-      }, async error => {
+      }, error => {
         //--- In case of error - dismiss loader and show error message
-        // loading.dismiss();
         this.showLoader = false;
-        const alert = await this.alertCtrl.create({
-          message: 'Internal Error: ' + error,
-          buttons: ['OK']
-        });
-        alert.present();
-        //this.router.navigate(['/alert']);
+        this.showErrorAlert = true;
+        this.error_message = 'Internal Error!';
       });
 
     }).catch(async err => {
-      const alert = await this.alertCtrl.create({
-        message: "Internal error: " + err,
-        buttons: ['OK']
-      });
-      alert.present();
-      //this.router.navigate(['/alert']);
+      this.showErrorAlert = true;
+      this.error_message = err;
     });
-  }
-
-  //--- On scroll hide search bar [Not working now]
-  private adjustElementOnScroll(ev) {
-    if(ev) {
-      this.domCtrl.write(() => {
-        this.showSearchbar = true;
-      });
-    }
   }
 
   moveProductDetails(productID) {

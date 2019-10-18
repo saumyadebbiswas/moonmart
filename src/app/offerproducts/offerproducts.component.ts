@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScannerOptions, BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { AlertController, LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, ProductService } from '../services';
 import { SITE_URL } from '../services/constants';
@@ -21,11 +20,14 @@ export class OfferproductsComponent implements OnInit {
   showOfferImage: any = true;
   barcodeScannerOptions: BarcodeScannerOptions;
   showLoader: boolean;
+  showErrorAlert: boolean;
+  error_message: string;
+  showInfoAlert: boolean;
+  info_message: string;
+  navigate_alert: boolean = false;
 
   constructor(
     private barcodeScanner: BarcodeScanner,
-    public alertCtrl: AlertController,
-    public loadingController: LoadingController,
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
@@ -65,6 +67,18 @@ export class OfferproductsComponent implements OnInit {
     }
     // console.log('Offer product List offer ID...', this.offerID);
   }
+
+  hideErrorAlert() {
+    this.showErrorAlert = false;
+
+    if(this.navigate_alert) {
+      this.router.navigate(['/alert']);
+    }
+  }
+
+  hideInfoAlert() {
+    this.showInfoAlert = false;
+  }
  
   logScrolling(event){
     // console.log("logScrolling : When Scrolling", event.detail.currentY);
@@ -78,43 +92,28 @@ export class OfferproductsComponent implements OnInit {
     }
   }
 
-  async ionViewWillEnter() {
-    // const loading = await this.loadingController.create({
-    //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-    //   // translucent: true,
-    //   // showBackdrop: false,
-    //   spinner: 'bubbles'
-    // });
-    // loading.present();
+  ionViewWillEnter() {
     this.showLoader = true;
 
-    this.productService.products_by_offerID(this.offerID).subscribe(async response => {
+    this.productService.products_by_offerID(this.offerID).subscribe(response => {
       //--- After getting value - dismiss loader
-      // loading.dismiss();
       this.showLoader = false;
       if(response.Result == true) {
         this.products_fixed =  response.Data;
         this.products = response.Data;
         //console.log('Offer product list...', this.products);
       } else {
-        const alert = await this.alertCtrl.create({
-          message: response.Message,
-          buttons: ['OK']
-        });
-        alert.present();
-
+        // this.showErrorAlert = true;
+        // this.error_message = 'No product found!';
+        // this.navigate_alert = true;
         this.router.navigate(['/alert']);
       }
     }, async error => {
       //--- In case of error - dismiss loader and show error message
-      // loading.dismiss();
       this.showLoader = false;
-      const alert = await this.alertCtrl.create({
-        message: 'Internal Error! Unable to load products.',
-        buttons: ['OK']
-      });
-      alert.present();
-
+      // this.showErrorAlert = true;
+      // this.error_message = 'Internal Error!';
+      // this.navigate_alert = true;
       this.router.navigate(['/alert']);
     });
   }
@@ -145,17 +144,9 @@ export class OfferproductsComponent implements OnInit {
     this.barcodeScanner.scan().then(async barcodeData => {
       let barcode = barcodeData.text;
 
-      // const loading = await this.loadingController.create({
-      //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      //   // translucent: true,
-      //   // showBackdrop: false,
-      //   spinner: 'bubbles'
-      // });
-      // loading.present();
       this.showLoader = true;
   
-      this.productService.product_details_by_barcode(barcode).subscribe(async response => {
-        // loading.dismiss();
+      this.productService.product_details_by_barcode(barcode).subscribe(response => {
         this.showLoader = false;
         if(response.Result == true) {
           if(response.Data[0].IsActive == 'Y') {
@@ -163,40 +154,23 @@ export class OfferproductsComponent implements OnInit {
             let productId = response.Data[0].ProductID;
             this.router.navigate(['/offerproductdetails', {id: productId, imagePath: this.imagePathFixed}]);
           } else {
-            const alert = await this.alertCtrl.create({
-              message: 'This product is no more avialble.',
-              buttons: ['OK']
-            });
-            alert.present();
-            //this.router.navigate(['/alert']);
+            this.showInfoAlert = true;
+            this.info_message = 'This product is no more avialble!';
           }
         } else {
-          const alert = await this.alertCtrl.create({
-            message: response.Message,
-            buttons: ['OK']
-          });
-          alert.present();
-          //this.router.navigate(['/alert']);
+          this.showErrorAlert = true;
+          this.error_message = "No product found!";
         }
-      }, async error => {
+      }, error => {
         //--- In case of error - dismiss loader and show error message
-        // loading.dismiss();
         this.showLoader = false;
-        const alert = await this.alertCtrl.create({
-          message: 'Internal Error: ' + error,
-          buttons: ['OK']
-        });
-        alert.present();
-        //this.router.navigate(['/alert']);
+        this.showErrorAlert = true;
+        this.error_message = 'Internal Error!';
       });
 
-    }).catch(async err => {
-      const alert = await this.alertCtrl.create({
-        message: "Internal error: " + err,
-        buttons: ['OK']
-      });
-      alert.present();
-      //this.router.navigate(['/alert']);
+    }).catch(err => {
+      this.showErrorAlert = true;
+      this.error_message = err;
     });
   }
 

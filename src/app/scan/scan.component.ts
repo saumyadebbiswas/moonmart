@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScannerOptions, BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ProductService, UserService } from '../services';
 
@@ -14,11 +13,11 @@ export class ScanComponent implements OnInit {
   scannedData: any = [];
   barcodeScannerOptions: BarcodeScannerOptions;
   showLoader: boolean;
+  showErrorAlert: boolean;
+  error_message: string;
 
   constructor(
     private router: Router,
-    public alertCtrl: AlertController,
-    public loadingController: LoadingController,
     private barcodeScanner: BarcodeScanner,
     private userService: UserService,
     private productService: ProductService
@@ -39,21 +38,20 @@ export class ScanComponent implements OnInit {
 
   ngOnInit() {}
 
+  hideErrorAlert() {
+    this.showErrorAlert = false;
+
+    this.router.navigate(['/alert']);
+  }
+
   ionViewWillEnter() {
     //console.log('Barcode scanner enter...');
     this.barcodeScanner.scan().then(async barcodeData => {
       let barcode = barcodeData.text;
 
-      // const loading = await this.loadingController.create({
-      //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      //   // translucent: true,
-      //   // showBackdrop: false,
-      //   spinner: 'bubbles'
-      // });
-      // loading.present();
       this.showLoader = true;
   
-      this.productService.product_details_by_barcode(barcode).subscribe(async response => {
+      this.productService.product_details_by_barcode(barcode).subscribe(response => {
         // loading.dismiss();
         this.showLoader = false;
         if(response.Result == true) {
@@ -63,40 +61,23 @@ export class ScanComponent implements OnInit {
             this.router.navigate(['/productsdetails/'+productId]);
 
           } else {
-            const alert = await this.alertCtrl.create({
-              message: 'This product is no more avialble.',
-              buttons: ['OK']
-            });
-            alert.present();
-            this.router.navigate(['/alert']);
+            this.showErrorAlert = true;
+            this.error_message = 'This product is no more avialble!';
           }
         } else {
-          const alert = await this.alertCtrl.create({
-            message: response.Message,
-            buttons: ['OK']
-          });
-          alert.present();
-          this.router.navigate(['/alert']);
+          this.showErrorAlert = true;
+          this.error_message = 'No product found!';
         }
-      }, async error => {
+      }, error => {
         //--- In case of error - dismiss loader and show error message
-        // loading.dismiss();
         this.showLoader = false;
-        const alert = await this.alertCtrl.create({
-          message: 'Internal Error: ' + error,
-          buttons: ['OK']
-        });
-        alert.present();
-        this.router.navigate(['/alert']);
+        this.showErrorAlert = true;
+        this.error_message = 'Internal problem!';
       });
 
     }).catch(async err => {
-      const alert = await this.alertCtrl.create({
-        message: "Internal error: " + err,
-        buttons: ['OK']
-      });
-      alert.present();
-      this.router.navigate(['/alert']);
+      this.showErrorAlert = true;
+      this.error_message = err;
     });
   }
 

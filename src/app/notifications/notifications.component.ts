@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService, ProductService } from '../services';
 
@@ -12,10 +11,11 @@ export class NotificationsComponent implements OnInit {
 
   offers: any = [];
   showLoader: boolean;
+  showErrorAlert: boolean;
+  error_message: string;
+  info_message: string;
 
   constructor(
-    public alertCtrl: AlertController,
-    public loadingController: LoadingController,
     private router: Router,
     private userService: UserService,
     private productService: ProductService
@@ -30,43 +30,29 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit() {}
 
-  async ionViewWillEnter() {
-    // const loading = await this.loadingController.create({
-    //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-    //   // translucent: true,
-    //   // showBackdrop: false,
-    //   spinner: 'bubbles'
-    // });
-    // loading.present();
+  hideErrorAlert() {
+    this.showErrorAlert = false;
+    this.router.navigate(['/alert']);
+  }
+
+  ionViewWillEnter() {
     this.showLoader = true;
 
-    this.productService.offer_List().subscribe(async response => {
+    this.productService.offer_List().subscribe(response => {
       //--- After getting value - dismiss loader
-      // loading.dismiss();
       this.showLoader = false;
       if(response.Result == true) {
         this.offers = response.Data;
         //console.log('Offers list...', this.offers);
       } else {
-        const alert = await this.alertCtrl.create({
-          message: response.Message,
-          buttons: ['OK']
-        });
-        alert.present();
-
-        this.router.navigate(['/alert']);
+        this.showErrorAlert = true;
+        this.error_message = 'No offer available!';
       }
-    }, async error => {
+    }, error => {
       //--- In case of error - dismiss loader and show error message
-      // loading.dismiss();
       this.showLoader = false;
-      const alert = await this.alertCtrl.create({
-        message: 'Internal Error! Unable to load offers.',
-        buttons: ['OK']
-      });
-      alert.present();
-
-      this.router.navigate(['/alert']);
+      this.showErrorAlert = true;
+      this.error_message = 'Internal Error!';
     });
   }
 

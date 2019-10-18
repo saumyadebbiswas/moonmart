@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
 import { UserService } from '../services';
 import { SITE_URL } from '../services/constants';
 import { Router } from '@angular/router';
@@ -22,10 +21,12 @@ export class ProfileComponent implements OnInit {
   refer_code: string = "";
   dob: string = "";
   showLoader: boolean;
+  showErrorAlert: boolean;
+  error_message: string;
+  showInfoAlert: boolean;
+  info_message: string;
 
   constructor(
-    public alertCtrl: AlertController,
-    public loadingController: LoadingController,
     private router: Router,
     private userService: UserService
   ) {
@@ -51,20 +52,20 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {}
 
-  async ionViewWillEnter() {
-    // const loading = await this.loadingController.create({
-    //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-    //   // translucent: true,
-    //   // showBackdrop: false,
-    //   spinner: 'bubbles'
-    // });
-    // loading.present();
+  hideErrorAlert() {
+    this.showErrorAlert = false;
+  }
+
+  hideInfoAlert() {
+    this.showInfoAlert = false;
+  }
+
+  ionViewWillEnter() {
     this.showLoader = true;
 
-    this.userService.edit_profile(this.userId).subscribe(async response => {
+    this.userService.edit_profile(this.userId).subscribe(response => {
       console.log('User details...', response);
       //--- After getting value - dismiss loader
-      // loading.dismiss();
       this.showLoader = false;
       if(response.Result == true) {
         this.username = response.Data.UserName;
@@ -74,25 +75,17 @@ export class ProfileComponent implements OnInit {
         this.refer_code = response.Data.ReferralCode;
         this.dob = response.Data.DateofBirth;
       } else {
-        const alert = await this.alertCtrl.create({
-          message: response.Message,
-          buttons: ['OK']
-        });
-        alert.present();
+        this.showErrorAlert = true;
+        this.error_message = 'No record found!';
       }
-    }, async error => {
+    }, error => {
       //--- In case of error - dismiss loader and show error message
-      // loading.dismiss();
-      this.showLoader = false;
-      const alert = await this.alertCtrl.create({
-        message: 'Internal Error! Unable to load your details.',
-        buttons: ['OK']
-      });
-      alert.present();
+      this.showErrorAlert = true;
+      this.error_message = 'Internal Error!';
     });
   }
 
-  async onSubmit() {
+  onSubmit() {
 
     var mail_format = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -101,46 +94,21 @@ export class ProfileComponent implements OnInit {
     //--- Check empty credentials
     if(this.username.length == 0 || this.email.length == 0 || this.password.length == 0 || this.mobile_no.length == 0 || this.dob.length == 0) {
 
-      const alert = await this.alertCtrl.create({
-        message: 'Enter full credentials!',
-        buttons: ['OK']
-      });
-      alert.present();
+      this.showErrorAlert = true;
+      this.error_message = 'Enter full credentials!';
 
     } else if(!mail_format.test(this.email)) {
 
-      const alert = await this.alertCtrl.create({
-        message: 'Invalid email format!',
-        buttons: ['OK']
-      });
-      alert.present();
+      this.showErrorAlert = true;
+      this.error_message = 'Invalid email format!';
 
     } else if(!phone_num_format.test(this.mobile_no)) {
 
-      const alert = await this.alertCtrl.create({
-        message: 'Invalid mobile format!',
-        buttons: ['OK']
-      });
-      alert.present();
+      this.showErrorAlert = true;
+      this.error_message = 'Invalid mobile format!';
 
     } else {
-
-      //--- Start loader
-      // const loading = await this.loadingController.create({
-      //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      //   // translucent: true,
-      //   // showBackdrop: false,
-      //   spinner: 'bubbles'
-      // });
-      // loading.present();
       this.showLoader = true;
-
-      //--- Get only date 'yyyy-mm-dd', remove time [Not require now]
-      // if(this.dob != null){
-      //   let date_split = this.dob.split('T');
-      //   this.dob = date_split[0];
-      //   //console.log('Registration dob date......', this.dob);
-      // }
 
       let sendData = {
         ID: this.userId,
@@ -153,33 +121,21 @@ export class ProfileComponent implements OnInit {
       }
       //console.log('Profile send data...', sendData);
 
-      this.userService.update_profile(sendData).subscribe(async response => {
+      this.userService.update_profile(sendData).subscribe(response => {
         //--- After successful update - dismiss loader and show success message
-        // loading.dismiss();
         this.showLoader = false;
         if(response.Result == true) {
-          //console.log('Update response...', response);
-          const alert = await this.alertCtrl.create({
-            message: "Updated successfully!",
-            buttons: ['OK']
-          });
-          alert.present();
+          this.showInfoAlert = true;
+          this.info_message = 'Profile updated successfully!';
         } else {
-          const alert = await this.alertCtrl.create({
-            message: response.Message,
-            buttons: ['OK']
-          });
-          alert.present();
+          this.showErrorAlert = true;
+          this.error_message = 'Unable to update profile!';
         }
-      }, async error => {
+      }, error => {
         //--- In case of error - dismiss loader and show error message
-        // loading.dismiss();
         this.showLoader = false;
-        const alert = await this.alertCtrl.create({
-          message: error.message,
-          buttons: ['OK']
-        });
-        alert.present();
+        this.showErrorAlert = true;
+        this.error_message = 'Internal problem!';
       });
     }
   }

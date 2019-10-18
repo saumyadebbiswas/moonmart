@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController, Events, MenuController } from '@ionic/angular';
+import { Events, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from '../services';
 
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   username: string = "";
   password: string = "";
   showLoader: boolean;
-  showSucessAlert: boolean;
+  showErrorAlert: boolean;
   error_message: string;
 
   constructor(
@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {}
 
-  hideSucessAlert() {
-    this.showSucessAlert = false;
+  hideErrorAlert() {
+    this.showErrorAlert = false;
   }
 
   onSubmit() {
@@ -44,12 +44,7 @@ export class LoginComponent implements OnInit {
     //--- Check empty credentials
     if(this.username.length == 0 || this.password.length == 0) {
 
-      // const alert = await this.alertCtrl.create({
-      //   message: 'Enter full credentials!',
-      //   buttons: ['OK']
-      // });
-      // alert.present();
-      this.showSucessAlert = true;
+      this.showErrorAlert = true;
       this.error_message = "Enter full credentials!";
 
     } else {
@@ -71,7 +66,6 @@ export class LoginComponent implements OnInit {
 
       this.userService.login(sendData).subscribe(response => {
         //--- After successful login - dismiss loader, enable side menu, navigate to dashboard
-        // loading.dismiss();
         this.showLoader = false;
         if(response.Result == true) {
           console.log('Login response...', response);
@@ -80,28 +74,15 @@ export class LoginComponent implements OnInit {
           this.menuCtrl.enable(true);
           this.router.navigate(['/home']);
         } else {
-          this.showSucessAlert = true;
+          this.showErrorAlert = true;
           this.error_message = "Enter valid credentials!";
-          // const alert = await this.alertCtrl.create({
-          //   header: 'Error!',
-          //   message: 'Enter valid credentials!',
-          //   cssClass: 'custom-alertDanger',
-          //   buttons: ['OK']
-          // });
-          // alert.present();
         }
       }, error => {
         //--- In case of login error - dismiss loader, show error message
         // loading.dismiss();
         this.showLoader = false;
-        this.showSucessAlert = true;
-        this.error_message = "Internal error: " + error;
-        // const alert = await this.alertCtrl.create({
-        //   //message: error.message,
-        //   message: "Internal error! Please try again.",
-        //   buttons: ['OK']
-        // });
-        // alert.present();
+        this.showErrorAlert = true;
+        this.error_message = "Internal problem!";
       });
     }
   }
