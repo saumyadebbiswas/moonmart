@@ -22,8 +22,8 @@
         <!-- Slider images section -->
         <ion-row class="justify-content-center">
             <ion-col size-md="6" size-lg="5" size-xs="12" class="align-self-center no-pad">
-                <div class="banner" *ngIf="offers">
-                    <div id="demo" class="carousel slide" data-ride="carousel">
+                <div class="banner">
+                    <div *ngIf="offers.length > 0" id="demo" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ul class="carousel-indicators">
                             <li *ngFor="let offer of offers; let i = index;" data-target="#demo" attr.data-slide-to="i" [ngClass]="i == 0 ? 'active' : ''"></li>

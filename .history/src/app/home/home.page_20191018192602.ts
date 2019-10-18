@@ -96,25 +96,16 @@ export class HomePage {
       this.showLoader = false;
       if(response.Result == true) {
         console.log('responce data :.............', response);
-        if(response.Data && response.Data.length > 0){
-          response.Data.forEach(element => {
-            if(element.IsActive == 'Y') {
-              this.offers.push({ID: element.ID, ImgPathUrl: this.site_url + element.ImgPath, ImgPath: element.ImgPath});
-            }
-          });
-        }else{           
-            this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});            
-        }
         
-        // response.Data.forEach(element => {
-        //   if(element.IsActive == 'Y') {
-        //     this.offers.push({ID: element.ID, ImgPathUrl: this.site_url + element.ImgPath, ImgPath: element.ImgPath});
-        //   }
-        // });
+        response.Data.forEach(element => {
+          if(element.IsActive == 'Y') {
+            this.offers.push({ID: element.ID, ImgPathUrl: this.site_url + element.ImgPath, ImgPath: element.ImgPath});
+          }
+        });
 
-        // if(this.offers.length == 0) {
-        //   this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});
-        // }
+        if(this.offers.length == 0) {
+          this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});
+        }
         console.log('Home offers list...', this.offers);
       } else {
         this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});
