@@ -20,6 +20,7 @@ export class OfferproductsComponent implements OnInit {
   products_fixed:any = []; //--- This product list remain fixed even in serch
   showOfferImage: any = true;
   barcodeScannerOptions: BarcodeScannerOptions;
+  showLoader: boolean;
 
   constructor(
     private barcodeScanner: BarcodeScanner,
@@ -78,17 +79,19 @@ export class OfferproductsComponent implements OnInit {
   }
 
   async ionViewWillEnter() {
-    const loading = await this.loadingController.create({
-      // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      // translucent: true,
-      // showBackdrop: false,
-      spinner: 'bubbles'
-    });
-    loading.present();
+    // const loading = await this.loadingController.create({
+    //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+    //   // translucent: true,
+    //   // showBackdrop: false,
+    //   spinner: 'bubbles'
+    // });
+    // loading.present();
+    this.showLoader = true;
 
     this.productService.products_by_offerID(this.offerID).subscribe(async response => {
       //--- After getting value - dismiss loader
-      loading.dismiss();
+      // loading.dismiss();
+      this.showLoader = false;
       if(response.Result == true) {
         this.products_fixed =  response.Data;
         this.products = response.Data;
@@ -104,7 +107,8 @@ export class OfferproductsComponent implements OnInit {
       }
     }, async error => {
       //--- In case of error - dismiss loader and show error message
-      loading.dismiss();
+      // loading.dismiss();
+      this.showLoader = false;
       const alert = await this.alertCtrl.create({
         message: 'Internal Error! Unable to load products.',
         buttons: ['OK']
@@ -141,16 +145,18 @@ export class OfferproductsComponent implements OnInit {
     this.barcodeScanner.scan().then(async barcodeData => {
       let barcode = barcodeData.text;
 
-      const loading = await this.loadingController.create({
-        // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-        // translucent: true,
-        // showBackdrop: false,
-        spinner: 'bubbles'
-      });
-      loading.present();
+      // const loading = await this.loadingController.create({
+      //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      //   // translucent: true,
+      //   // showBackdrop: false,
+      //   spinner: 'bubbles'
+      // });
+      // loading.present();
+      this.showLoader = true;
   
       this.productService.product_details_by_barcode(barcode).subscribe(async response => {
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         if(response.Result == true) {
           if(response.Data[0].IsActive == 'Y') {
             //--- Get the product id and navigate to offer product details page
@@ -174,7 +180,8 @@ export class OfferproductsComponent implements OnInit {
         }
       }, async error => {
         //--- In case of error - dismiss loader and show error message
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         const alert = await this.alertCtrl.create({
           message: 'Internal Error: ' + error,
           buttons: ['OK']

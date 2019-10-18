@@ -23,6 +23,7 @@ export class HomePage {
     {color: 'gray'},
     {color: 'purple'},
     {color: 'blue'}];
+  showLoader: boolean;
 
   //--- Configuration for Slider
   // slideOptsOne = {
@@ -48,8 +49,6 @@ export class HomePage {
 
       this.menuCtrl.enable(true);
       this.site_url = SITE_URL;
-
-
     } else {			 
       this.router.navigate(['/login']);			  
     }
@@ -82,17 +81,19 @@ export class HomePage {
 
   async ionViewWillEnter() {
     this.offers = [];
-    const loading1 = await this.loadingController.create({
-      // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      // translucent: true,
-      // showBackdrop: false,
-      spinner: 'bubbles'
-    });
-    loading1.present();
+    // const loading1 = await this.loadingController.create({
+    //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+    //   // translucent: true,
+    //   // showBackdrop: false,
+    //   spinner: 'bubbles'
+    // });
+    // loading1.present();
+    this.showLoader = true;
 
     this.productService.offer_List().subscribe(async response => {
       //--- After getting value - dismiss loader
-      loading1.dismiss();
+      // loading1.dismiss();
+      this.showLoader = false;
       if(response.Result == true) {
         response.Data.forEach(element => {
           if(element.IsActive == 'Y') {
@@ -110,22 +111,25 @@ export class HomePage {
       }
     }, async error => {
       //--- In case of error - dismiss loader and show error message
-      loading1.dismiss();
+      // loading1.dismiss();
+      this.showLoader = false;
       this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});
       console.log('Home offers list error1: ', error);
     });
 
-    const loading = await this.loadingController.create({
-      // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      // translucent: true,
-      // showBackdrop: false,
-      spinner: 'bubbles'
-    });
-    loading.present();
+    // const loading = await this.loadingController.create({
+    //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+    //   // translucent: true,
+    //   // showBackdrop: false,
+    //   spinner: 'bubbles'
+    // });
+    // loading.present();
+    this.showLoader = true;
 
     this.categoryService.category_list_all().subscribe(async response => {
       //--- After getting value - dismiss loader
-      loading.dismiss();
+      // loading.dismiss();
+      this.showLoader = false;
       if(response.Result == true) {
         this.catrgories = response.Data;
         //console.log('Home categories list...', this.catrgories);
@@ -138,7 +142,8 @@ export class HomePage {
       }
     }, async error => {
       //--- In case of error - dismiss loader and show error message
-      loading.dismiss();
+      // loading.dismiss();
+      this.showLoader = false;
       const alert = await this.alertCtrl.create({
         message: 'Internal Error! Unable to load categories.',
         buttons: ['OK']

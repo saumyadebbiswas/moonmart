@@ -11,6 +11,7 @@ import { UserService, ProductService } from '../services';
 export class NotificationsComponent implements OnInit {
 
   offers: any = [];
+  showLoader: boolean;
 
   constructor(
     public alertCtrl: AlertController,
@@ -30,17 +31,19 @@ export class NotificationsComponent implements OnInit {
   ngOnInit() {}
 
   async ionViewWillEnter() {
-    const loading = await this.loadingController.create({
-      // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      // translucent: true,
-      // showBackdrop: false,
-      spinner: 'bubbles'
-    });
-    loading.present();
+    // const loading = await this.loadingController.create({
+    //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+    //   // translucent: true,
+    //   // showBackdrop: false,
+    //   spinner: 'bubbles'
+    // });
+    // loading.present();
+    this.showLoader = true;
 
     this.productService.offer_List().subscribe(async response => {
       //--- After getting value - dismiss loader
-      loading.dismiss();
+      // loading.dismiss();
+      this.showLoader = false;
       if(response.Result == true) {
         this.offers = response.Data;
         //console.log('Offers list...', this.offers);
@@ -55,7 +58,8 @@ export class NotificationsComponent implements OnInit {
       }
     }, async error => {
       //--- In case of error - dismiss loader and show error message
-      loading.dismiss();
+      // loading.dismiss();
+      this.showLoader = false;
       const alert = await this.alertCtrl.create({
         message: 'Internal Error! Unable to load offers.',
         buttons: ['OK']

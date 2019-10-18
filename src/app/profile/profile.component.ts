@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   mobile_no: string = "";
   refer_code: string = "";
   dob: string = "";
+  showLoader: boolean;
 
   constructor(
     public alertCtrl: AlertController,
@@ -51,18 +52,20 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {}
 
   async ionViewWillEnter() {
-    const loading = await this.loadingController.create({
-      // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      // translucent: true,
-      // showBackdrop: false,
-      spinner: 'bubbles'
-    });
-    loading.present();
+    // const loading = await this.loadingController.create({
+    //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+    //   // translucent: true,
+    //   // showBackdrop: false,
+    //   spinner: 'bubbles'
+    // });
+    // loading.present();
+    this.showLoader = true;
 
     this.userService.edit_profile(this.userId).subscribe(async response => {
       console.log('User details...', response);
       //--- After getting value - dismiss loader
-      loading.dismiss();
+      // loading.dismiss();
+      this.showLoader = false;
       if(response.Result == true) {
         this.username = response.Data.UserName;
         this.email = response.Data.EmailID;
@@ -79,7 +82,8 @@ export class ProfileComponent implements OnInit {
       }
     }, async error => {
       //--- In case of error - dismiss loader and show error message
-      loading.dismiss();
+      // loading.dismiss();
+      this.showLoader = false;
       const alert = await this.alertCtrl.create({
         message: 'Internal Error! Unable to load your details.',
         buttons: ['OK']
@@ -122,13 +126,14 @@ export class ProfileComponent implements OnInit {
     } else {
 
       //--- Start loader
-      const loading = await this.loadingController.create({
-        // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-        // translucent: true,
-        // showBackdrop: false,
-        spinner: 'bubbles'
-      });
-      loading.present();
+      // const loading = await this.loadingController.create({
+      //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      //   // translucent: true,
+      //   // showBackdrop: false,
+      //   spinner: 'bubbles'
+      // });
+      // loading.present();
+      this.showLoader = true;
 
       //--- Get only date 'yyyy-mm-dd', remove time [Not require now]
       // if(this.dob != null){
@@ -150,7 +155,8 @@ export class ProfileComponent implements OnInit {
 
       this.userService.update_profile(sendData).subscribe(async response => {
         //--- After successful update - dismiss loader and show success message
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         if(response.Result == true) {
           //console.log('Update response...', response);
           const alert = await this.alertCtrl.create({
@@ -167,7 +173,8 @@ export class ProfileComponent implements OnInit {
         }
       }, async error => {
         //--- In case of error - dismiss loader and show error message
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         const alert = await this.alertCtrl.create({
           message: error.message,
           buttons: ['OK']

@@ -18,6 +18,7 @@ export class SignupComponent implements OnInit {
   refer_code: string = "";
   dob: string = "";
   terms_check = false;
+  showLoader: boolean;
 
   constructor(
     public menuCtrl: MenuController,
@@ -99,13 +100,14 @@ export class SignupComponent implements OnInit {
     } else {
 
       //--- Start loader
-      const loading = await this.loadingController.create({
-        // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-        // translucent: true,
-        // showBackdrop: false,
-        spinner: 'bubbles'
-      });
-      loading.present();
+      // const loading = await this.loadingController.create({
+      //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      //   // translucent: true,
+      //   // showBackdrop: false,
+      //   spinner: 'bubbles'
+      // });
+      // loading.present();
+      this.showLoader = true;
 
       //--- Get only date 'yyyy-mm-dd', remove time [Not require now]
       // if(this.dob != null){
@@ -126,7 +128,8 @@ export class SignupComponent implements OnInit {
 
       this.userService.register(sendData).subscribe(async response => {
         //--- After successful registration - dismiss loader and navigate to login page
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         if(response.Result == true) {
           //console.log('Register response...', response);
           const alert = await this.alertCtrl.create({
@@ -145,7 +148,8 @@ export class SignupComponent implements OnInit {
         }
       }, async error => {
         //--- In case of error - dismiss loader and show error message
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         const alert = await this.alertCtrl.create({
           message: error.message,
           buttons: ['OK']

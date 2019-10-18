@@ -13,6 +13,7 @@ export class ScanComponent implements OnInit {
   
   scannedData: any = [];
   barcodeScannerOptions: BarcodeScannerOptions;
+  showLoader: boolean;
 
   constructor(
     private router: Router,
@@ -43,16 +44,18 @@ export class ScanComponent implements OnInit {
     this.barcodeScanner.scan().then(async barcodeData => {
       let barcode = barcodeData.text;
 
-      const loading = await this.loadingController.create({
-        // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-        // translucent: true,
-        // showBackdrop: false,
-        spinner: 'bubbles'
-      });
-      loading.present();
+      // const loading = await this.loadingController.create({
+      //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      //   // translucent: true,
+      //   // showBackdrop: false,
+      //   spinner: 'bubbles'
+      // });
+      // loading.present();
+      this.showLoader = true;
   
       this.productService.product_details_by_barcode(barcode).subscribe(async response => {
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         if(response.Result == true) {
           if(response.Data[0].IsActive == 'Y') {
             //--- Get the product id and navigate to product details page
@@ -77,7 +80,8 @@ export class ScanComponent implements OnInit {
         }
       }, async error => {
         //--- In case of error - dismiss loader and show error message
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         const alert = await this.alertCtrl.create({
           message: 'Internal Error: ' + error,
           buttons: ['OK']

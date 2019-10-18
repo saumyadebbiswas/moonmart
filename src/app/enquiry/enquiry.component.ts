@@ -16,6 +16,7 @@ export class EnquiryComponent implements OnInit {
   email: string = "";
   subject: string = "";
   message: string = "";
+  showLoader: boolean;
 
   constructor(
     public alertCtrl: AlertController,
@@ -64,13 +65,14 @@ export class EnquiryComponent implements OnInit {
     } else {
 
       //--- Start loader
-      const loading = await this.loadingController.create({
-        // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-        // translucent: true,
-        // showBackdrop: false,
-        spinner: 'bubbles'
-      });
-      loading.present();
+      // const loading = await this.loadingController.create({
+      //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      //   // translucent: true,
+      //   // showBackdrop: false,
+      //   spinner: 'bubbles'
+      // });
+      // loading.present();
+      this.showLoader = true;
 
       let sendData = {
         ID: this.userId,
@@ -83,7 +85,8 @@ export class EnquiryComponent implements OnInit {
 
       this.userService.enquiry(sendData).subscribe(async response => {
         //--- After successful send message - dismiss loader and show success message
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         if(response.Result == true) {
           //console.log('Update response...', response);
           const alert = await this.alertCtrl.create({
@@ -100,7 +103,8 @@ export class EnquiryComponent implements OnInit {
         }
       }, async error => {
         //--- In case of error - dismiss loader and show error message
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         const alert = await this.alertCtrl.create({
           message: "Internal Error! Please try again.",
           buttons: ['OK']

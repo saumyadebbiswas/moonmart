@@ -132,3 +132,11 @@ hr{
     font-size: 12px;
     // position: absolute;
 }
+
+.custom-alertDanger
+  .alert-ios .alert-message,
+  .alert-md .alert-message {
+    max-height: 100%;
+    //color: white !important;
+    background-color: #eb1d23 !important;
+}

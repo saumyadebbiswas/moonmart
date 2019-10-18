@@ -33,9 +33,9 @@
         </div>
       </ion-col>
       <!-- Category image section -->
-      <ion-col *ngIf="showOfferImage == true" class="align-self-center" size-md="6" size-lg="5" size-xs="12" class="no-pad">
+      <ion-col class="align-self-center" size-md="6" size-lg="5" size-xs="12" class="no-pad">
         <div class="banner">
-          <img src="{{ imagePath }}" alt="">
+          <img *ngIf="showOfferImage == true" src="{{ imagePath }}" alt="">
         </div>
       </ion-col>
     </ion-row>
@@ -162,4 +162,12 @@ viewBox="0 0 482.9 482.9" style="enable-background:new 0 0 482.9 482.9;" xml:spa
     </div>
   </ion-grid>
 </ion-content>
+
+<div class="overlay_loader" *ngIf="showLoader">
+  <div class="vertical-align-wrap2">
+    <div class="vertical-align vertical-align--middle">
+      <img src="/assets/spinner.gif" alt="" >
+    </div>
+  </div>
+</div>
   

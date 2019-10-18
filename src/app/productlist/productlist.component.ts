@@ -20,6 +20,7 @@ export class ProductlistComponent implements OnInit {
   products_fixed:any = []; //--- This product list remain fixed even in serch
   cat_image: any = true;
   barcodeScannerOptions: BarcodeScannerOptions;
+  showLoader: boolean;
 
   constructor(
     private barcodeScanner: BarcodeScanner,
@@ -58,18 +59,20 @@ export class ProductlistComponent implements OnInit {
       //   this.imagePath = this.site_url + this.route.snapshot.paramMap.get('imagePath');
 
       //--- Get category image using category ID
-      const loading = await this.loadingController.create({
-        // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-        // translucent: true,
-        // showBackdrop: false,
-        spinner: 'bubbles'
-      });
-      loading.present();
+      // const loading = await this.loadingController.create({
+      //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      //   // translucent: true,
+      //   // showBackdrop: false,
+      //   spinner: 'bubbles'
+      // });
+      // loading.present();
+      this.showLoader = true;
   
       this.productService.category_details(this.categoryID).subscribe(async response => {
         console.log('Product list category details response...', response);
         //--- After getting value - dismiss loader
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         if(response.Result == true) {
           if(response.Data.ImgPath != null) {
             this.imagePath = this.site_url + response.Data.ImgPath;
@@ -83,7 +86,8 @@ export class ProductlistComponent implements OnInit {
         }
       }, async error => {
         //--- In case of error - dismiss loader and show error message
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         this.imagePath = '/assets/images/product-img.png'; //--- Default image [Set no-image-available]
         console.log('Product list category details error: ', error);
       });
@@ -107,17 +111,19 @@ export class ProductlistComponent implements OnInit {
   }
 
   async ionViewWillEnter() {
-    const loading = await this.loadingController.create({
-      // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      // translucent: true,
-      // showBackdrop: false,
-      spinner: 'bubbles'
-    });
-    loading.present();
+    // const loading = await this.loadingController.create({
+    //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+    //   // translucent: true,
+    //   // showBackdrop: false,
+    //   spinner: 'bubbles'
+    // });
+    // loading.present();
+    this.showLoader = true;
 
     this.productService.products_by_categoryID(this.categoryID).subscribe(async response => {
       //--- After getting value - dismiss loader
-      loading.dismiss();
+      // loading.dismiss();
+      this.showLoader = false;
       if(response.Result == true) {
         this.products_fixed =  response.Data;
         this.products = response.Data;
@@ -133,7 +139,8 @@ export class ProductlistComponent implements OnInit {
       }
     }, async error => {
       //--- In case of error - dismiss loader and show error message
-      loading.dismiss();
+      // loading.dismiss();
+      this.showLoader = false;
       const alert = await this.alertCtrl.create({
         message: 'Internal Error! Unable to load products.',
         buttons: ['OK']
@@ -170,16 +177,18 @@ export class ProductlistComponent implements OnInit {
     this.barcodeScanner.scan().then(async barcodeData => {
       let barcode = barcodeData.text;
 
-      const loading = await this.loadingController.create({
-        // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-        // translucent: true,
-        // showBackdrop: false,
-        spinner: 'bubbles'
-      });
-      loading.present();
+      // const loading = await this.loadingController.create({
+      //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      //   // translucent: true,
+      //   // showBackdrop: false,
+      //   spinner: 'bubbles'
+      // });
+      // loading.present();
+      this.showLoader = true;
   
       this.productService.product_details_by_barcode(barcode).subscribe(async response => {
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         if(response.Result == true) {
           if(response.Data[0].IsActive == 'Y') {
             //--- Get the product id and navigate to product details page
@@ -203,7 +212,8 @@ export class ProductlistComponent implements OnInit {
         }
       }, async error => {
         //--- In case of error - dismiss loader and show error message
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         const alert = await this.alertCtrl.create({
           message: 'Internal Error: ' + error,
           buttons: ['OK']

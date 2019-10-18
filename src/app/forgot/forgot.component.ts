@@ -11,6 +11,7 @@ import { UserService } from '../services';
 export class ForgotComponent implements OnInit {
 
   email: string = "";
+  showLoader: boolean;
 
   constructor(
     public menuCtrl: MenuController,
@@ -54,19 +55,21 @@ export class ForgotComponent implements OnInit {
     } else {
 
       //--- Start loader
-      const loading = await this.loadingController.create({
-        // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-        // translucent: true,
-        // showBackdrop: false,
-        spinner: 'bubbles'
-      });
-      loading.present();
+      // const loading = await this.loadingController.create({
+      //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+      //   // translucent: true,
+      //   // showBackdrop: false,
+      //   spinner: 'bubbles'
+      // });
+      // loading.present();
+      this.showLoader = true;
 
       console.log('Forgot password email data...', this.email);
 
       this.userService.forgot_Password(this.email).subscribe(async response => {
         //console.log('Forgot password response...', response);
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         if(response.Result == true) {
           const alert = await this.alertCtrl.create({
             message: "New password send to your mail ID.",
@@ -84,7 +87,8 @@ export class ForgotComponent implements OnInit {
         }
       }, async error => {
         //--- In case of login error - dismiss loader, show error message
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         const alert = await this.alertCtrl.create({
           message: error.message,
           buttons: ['OK']

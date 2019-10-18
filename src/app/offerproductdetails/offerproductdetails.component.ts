@@ -18,6 +18,7 @@ export class OfferproductdetailsComponent implements OnInit {
   populer_products: any = [];
   discount: any = null;
   imagePath: string;
+  showLoader: boolean;
 
   constructor(
     public alertCtrl: AlertController,
@@ -46,15 +47,18 @@ export class OfferproductdetailsComponent implements OnInit {
   }
 
   async ionViewWillEnter() {
-    const loading = await this.loadingController.create({
-      // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
-      // translucent: true,
-      // showBackdrop: false,
-      spinner: 'bubbles'
-    });
-    loading.present();
+    this.populer_products = [];
+    // const loading = await this.loadingController.create({
+    //   // message: '<ion-img src="/assets/spinner.gif" alt="Loading..."></ion-img>',
+    //   // translucent: true,
+    //   // showBackdrop: false,
+    //   spinner: 'bubbles'
+    // });
+    // loading.present();
+    this.showLoader = true;
 
     this.productService.offer_product_details(this.productId).subscribe(async response => {
+      this.showLoader = false;
       if(response.Result == true) {
         if(response.Data.IsActive == 'Y') {
           this.product = response.Data;
@@ -82,10 +86,12 @@ export class OfferproductdetailsComponent implements OnInit {
           }
           
           if(this.product.Category != null) {
+            this.showLoader = true;
             //--- Get all other products under same category as populer products
             this.productService.products_by_offerID(this.product.OfferName).subscribe(async response => {
               //--- After getting value - dismiss loader
-              loading.dismiss();
+              // loading.dismiss();
+              this.showLoader = false;
               if(response.Result == true) {
                 //--- Discard the current product from populer products
                 response.Data.forEach(element => {
@@ -101,12 +107,14 @@ export class OfferproductdetailsComponent implements OnInit {
             });
           } else {
             //--- If category id not found - dismiss loader
-            loading.dismiss();
+            // loading.dismiss();
+            this.showLoader = false;
             console.log('Product category null...');
           }
 
         } else {
-          loading.dismiss();
+          // loading.dismiss();
+          this.showLoader = false;
           const alert = await this.alertCtrl.create({
             message: 'This product is no more avialble.',
             buttons: ['OK']
@@ -116,7 +124,8 @@ export class OfferproductdetailsComponent implements OnInit {
           this.router.navigate(['/alert']);
         }
       } else {
-        loading.dismiss();
+        // loading.dismiss();
+        this.showLoader = false;
         const alert = await this.alertCtrl.create({
           message: response.Message,
           buttons: ['OK']
@@ -127,7 +136,8 @@ export class OfferproductdetailsComponent implements OnInit {
       }
     }, async error => {
       //--- In case of error - dismiss loader and show error message
-      loading.dismiss();
+      // loading.dismiss();
+      this.showLoader = false;
       const alert = await this.alertCtrl.create({
         message: 'Internal Error! Unable to load product details.',
         buttons: ['OK']

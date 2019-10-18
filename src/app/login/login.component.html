@@ -36,3 +36,24 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<div class="overlay_loader" *ngIf="showLoader">
+  <div class="vertical-align-wrap2">
+    <div class="vertical-align vertical-align--middle">
+      <img src="/assets/spinner.gif" alt="" >
+    </div>
+  </div>
+</div>
+
+<div class="overlay_alert" *ngIf="showSucessAlert">
+  <div class="vertical-align-wrap1">
+    <div class="vertical-align vertical-align--middle">
+      <div class="alert alert-danger">
+        <strong>Error!</strong> {{ error_message }}
+        <button type="button" (click)="hideSucessAlert()" class="close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
