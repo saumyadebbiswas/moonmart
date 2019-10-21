@@ -28,7 +28,7 @@
 
             <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
               <ion-slide *ngFor="let offer of offers; let i = index;">
-                <img src="{{ offer.ImgPathUrl }}">
+                <img src="{{ offer.ImgPathUrl }}" (click)="moveOfferProductList(offer.ID, offer.ImgPath)">
               </ion-slide>
             </ion-slides>
             
