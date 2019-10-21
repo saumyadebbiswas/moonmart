@@ -11,7 +11,7 @@
     <div class="notification">
       <a routerLink="/notifications">
         <img src="/assets/images/notification-icon.png" alt="">
-        <span>2</span>
+        <span *ngIf="no_of_notification > 0">{{ no_of_notification }}</span>
       </a>
     </div>
   </div>

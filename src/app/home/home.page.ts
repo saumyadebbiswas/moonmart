@@ -14,6 +14,7 @@ export class HomePage {
   site_url: string;
   offers: any = [];
   catrgories: any = [];
+  no_of_notification: number = 0;
   bg_color: any = [
     {color: 'blue'},
     {color: 'yellow'},
@@ -98,6 +99,7 @@ export class HomePage {
       // loading1.dismiss();
       this.showLoader = false;
       if(response.Result == true) {
+        this.no_of_notification = response.Data.length;
         response.Data.forEach(element => {
           if(element.IsActive == 'Y') {
             this.offers.push({ID: element.ID, ImgPathUrl: this.site_url + element.ImgPath, ImgPath: element.ImgPath});
