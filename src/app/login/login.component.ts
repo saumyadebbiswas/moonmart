@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
         //--- After successful login - dismiss loader, enable side menu, navigate to dashboard
         this.showLoader = false;
         if(response.Result == true) {
-          console.log('Login response...', response);
+          //console.log('Login response...', response);
           this.menuCtrl.enable(true);
           //--- Set event data which will access from app component page after login
           this.events.publish('userLogin', {loggedin: true});
