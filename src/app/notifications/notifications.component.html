@@ -7,7 +7,7 @@
           <h2> Notifications</h2>
         </div>
 
-        <div class="back-body">
+        <div *ngIf="no_of_offers > 0" class="back-body">
           <div *ngFor="let offer of offers;" [ngClass]="offer.IsActive == 'Y' ? 'offer-sec' : ''">
             <div *ngIf="offer.IsActive == 'Y'" (click)="moveOfferProductList(offer.ID, offer.ImgPath)">
               <h4>{{ offer.OfferName }}</h4>
@@ -21,6 +21,14 @@
             <img src="/assets/images/banner.png" alt="">
           </div> -->
         </div>
+
+        <div *ngIf="no_of_offers == 0" class="back-body">
+          <div class="offer-sec">
+            <h4>No offer available</h4>
+            <p><!-- Require for css design --></p>
+          </div>
+        </div>
+
       </ion-col>
     </ion-row>
   </ion-grid>

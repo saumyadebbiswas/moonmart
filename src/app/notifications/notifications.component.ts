@@ -10,6 +10,7 @@ import { UserService, ProductService } from '../services';
 export class NotificationsComponent implements OnInit {
 
   offers: any = [];
+  no_of_offers: number = 0;
   showLoader: boolean;
   showErrorAlert: boolean;
   error_message: string;
@@ -43,6 +44,10 @@ export class NotificationsComponent implements OnInit {
       this.showLoader = false;
       if(response.Result == true) {
         this.offers = response.Data;
+
+        if(response.Data) {
+          this.no_of_offers = response.Data.length;
+        }
         //console.log('Offers list...', this.offers);
       } else {
         this.showErrorAlert = true;

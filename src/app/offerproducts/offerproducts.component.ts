@@ -18,6 +18,7 @@ export class OfferproductsComponent implements OnInit {
   products: any = []; //--- This product list changed in serch time
   products_fixed:any = []; //--- This product list remain fixed even in serch
   showOfferImage: any = true;
+  no_of_notification: number = 0;
   barcodeScannerOptions: BarcodeScannerOptions;
   showLoader: boolean;
   showErrorAlert: boolean;
@@ -93,6 +94,25 @@ export class OfferproductsComponent implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.showLoader = true;
+
+    this.productService.offer_List().subscribe(response => {
+      //--- After getting value - dismiss loader
+      // loading1.dismiss();
+      this.showLoader = false;
+      if(response.Result == true) {
+        this.no_of_notification = response.Data.length;
+        // console.log('Product list no of notification...', no_of_notification);
+      } else {
+        console.log('Product list response.Result false...');
+      }
+    }, async error => {
+      //--- In case of error - dismiss loader and show error message
+      // loading1.dismiss();
+      this.showLoader = false;
+      console.log('Product list internal problem: ', error);
+    });
+
     this.showLoader = true;
 
     this.productService.products_by_offerID(this.offerID).subscribe(response => {

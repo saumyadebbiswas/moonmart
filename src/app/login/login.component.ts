@@ -69,9 +69,9 @@ export class LoginComponent implements OnInit {
         this.showLoader = false;
         if(response.Result == true) {
           console.log('Login response...', response);
+          this.menuCtrl.enable(true);
           //--- Set event data which will access from app component page after login
           this.events.publish('userLogin', {loggedin: true});
-          this.menuCtrl.enable(true);
           this.router.navigate(['/home']);
           // window.location.reload();
           // window.location.href = '/home';
