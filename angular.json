@@ -37,9 +37,13 @@
               },
               {
                 "input": "src/global.scss"
-              }
+              },
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/font-awesome/css/font-awesome.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"]
           },
           "configurations": {
             "production": {
@@ -98,8 +102,10 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "styles": [],
-            "scripts": [],
+            "styles": [
+            ],
+            "scripts": [
+            ],
             "assets": [
               {
                 "glob": "favicon.ico",

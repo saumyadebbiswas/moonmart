@@ -92,17 +92,19 @@ export class ProfileComponent implements OnInit {
     var phone_num_format = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
 
     //--- Check empty credentials
-    if(this.username.length == 0 || this.email.length == 0 || this.password.length == 0 || this.mobile_no.length == 0 || this.dob.length == 0) {
+    if(this.password.length == 0 || this.mobile_no.length == 0 || this.dob.length == 0) {
 
       this.showErrorAlert = true;
       this.error_message = 'Enter full credentials!';
 
-    } else if(!mail_format.test(this.email)) {
+    } 
+    // else if(!mail_format.test(this.email)) {
 
-      this.showErrorAlert = true;
-      this.error_message = 'Invalid email format!';
+    //   this.showErrorAlert = true;
+    //   this.error_message = 'Invalid email format!';
 
-    } else if(!phone_num_format.test(this.mobile_no)) {
+    // } 
+    else if(!phone_num_format.test(this.mobile_no)) {
 
       this.showErrorAlert = true;
       this.error_message = 'Invalid mobile format!';

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { MenuController, Events, IonSlides } from '@ionic/angular';
 import { UserService, CategoryService, ProductService } from '../services';
 import { SITE_URL } from '../services/constants';
 
@@ -38,23 +38,32 @@ export class HomePage {
   // };
   // isBeginningSlide: any = true;
   // isEndSlide: any = false;
+  slideOptions = {
+    initialSlide: 1,
+    speed: 400,
+  };
 
   constructor(
     public menuCtrl: MenuController,
     private userService: UserService,
     private categoryService: CategoryService,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private events: Events
   ) {
     //--- Redirect to login page if user not log in
     if(this.userService.currentUserValue){
       console.log('Location: HomePage');
 
-      this.menuCtrl.enable(true);
+      //this.menuCtrl.enable(true);
       this.site_url = SITE_URL;
     } else {			 
       this.router.navigate(['/login']);			  
     }
+  }
+  
+  slidesDidLoad(slides: IonSlides) {
+    slides.startAutoplay();
   }
 
   hideErrorAlert() {
@@ -90,7 +99,10 @@ export class HomePage {
   //   });
   // }
 
+  ngOnInit() {}
+
   ionViewWillEnter() {
+
     this.offers = [];
     this.showLoader = true;
 
