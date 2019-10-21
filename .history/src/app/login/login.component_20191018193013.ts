@@ -73,8 +73,6 @@ export class LoginComponent implements OnInit {
           this.events.publish('userLogin', {loggedin: true});
           this.menuCtrl.enable(true);
           this.router.navigate(['/home']);
-          // window.location.reload();
-          // window.location.href = '/home';
         } else {
           this.showErrorAlert = true;
           this.error_message = "Enter valid credentials!";

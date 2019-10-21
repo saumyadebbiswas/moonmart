@@ -72,9 +72,9 @@ export class LoginComponent implements OnInit {
           //--- Set event data which will access from app component page after login
           this.events.publish('userLogin', {loggedin: true});
           this.menuCtrl.enable(true);
-          this.router.navigate(['/home']);
+          // this.router.navigate(['/home']);
           // window.location.reload();
-          // window.location.href = '/home';
+          window.location.href = '/home'
         } else {
           this.showErrorAlert = true;
           this.error_message = "Enter valid credentials!";

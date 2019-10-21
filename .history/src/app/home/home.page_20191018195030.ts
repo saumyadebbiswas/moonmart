@@ -105,11 +105,9 @@ export class HomePage {
               this.offers.push({ID: element.ID, ImgPathUrl: this.site_url + element.ImgPath, ImgPath: element.ImgPath});
             }
           });
-          console.log('offers :.................', this.offers);  
-          // window.location.reload();        
+          console.log('offers :.................', this.offers);          
         }else{           
-            this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});   
-            // window.location.reload();         
+            this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});            
         }
         
         // response.Data.forEach(element => {

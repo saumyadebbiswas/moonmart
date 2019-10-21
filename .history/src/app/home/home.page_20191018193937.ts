@@ -89,7 +89,7 @@ export class HomePage {
   //   });
   // }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.offers = [];
     this.showLoader = true;
 
@@ -105,11 +105,8 @@ export class HomePage {
               this.offers.push({ID: element.ID, ImgPathUrl: this.site_url + element.ImgPath, ImgPath: element.ImgPath});
             }
           });
-          console.log('offers :.................', this.offers);  
-          // window.location.reload();        
         }else{           
-            this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});   
-            // window.location.reload();         
+            this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});            
         }
         
         // response.Data.forEach(element => {

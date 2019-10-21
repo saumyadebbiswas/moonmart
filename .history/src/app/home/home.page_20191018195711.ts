@@ -106,10 +106,10 @@ export class HomePage {
             }
           });
           console.log('offers :.................', this.offers);  
-          // window.location.reload();        
+          window.location.reload();        
         }else{           
             this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});   
-            // window.location.reload();         
+            window.location.reload();         
         }
         
         // response.Data.forEach(element => {
