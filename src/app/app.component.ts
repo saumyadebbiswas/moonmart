@@ -57,7 +57,6 @@ export class AppComponent {
     //--- Get event data set at login time from login page
     events.subscribe('userLogin', (data) => {
       // console.log('Login event data...', data.loggedin);
-      //window.location.reload();
 
       //--- Get logged cuurent user details
       if(this.userService.currentUserValue) {		   
