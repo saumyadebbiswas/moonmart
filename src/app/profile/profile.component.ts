@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit {
     this.showLoader = true;
 
     this.userService.edit_profile(this.userId).subscribe(response => {
-      console.log('User details...', response);
+      // console.log('User details...', response);
       //--- After getting value - dismiss loader
       this.showLoader = false;
       if(response.Result == true) {

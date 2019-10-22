@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, Events, IonSlides } from '@ionic/angular';
 import { UserService, CategoryService, ProductService } from '../services';
@@ -30,14 +30,6 @@ export class HomePage {
   showInfoAlert: boolean;
   info_message: string;
 
-  //--- Configuration for Slider
-  // slideOptsOne = {
-  //   initialSlide: 0,
-  //   slidesPerView: 1,
-  //   autoplay:true
-  // };
-  // isBeginningSlide: any = true;
-  // isEndSlide: any = false;
   slideOptions = {
     initialSlide: 1,
     speed: 400,
@@ -61,9 +53,21 @@ export class HomePage {
       this.router.navigate(['/login']);			  
     }
   }
+
+  @ViewChild('slider', null) Slides: IonSlides;
+
+  ionViewDidEnter() {
+    // console.log('ionViewDidEnter...', this.Slides);
+    this.Slides.startAutoplay();
+  }
   
-  slidesDidLoad(slides: IonSlides) {
-    slides.startAutoplay();
+  ionViewWillLeave(){
+    this.Slides.stopAutoplay();
+  }
+  
+  slidesDidLoad() {
+    // console.log('slidesDidLoad...');
+    this.Slides.startAutoplay();
   }
 
   hideErrorAlert() {
@@ -73,31 +77,6 @@ export class HomePage {
   hideInfoAlert() {
     this.showInfoAlert = false;
   }
-
-  // //--- Method called when slide is changed by drag or navigation
-  // SlideDidChange(object, slideView) {
-  //   this.checkIfNavDisabled(object, slideView);
-  // }
- 
-  // //--- Call methods to check if slide is first or last to enable disbale navigation  
-  // checkIfNavDisabled(object, slideView) {
-  //   this.checkisBeginning(object, slideView);
-  //   this.checkisEnd(object, slideView);
-  // }
- 
-  // //--- Check slide begining
-  // checkisBeginning(object, slideView) {
-  //   slideView.isBeginning().then((istrue) => {
-  //     this.isBeginningSlide = istrue;
-  //   });
-  // }
-
-  // //--- Check slide end
-  // checkisEnd(object, slideView) {
-  //   slideView.isEnd().then((istrue) => {
-  //     this.isEndSlide = istrue;
-  //   });
-  // }
 
   ngOnInit() {}
 

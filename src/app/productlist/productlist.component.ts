@@ -58,7 +58,7 @@ export class ProductlistComponent implements OnInit {
       this.showLoader = true;
   
       this.productService.category_details(this.categoryID).subscribe(response => {
-        console.log('Product list category details response...', response);
+        // console.log('Product list category details response...', response);
         //--- After getting value - dismiss loader
         this.showLoader = false;
         if(response.Result == true) {
