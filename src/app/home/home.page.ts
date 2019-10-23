@@ -105,7 +105,7 @@ export class HomePage {
 
   ionViewWillEnter() {
 
-    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("mySidenavHome").style.width = "0";
     this.offers = [];
     this.showLoader = true;
 
@@ -167,17 +167,16 @@ export class HomePage {
   }
 
   openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("mySidenavHome").style.width = "100%";
   }
   
   /* Set the width of the side navigation to 0 */
   closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("mySidenavHome").style.width = "0";
   }
 
   movePage( pageURL ) {
     // console.log('Page URL...', pageURL);
-    document.getElementById("mySidenav").style.width = "0";
     this.router.navigate([pageURL]);
   }
 

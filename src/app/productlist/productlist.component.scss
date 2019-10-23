@@ -51,13 +51,13 @@
 
 .ex-pad-bottom{
     padding-bottom: 70px;
-    z-index: 99999;
+    //z-index: 99;
     position: relative;
     padding-top: 200px;
 }
 
 .search{
-    z-index: 999999;
+    z-index: 1;
     position: fixed;
     top: 9%;
 }

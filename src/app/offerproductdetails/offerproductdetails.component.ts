@@ -13,7 +13,6 @@ export class OfferproductdetailsComponent implements OnInit {
   site_url: string;
   productId: any = null;
   product: any = [];
-  product_image: string;
   populer_products: any = [];
   discount: any = null;
   imagePath: string;
@@ -84,12 +83,6 @@ export class OfferproductdetailsComponent implements OnInit {
             // }
           } else {
             this.discount = null;
-          }
-
-          if(this.product.ImgPath != null) {
-            this.product_image = response.Data.ImgPath;
-          } else {
-            this.product_image = '/assets/images/product-detail-img.png';
           }
           
           if(this.product.Category != null) {

@@ -1,10 +1,30 @@
 <ion-header>
   <div class="head">
-    <ion-buttons slot="start">
-      <ion-menu-button>
-        <img src="/assets/images/manu.png" alt="" class="manu-icon">
-      </ion-menu-button>
-    </ion-buttons>
+    
+    <div id="mySidenavPro" class="sidenav" (click)="closeNav()">
+      <div class="user-details">
+        <!-- <span class="cross" (click)="hideMenu()"><i class="fa fa-times-circle"></i></span> -->
+        <img src="{{ user_profile_image }}" alt="" />
+        <h4>{{ user_username }}</h4>
+        <p><!-- This p tag is needed for design purpose --></p>
+
+        <ul class="manu-link">
+          <li *ngFor="let p of appPages">
+            <span (click)="movePage(p.url)"> {{p.title}}</span>
+          </li>
+          
+          <li></li>
+          <li></li>
+          <li (click)="signOut()">Sign Out</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Use any element to open the sidenav -->
+    <span (click)="openNav()">
+      <img src="/assets/images/manu.png" alt="" class="manu-icon">
+    </span>
+
     <ion-title class="text-center">
       Profile
     </ion-title>
@@ -28,14 +48,14 @@
             <img src="{{ user_profile_image }}" alt="" width="100px">
           </div>
           <div class="profile-info">
-            <h3>{{ username }}</h3>
+            <h3>{{ user_username }}</h3>
             <!-- <p>Email</p> -->
           </div>
         </div>
 
         <div class="sing-frm">
           <span><img src="/assets/images/user.png" alt=""></span>
-          <ion-input type="text" [(ngModel)]="username" class="info-frm" id="username" placeholder="Username" readonly></ion-input>
+          <ion-input type="text" [(ngModel)]="user_username" class="info-frm" id="username" placeholder="Username" readonly></ion-input>
 
           <span><img src="/assets/images/mail-icon.png" alt="" class="mail-img"></span>
           <ion-input type="email" [(ngModel)]="email" class="info-frm" id="email" placeholder="Email" readonly></ion-input>

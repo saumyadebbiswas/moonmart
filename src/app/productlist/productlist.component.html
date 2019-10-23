@@ -1,10 +1,30 @@
 <ion-header>
   <div class="head">
-    <ion-buttons slot="start">
-      <ion-menu-button>
-        <img src="/assets/images/manu.png" alt="" class="manu-icon">
-      </ion-menu-button>
-    </ion-buttons>
+    
+    <div id="mySidenavPL" class="sidenav" (click)="closeNav()">
+      <div class="user-details">
+        <!-- <span class="cross" (click)="hideMenu()"><i class="fa fa-times-circle"></i></span> -->
+        <img src="{{ user_profile_image }}" alt="" />
+        <h4>{{ user_username }}</h4>
+        <p><!-- This p tag is needed for design purpose --></p>
+
+        <ul class="manu-link">
+          <li *ngFor="let p of appPages">
+            <span (click)="movePage(p.url)"> {{p.title}}</span>
+          </li>
+          
+          <li></li>
+          <li></li>
+          <li (click)="signOut()">Sign Out</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Use any element to open the sidenav -->
+    <span (click)="openNav()">
+      <img src="/assets/images/manu.png" alt="" class="manu-icon">
+    </span>
+
     <ion-title class="text-center">
       Grocery Store
     </ion-title>
@@ -48,7 +68,7 @@
             <!-- <a routerLink="/productsdetails" class="offer-price">20% OFF</a> -->
             <a>
               <img *ngIf="product.ImgPath != null" src="{{ site_url + product.ImgPath }}" alt="">
-              <img *ngIf="product.ImgPath == null" src="/assets/images/pro1.png" alt="">
+              <img *ngIf="product.ImgPath == null" src="/assets/images/no-image.jpeg" alt="">
             </a> 
             <hr>
             <h4>{{ product.ProductName }}</h4>

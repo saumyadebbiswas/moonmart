@@ -13,7 +13,6 @@ export class ProductsdetailsComponent implements OnInit {
   site_url: string;
   productId: any = null;
   product: any = [];
-  product_image: string;
   populer_products: any = [];
   showLoader: boolean;
   showErrorAlert: boolean;
@@ -67,12 +66,6 @@ export class ProductsdetailsComponent implements OnInit {
         if(response.Data.IsActive == 'Y') {
           this.product = response.Data;
           //console.log('Product details...', this.product);
-
-          if(this.product.ImgPath != null) {
-            this.product_image = response.Data.ImgPath;
-          } else {
-            this.product_image = '/assets/images/product-detail-img.png';
-          }
           
           if(this.product.Category != null) {
             this.showLoader = true;

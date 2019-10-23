@@ -11,6 +11,24 @@ import { SITE_URL } from '../services/constants';
 })
 export class OfferproductsComponent implements OnInit {
 
+  user_details: any = [];
+  user_profile_image: string = "../../assets/images/user-img.png";
+  user_username: string;
+  public appPages = [
+    {
+      title: 'Home',
+      url: '/home'
+    },
+    {
+      title: 'Notifications',
+      url: '/notifications'
+    },
+    {
+      title: 'Enquiry',
+      url: '/enquiry'
+    }
+  ];
+
   site_url: string;
   offerID: any;
   imagePath: string;
@@ -38,6 +56,16 @@ export class OfferproductsComponent implements OnInit {
     if(this.userService.currentUserValue){
       console.log('Location: ProductlistComponent');
 
+      this.user_details = this.userService.currentUserValue;
+      // console.log('Logged user details...', this.user_details);
+
+      if(this.user_details.Data.Image != null) {
+        this.user_profile_image = this.user_details.Data.Image;
+      }
+      if(this.user_details.Data.UserName != null) {
+        this.user_username = this.user_details.Data.UserName;
+      }
+
       this.site_url = SITE_URL;
 
       //--- Options of barcode
@@ -61,7 +89,7 @@ export class OfferproductsComponent implements OnInit {
         this.imagePath = this.site_url + this.route.snapshot.paramMap.get('imagePath');
         this.imagePathFixed = this.route.snapshot.paramMap.get('imagePath');
       } else {
-        this.imagePath = '/assets/images/product-img.png'; //--- Default image [Set no-image-available]
+        this.imagePath = '/assets/images/no-image.jpeg';
       }
     } else {
       this.offerID = null;
@@ -94,6 +122,8 @@ export class OfferproductsComponent implements OnInit {
   }
 
   ionViewWillEnter() {
+
+    document.getElementById("mySidenavOP").style.width = "0";
     this.showLoader = true;
 
     this.productService.offer_List().subscribe(response => {
@@ -196,6 +226,25 @@ export class OfferproductsComponent implements OnInit {
 
   moveProductDetails(productID) {
     this.router.navigate(['/offerproductdetails', {id: productID, imagePath: this.imagePathFixed}]);
+  }
+
+  openNav() {
+    document.getElementById("mySidenavOP").style.width = "100%";
+  }
+  
+  /* Set the width of the side navigation to 0 */
+  closeNav() {
+    document.getElementById("mySidenavOP").style.width = "0";
+  }
+
+  movePage( pageURL ) {
+    // console.log('Page URL...', pageURL);
+    this.router.navigate([pageURL]);
+  }
+
+  signOut() {
+    this.userService.logout();
+    this.router.navigate(['/login']);
   }
 
 }

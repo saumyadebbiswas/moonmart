@@ -30,7 +30,8 @@
 
     <ion-row class="justify-content-center product-sec">
       <div class="no-pad banner-sec">
-        <img src="{{ site_url + product.ImgPath }}" alt="">
+        <img *ngIf="product.ImgPath != null" src="{{ site_url + product.ImgPath }}" alt="">
+        <img *ngIf="product.ImgPath == null" src="/assets/images/no-image.jpeg" alt="">
         <!-- <p class="star">
           <img src="/assets/images/star.png" alt="">
           <img src="/assets/images/star.png" alt="">
@@ -71,7 +72,7 @@
             <div *ngIf="product.IsActive == 'Y'">
               <!-- <a class="offer-price">20% OFF</a> -->
               <img *ngIf="product.ImgPath != null" src="{{ site_url + product.ImgPath }}" alt="">
-              <img *ngIf="product.ImgPath == null" src="/assets/images/pro1.png" alt="">
+              <img *ngIf="product.ImgPath == null" src="/assets/images/no-image.jpeg" alt="">
               <h3>{{ product.ProductName }} 
                 <p>
                   <span>₹{{ product.Price }}</span>

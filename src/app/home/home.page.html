@@ -6,23 +6,23 @@
       </ion-menu-button>
     </ion-buttons> -->
 
-    <div id="mySidenav" class="sidenav">
-        <div class="user-details">
-            <!-- <span class="cross" (click)="hideMenu()"><i class="fa fa-times-circle"></i></span> -->
-            <img src="{{ user_profile_image }}" alt="" />
-            <h4>{{ user_username }}</h4>
-            <p><!-- This p tag is needed for design purpose --></p>
-  
-            <ul class="manu-link">
-              <li *ngFor="let p of appPages">
-                <span (click)="movePage(p.url)"> {{p.title}}</span>
-              </li>
-              
-              <li></li>
-              <li></li>
-              <li (click)="signOut()">Sign Out</li>
-            </ul>
-          </div>
+    <div id="mySidenavHome" class="sidenav" (click)="closeNav()">
+      <div class="user-details">
+        <!-- <span class="cross" (click)="hideMenu()"><i class="fa fa-times-circle"></i></span> -->
+        <img src="{{ user_profile_image }}" alt="" />
+        <h4>{{ user_username }}</h4>
+        <p><!-- This p tag is needed for design purpose --></p>
+
+        <ul class="manu-link">
+          <li *ngFor="let p of appPages">
+            <span (click)="movePage(p.url)"> {{p.title}}</span>
+          </li>
+          
+          <li></li>
+          <li></li>
+          <li (click)="signOut()">Sign Out</li>
+        </ul>
+      </div>
     </div>
     
     <!-- Use any element to open the sidenav -->
@@ -42,7 +42,7 @@
   </div>
 </ion-header>
 
-<ion-content (click)="closeNav()">
+<ion-content>
   <ion-grid class="no-pad no-scroll">
     <!-- Slider images section -->
     <ion-row class="justify-content-center">
