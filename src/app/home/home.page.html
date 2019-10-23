@@ -7,11 +7,22 @@
     </ion-buttons> -->
 
     <div id="mySidenav" class="sidenav">
-      <a class="closebtn" (click)="closeNav()">&times;</a>
-      <a href="#">About</a>
-      <a href="#">Services</a>
-      <a href="#">Clients</a>
-      <a href="#">Contact</a>
+        <div class="user-details">
+            <!-- <span class="cross" (click)="hideMenu()"><i class="fa fa-times-circle"></i></span> -->
+            <img src="{{ user_profile_image }}" alt="" />
+            <h4>{{ user_username }}</h4>
+            <p><!-- This p tag is needed for design purpose --></p>
+  
+            <ul class="manu-link">
+              <li *ngFor="let p of appPages">
+                <span (click)="movePage(p.url)"> {{p.title}}</span>
+              </li>
+              
+              <li></li>
+              <li></li>
+              <li (click)="signOut()">Sign Out</li>
+            </ul>
+          </div>
     </div>
     
     <!-- Use any element to open the sidenav -->
@@ -31,7 +42,7 @@
   </div>
 </ion-header>
 
-<ion-content>
+<ion-content (click)="closeNav()">
   <ion-grid class="no-pad no-scroll">
     <!-- Slider images section -->
     <ion-row class="justify-content-center">
@@ -74,7 +85,8 @@
 
             <div *ngFor="let catrgory of catrgories; let i = index;"  [ngClass]="catrgory.Status == 'Active' ? 'cata-box' : ''">
               <div *ngIf="catrgory.Status == 'Active'" (click)="moveProductList( catrgory.CategoryID )" class="{{ bg_color[i % 10].color }}">
-                <img src="{{ site_url + catrgory.ImgPath }}" alt="">
+                <img *ngIf="catrgory.ImgPath != null" src="{{ site_url + catrgory.ImgPath }}" alt="">
+                <img *ngIf="catrgory.ImgPath == null" src="/assets/images/no-image.jpeg" alt="">
                 <h4><a>{{ catrgory.CategoryName }}</a></h4>
               </div>
             </div>
@@ -82,18 +94,6 @@
           </ion-row>
         </div>
       </div>
-
-      <!-- Discount offer banner [Not required now] -->
-      <!-- <ion-row class="justify-content-center">
-        <div class="offer-banner-sec">
-          <img src="/assets/images/bag-icon.png" alt="">
-          <div class="ban-text">
-            <h4>Today best offers</h4>
-            <span>Great Saving Every Day</span>
-          </div>
-          <h3 class="offer-text">20% <span>Off</span></h3>
-        </div>
-      </ion-row> -->
     </div>
 
     <!-- Footer icon link section -->

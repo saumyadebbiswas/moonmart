@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Events, MenuController } from '@ionic/angular';
+import { Events } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from '../services';
 
@@ -17,9 +17,6 @@ export class LoginComponent implements OnInit {
   error_message: string;
 
   constructor(
-    public menuCtrl: MenuController,
-    //public alertCtrl: AlertController,
-    //public loadingController: LoadingController,
     private router: Router,
     public events: Events,
     public userService: UserService
@@ -29,7 +26,6 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/home']);
     } else {
       console.log('Location: LoginComponent');
-      this.menuCtrl.enable(false);
     }
   }
 
@@ -69,7 +65,6 @@ export class LoginComponent implements OnInit {
         this.showLoader = false;
         if(response.Result == true) {
           //console.log('Login response...', response);
-          this.menuCtrl.enable(true);
           //--- Set event data which will access from app component page after login
           this.events.publish('userLogin', {loggedin: true});
           this.router.navigate(['/home']);
