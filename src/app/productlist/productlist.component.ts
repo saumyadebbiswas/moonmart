@@ -11,6 +11,24 @@ import { SITE_URL } from '../services/constants';
 })
 export class ProductlistComponent implements OnInit {
 
+  user_details: any = [];
+  user_profile_image: string = "../../assets/images/user-img.png";
+  user_username: string;
+  public appPages = [
+    {
+      title: 'Home',
+      url: '/home'
+    },
+    {
+      title: 'Notifications',
+      url: '/notifications'
+    },
+    {
+      title: 'Enquiry',
+      url: '/enquiry'
+    }
+  ];
+
   site_url: string;
   categoryID: any;
   imagePath: string;
@@ -36,6 +54,16 @@ export class ProductlistComponent implements OnInit {
     //--- Redirect to login page if user not log in
     if(this.userService.currentUserValue){
       console.log('Location: ProductlistComponent');
+
+      this.user_details = this.userService.currentUserValue;
+      // console.log('Logged user details...', this.user_details);
+
+      if(this.user_details.Data.Image != null) {
+        this.user_profile_image = this.user_details.Data.Image;
+      }
+      if(this.user_details.Data.UserName != null) {
+        this.user_username = this.user_details.Data.UserName;
+      }
 
       this.site_url = SITE_URL;
 
@@ -65,21 +93,21 @@ export class ProductlistComponent implements OnInit {
           if(response.Data.ImgPath != null) {
             this.imagePath = this.site_url + response.Data.ImgPath;
           } else {
-            this.imagePath = '/assets/images/product-img.png'; //--- Default image [Set no-image-available]
+            this.imagePath = '/assets/images/no-image.jpeg'; //--- Default image [Set no-image-available]
             console.log('Product list category details error: Category image is null');
           }
         } else {
-          this.imagePath = '/assets/images/product-img.png'; //--- Default image [Set no-image-available]
+          this.imagePath = '/assets/images/no-image.jpeg'; //--- Default image [Set no-image-available]
           console.log('Product list category details error: ', response.Message);
         }
       }, async error => {
         //--- In case of error - dismiss loader and show error message
         this.showLoader = false;
-        this.imagePath = '/assets/images/product-img.png'; //--- Default image [Set no-image-available]
+        this.imagePath = '/assets/images/no-image.jpeg'; //--- Default image [Set no-image-available]
         console.log('Product list category details error: ', error);
       });
     } else {
-      this.imagePath = '/assets/images/product-img.png'; //--- Default image [Set no-image-available]
+      this.imagePath = '/assets/images/no-image.jpeg'; //--- Default image [Set no-image-available]
       this.categoryID = null;
     }
     // console.log('Product List category ID...', this.categoryID);
@@ -110,6 +138,8 @@ export class ProductlistComponent implements OnInit {
   }
 
   ionViewWillEnter() {
+
+    document.getElementById("mySidenavPL").style.width = "0";
     this.showLoader = true;
 
     this.productService.offer_List().subscribe(response => {
@@ -214,6 +244,25 @@ export class ProductlistComponent implements OnInit {
 
   moveProductDetails(productID) {
     this.router.navigate(['/productsdetails/'+productID]);
+  }
+
+  openNav() {
+    document.getElementById("mySidenavPL").style.width = "100%";
+  }
+  
+  /* Set the width of the side navigation to 0 */
+  closeNav() {
+    document.getElementById("mySidenavPL").style.width = "0";
+  }
+
+  movePage( pageURL ) {
+    // console.log('Page URL...', pageURL);
+    this.router.navigate([pageURL]);
+  }
+
+  signOut() {
+    this.userService.logout();
+    this.router.navigate(['/login']);
   }
 
 }

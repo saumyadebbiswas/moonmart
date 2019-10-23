@@ -15,14 +15,8 @@
     <ion-row class="justify-content-center product-sec">
       <div class="no-pad banner-sec">
         <a *ngIf="discount != null" class="offer-price">{{ discount }}% OFF</a>
-        <img src="{{ site_url + product.ImgPath }}" alt="">
-        <!-- <p class="star">
-          <img src="/assets/images/star.png" alt="">
-          <img src="/assets/images/star.png" alt="">
-          <img src="/assets/images/star.png" alt="">
-          <img src="/assets/images/star.png" alt="">
-          <img src="/assets/images/star2.png" alt="">
-        </p> -->
+        <img *ngIf="product.ImgPath != null" src="{{ site_url + product.ImgPath }}" alt="">
+        <img *ngIf="product.ImgPath == null" src="/assets/images/no-image.jpeg" alt="">
       </div>
     </ion-row>
 
@@ -38,12 +32,6 @@
             ₹{{ product.Price }}
           </p>
         </h3>
-        <!-- <p class="pro-detail-text">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-          when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-        </p>
-        <a class="btn call-btn">Call Now</a> -->
       </div>
     </ion-row>
 
@@ -54,9 +42,8 @@
 
           <div *ngFor="let product of populer_products;" [ngClass]="product.IsActive == 'Y' ? 'no-pad slider-box' : ''">
             <div *ngIf="product.IsActive == 'Y'">
-              <!-- <a class="offer-price">20% OFF</a> -->
               <img *ngIf="product.ImgPath != null" src="{{ site_url + product.ImgPath }}" alt="">
-              <img *ngIf="product.ImgPath == null" src="/assets/images/pro1.png" alt="">
+              <img *ngIf="product.ImgPath == null" src="/assets/images/no-image.jpeg" alt="">
               <h3>{{ product.ProductName }} 
                 <p>
                   <span>₹{{ product.Price }}</span>
@@ -65,19 +52,9 @@
                 
               </h3>
               <hr>
-              <!-- <h3 class="qty">
-                <p class="star2">
-                  <img src="/assets/images/star.png" alt="">
-                  <img src="/assets/images/star.png" alt="">
-                  <img src="/assets/images/star.png" alt="">
-                  <img src="/assets/images/star.png" alt="">
-                  <img src="/assets/images/star2.png" alt="">
-                </p>
-              </h3>  -->
               
               <div class="btn-box">
                 <a class="call-now-btn" (click)="moveOfferProductDetails(product.ProductID)">More Details</a>
-                <!-- <a class="more-btn">Call Now</a> -->
               </div>
             </div>
           </div>

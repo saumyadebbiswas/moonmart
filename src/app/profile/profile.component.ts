@@ -10,11 +10,26 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
+  user_username: string;
+  public appPages = [
+    {
+      title: 'Home',
+      url: '/home'
+    },
+    {
+      title: 'Notifications',
+      url: '/notifications'
+    },
+    {
+      title: 'Enquiry',
+      url: '/enquiry'
+    }
+  ];
+
   site_url: string;
   user_details: any = [];
   userId: any;
   user_profile_image: string = "../../assets/images/user-img.png";
-  username: string = "";
   email: string = "";
   password: string = "";
   mobile_no: string = "";
@@ -61,6 +76,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ionViewWillEnter() {
+
+    document.getElementById("mySidenavPro").style.width = "0";
     this.showLoader = true;
 
     this.userService.edit_profile(this.userId).subscribe(response => {
@@ -68,7 +85,7 @@ export class ProfileComponent implements OnInit {
       //--- After getting value - dismiss loader
       this.showLoader = false;
       if(response.Result == true) {
-        this.username = response.Data.UserName;
+        this.user_username = response.Data.UserName;
         this.email = response.Data.EmailID;
         this.password = response.Data.Password;
         this.mobile_no = response.Data.MobileNumber;
@@ -114,7 +131,7 @@ export class ProfileComponent implements OnInit {
 
       let sendData = {
         ID: this.userId,
-        UserName: this.username,
+        UserName: this.user_username,
         EmailID: this.email,
         Password: this.password,
         MobileNumber: this.mobile_no,
@@ -140,6 +157,25 @@ export class ProfileComponent implements OnInit {
         this.error_message = 'Internal problem!';
       });
     }
+  }
+
+  openNav() {
+    document.getElementById("mySidenavPro").style.width = "100%";
+  }
+  
+  /* Set the width of the side navigation to 0 */
+  closeNav() {
+    document.getElementById("mySidenavPro").style.width = "0";
+  }
+
+  movePage( pageURL ) {
+    // console.log('Page URL...', pageURL);
+    this.router.navigate([pageURL]);
+  }
+
+  signOut() {
+    this.userService.logout();
+    this.router.navigate(['/login']);
   }
 
 }

@@ -5,15 +5,16 @@
 
 .head{
   width: 100%;
-  // background: #f73d42;
-  background-image: url("/assets/images/header-back-img.png");
-  background-position: center;
-  background-size: cover;
+  background: #eb1d23;
+  // background-image: url("/assets/images/header-back-img.png");
+  // background-position: center;
+  // background-size: cover;
   display: flex;
   padding: 0;
   margin: 0;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  padding-left: 6px;
   color: #fff;
 }
 .s-ion-icon{ display: none !important;}
