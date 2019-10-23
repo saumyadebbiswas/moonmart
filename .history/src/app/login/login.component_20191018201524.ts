@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Events } from '@ionic/angular';
+import { Events, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from '../services';
 
@@ -17,6 +17,9 @@ export class LoginComponent implements OnInit {
   error_message: string;
 
   constructor(
+    public menuCtrl: MenuController,
+    //public alertCtrl: AlertController,
+    //public loadingController: LoadingController,
     private router: Router,
     public events: Events,
     public userService: UserService
@@ -26,6 +29,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/home']);
     } else {
       console.log('Location: LoginComponent');
+      this.menuCtrl.enable(false);
     }
   }
 
@@ -64,9 +68,10 @@ export class LoginComponent implements OnInit {
         //--- After successful login - dismiss loader, enable side menu, navigate to dashboard
         this.showLoader = false;
         if(response.Result == true) {
-          //console.log('Login response...', response);
+          console.log('Login response...', response);
           //--- Set event data which will access from app component page after login
           this.events.publish('userLogin', {loggedin: true});
+          this.menuCtrl.enable(true);
           this.router.navigate(['/home']);
           // window.location.reload();
           // window.location.href = '/home';

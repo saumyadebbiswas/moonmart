@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonSlides } from '@ionic/angular';
+import { MenuController, Events, IonSlides } from '@ionic/angular';
 import { UserService, CategoryService, ProductService } from '../services';
 import { SITE_URL } from '../services/constants';
 
@@ -10,24 +10,6 @@ import { SITE_URL } from '../services/constants';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
-  user_details: any = [];
-  user_profile_image: string = "../../assets/images/user-img.png";
-  user_username: string;
-  public appPages = [
-    {
-      title: 'Home',
-      url: '/home'
-    },
-    {
-      title: 'Notifications',
-      url: '/notifications'
-    },
-    {
-      title: 'Enquiry',
-      url: '/enquiry'
-    }
-  ];
 
   site_url: string;
   offers: any = [];
@@ -48,49 +30,40 @@ export class HomePage {
   showInfoAlert: boolean;
   info_message: string;
 
+  //--- Configuration for Slider
+  // slideOptsOne = {
+  //   initialSlide: 0,
+  //   slidesPerView: 1,
+  //   autoplay:true
+  // };
+  // isBeginningSlide: any = true;
+  // isEndSlide: any = false;
   slideOptions = {
     initialSlide: 1,
     speed: 400,
   };
 
   constructor(
+    public menuCtrl: MenuController,
     private userService: UserService,
     private categoryService: CategoryService,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private events: Events
   ) {
     //--- Redirect to login page if user not log in
     if(this.userService.currentUserValue){
       console.log('Location: HomePage');
 
-      this.user_details = this.userService.currentUserValue;
-      // console.log('Logged user details...', this.user_details);
-
-      if(this.user_details.Data.Image != null) {
-        this.user_profile_image = this.user_details.Data.Image;
-      }
-      if(this.user_details.Data.UserName != null) {
-        this.user_username = this.user_details.Data.UserName;
-      }
-
+      //this.menuCtrl.enable(true);
       this.site_url = SITE_URL;
     } else {			 
       this.router.navigate(['/login']);			  
     }
   }
-
-  @ViewChild('slider', null) Slides: IonSlides;
-
-  ionViewDidEnter() {
-    this.Slides.startAutoplay();
-  }
   
-  ionViewWillLeave(){
-    this.Slides.stopAutoplay();
-  }
-  
-  slidesDidLoad() {
-    this.Slides.startAutoplay();
+  slidesDidLoad(slides: IonSlides) {
+    slides.startAutoplay();
   }
 
   hideErrorAlert() {
@@ -101,16 +74,41 @@ export class HomePage {
     this.showInfoAlert = false;
   }
 
+  // //--- Method called when slide is changed by drag or navigation
+  // SlideDidChange(object, slideView) {
+  //   this.checkIfNavDisabled(object, slideView);
+  // }
+ 
+  // //--- Call methods to check if slide is first or last to enable disbale navigation  
+  // checkIfNavDisabled(object, slideView) {
+  //   this.checkisBeginning(object, slideView);
+  //   this.checkisEnd(object, slideView);
+  // }
+ 
+  // //--- Check slide begining
+  // checkisBeginning(object, slideView) {
+  //   slideView.isBeginning().then((istrue) => {
+  //     this.isBeginningSlide = istrue;
+  //   });
+  // }
+
+  // //--- Check slide end
+  // checkisEnd(object, slideView) {
+  //   slideView.isEnd().then((istrue) => {
+  //     this.isEndSlide = istrue;
+  //   });
+  // }
+
   ngOnInit() {}
 
   ionViewWillEnter() {
 
-    document.getElementById("mySidenavHome").style.width = "0";
     this.offers = [];
     this.showLoader = true;
 
     this.productService.offer_List().subscribe(response => {
       //--- After getting value - dismiss loader
+      // loading1.dismiss();
       this.showLoader = false;
       if(response.Result == true) {
         this.no_of_notification = response.Data.length;
@@ -140,6 +138,7 @@ export class HomePage {
       }
     }, async error => {
       //--- In case of error - dismiss loader and show error message
+      // loading1.dismiss();
       this.showLoader = false;
       this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});
       console.log('Home offers list error: ', error);
@@ -149,6 +148,7 @@ export class HomePage {
 
     this.categoryService.category_list_all().subscribe(response => {
       //--- After getting value - dismiss loader
+      // loading.dismiss();
       this.showLoader = false;
       if(response.Result == true) {
         this.catrgories = response.Data;
@@ -159,6 +159,7 @@ export class HomePage {
       }
     }, error => {
       //--- In case of error - dismiss loader and show error message
+      // loading.dismiss();
       this.showLoader = false;
       this.showErrorAlert = true;
       this.error_message = "Internal problem!";
@@ -174,25 +175,6 @@ export class HomePage {
     if(offerID != null && offerID != 0) {
       this.router.navigate(['/offerproducts', {type: 'ID', value: offerID, imagePath: imagePath}]);
     }
-  }
-
-  openNav() {
-    document.getElementById("mySidenavHome").style.width = "100%";
-  }
-  
-  /* Set the width of the side navigation to 0 */
-  closeNav() {
-    document.getElementById("mySidenavHome").style.width = "0";
-  }
-
-  movePage( pageURL ) {
-    // console.log('Page URL...', pageURL);
-    this.router.navigate([pageURL]);
-  }
-
-  signOut() {
-    this.userService.logout();
-    this.router.navigate(['/login']);
   }
 
 }

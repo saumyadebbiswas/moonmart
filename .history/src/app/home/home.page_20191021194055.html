@@ -1,37 +1,10 @@
 <ion-header>
     <div class="head">
-        <!-- <ion-buttons slot="start">
-      <ion-menu-button>
-        <img src="/assets/images/manu.png" alt="" class="manu-icon">
-      </ion-menu-button>
-    </ion-buttons> -->
-
-        <div id="mySidenavHome" class="sidenav" (click)="closeNav()">
-            <div class="user-details">
-                <!-- <span class="cross" (click)="hideMenu()"><i class="fa fa-times-circle"></i></span> -->
-                <img src="{{ user_profile_image }}" alt="" />
-                <h4>{{ user_username }}</h4>
-                <p>
-                    <!-- This p tag is needed for design purpose -->
-                </p>
-
-                <ul class="manu-link">
-                    <li *ngFor="let p of appPages">
-                        <span (click)="movePage(p.url)"> {{p.title}}</span>
-                    </li>
-
-                    <li></li>
-                    <li></li>
-                    <li (click)="signOut()">Sign Out</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Use any element to open the sidenav -->
-        <span (click)="openNav()">
-      <img src="/assets/images/manu.png" alt="" class="manu-icon">
-    </span>
-
+        <ion-buttons slot="start">
+            <ion-menu-button>
+                <img src="/assets/images/manu.png" alt="" class="manu-icon">
+            </ion-menu-button>
+        </ion-buttons>
         <ion-title class="text-center">
             Grocery Store
         </ion-title>
@@ -53,7 +26,7 @@
                     <div id="demo" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
 
-                        <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad()">
+                        <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
                             <ion-slide *ngFor="let offer of offers; let i = index;">
                                 <img src="{{ offer.ImgPathUrl }}" (click)="moveOfferProductList(offer.ID, offer.ImgPath)">
                             </ion-slide>
@@ -78,6 +51,11 @@
             </ion-col>
         </ion-row>
 
+        <!-- </div>
+                </div>
+            </ion-col>
+        </ion-row> -->
+
         <!-- Catrgories list section -->
         <div class="back-bg-body">
             <div class="category-sec">
@@ -87,8 +65,7 @@
 
                         <div *ngFor="let catrgory of catrgories; let i = index;" [ngClass]="catrgory.Status == 'Active' ? 'cata-box' : ''">
                             <div *ngIf="catrgory.Status == 'Active'" (click)="moveProductList( catrgory.CategoryID )" class="{{ bg_color[i % 10].color }}">
-                                <img *ngIf="catrgory.ImgPath != null" src="{{ site_url + catrgory.ImgPath }}" alt="">
-                                <img *ngIf="catrgory.ImgPath == null" src="/assets/images/no-image.jpeg" alt="">
+                                <img src="{{ site_url + catrgory.ImgPath }}" alt="">
                                 <h4><a>{{ catrgory.CategoryName }}</a></h4>
                             </div>
                         </div>
@@ -96,6 +73,18 @@
                     </ion-row>
                 </div>
             </div>
+
+            <!-- Discount offer banner [Not required now] -->
+            <!-- <ion-row class="justify-content-center">
+        <div class="offer-banner-sec">
+          <img src="/assets/images/bag-icon.png" alt="">
+          <div class="ban-text">
+            <h4>Today best offers</h4>
+            <span>Great Saving Every Day</span>
+          </div>
+          <h3 class="offer-text">20% <span>Off</span></h3>
+        </div>
+      </ion-row> -->
         </div>
 
         <!-- Footer icon link section -->
@@ -236,6 +225,9 @@
         </div>
     </div>
 </div>
+
+<!-- </div>
+</div> -->
 
 <div class="overlay_alert" *ngIf="showErrorAlert">
     <div class="vertical-align-wrap1">

@@ -1,0 +1,86 @@
+<ion-app>
+    <!-- <ion-split-pane> -->
+    <ion-menu side="start">
+        <ion-content>
+
+            <!-- <ion-menu-toggle auto-hide="true"> -->
+            <div class="user-details">
+                <!-- <span class="cross" (click)="hideMenu()"><i class="fa fa-times-circle"></i></span> -->
+                <img src="{{ user_profile_image }}" alt="" />
+                <h4>{{ user_name }}</h4>
+                <p>{{ user_email }}</p>
+
+                <ul class="manu-link">
+                    <!-- <li *ngFor="let p of appPages">
+                <span [routerLink]="[p.url]"> {{p.title}}</span>
+                <span (click)="movePage(p.url)"> {{p.title}}</span>
+              </li> -->
+                    <li (click)="moveHome()">Homeee</li>
+                    <li (click)="moveNotifications()">Notifications</li>
+                    <li (click)="moveOrderReceive()">Order Receive</li>
+                    <li (click)="moveEnquiry()">Enquiry</li>
+
+                    <li></li>
+                    <li></li>
+                    <li (click)="signOut()">Sign Out</li>
+                </ul>
+            </div>
+
+            <!-- </ion-menu-toggle> -->
+
+        </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+    <!-- <app-footer *ngIf="showFooter"></app-footer> -->
+    <!-- </ion-split-pane> -->
+</ion-app>
+
+
+
+
+
+
+
+<!-- <ion-app>
+  <ion-menu side="start">
+    <ion-header>
+      <ion-toolbar translucent>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item>
+          <ion-icon name="home" slot="start"></ion-icon>
+          <ion-label>Home</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="person" slot="start"></ion-icon>
+          <ion-label>Profile</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="chatbubbles" slot="start"></ion-icon>
+          <ion-label>Messages</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="settings" slot="start"></ion-icon>
+          <ion-label>Settings</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <div class="ion-page" main>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Home</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content padding>
+      <ion-button expand="block" onclick="openMenu()">Open Menu</ion-button>
+    </ion-content>
+  </div>
+</ion-app> -->
