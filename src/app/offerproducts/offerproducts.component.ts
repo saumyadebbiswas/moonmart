@@ -124,6 +124,34 @@ export class OfferproductsComponent implements OnInit {
   ionViewWillEnter() {
 
     document.getElementById("mySidenavOP").style.width = "0";
+
+    this.showLoader = true;
+
+    this.productService.products_by_offerID(this.offerID).subscribe(response => {
+      //--- After getting value - dismiss loader
+      //this.showLoader = false;
+      if(response.Result == true) {
+        this.products_fixed =  response.Data;
+        this.products = response.Data;
+        //console.log('Offer product list...', this.products);
+        this.get_offers();
+      } else {
+        // this.showErrorAlert = true;
+        // this.error_message = 'No product found!';
+        // this.navigate_alert = true;
+        this.router.navigate(['/alert']);
+      }
+    }, async error => {
+      //--- In case of error - dismiss loader and show error message
+      this.showLoader = false;
+      // this.showErrorAlert = true;
+      // this.error_message = 'Internal Error!';
+      // this.navigate_alert = true;
+      this.router.navigate(['/alert']);
+    });
+  }
+
+  get_offers() {
     this.showLoader = true;
 
     this.productService.offer_List().subscribe(response => {
@@ -141,30 +169,6 @@ export class OfferproductsComponent implements OnInit {
       // loading1.dismiss();
       this.showLoader = false;
       console.log('Product list internal problem: ', error);
-    });
-
-    this.showLoader = true;
-
-    this.productService.products_by_offerID(this.offerID).subscribe(response => {
-      //--- After getting value - dismiss loader
-      this.showLoader = false;
-      if(response.Result == true) {
-        this.products_fixed =  response.Data;
-        this.products = response.Data;
-        //console.log('Offer product list...', this.products);
-      } else {
-        // this.showErrorAlert = true;
-        // this.error_message = 'No product found!';
-        // this.navigate_alert = true;
-        this.router.navigate(['/alert']);
-      }
-    }, async error => {
-      //--- In case of error - dismiss loader and show error message
-      this.showLoader = false;
-      // this.showErrorAlert = true;
-      // this.error_message = 'Internal Error!';
-      // this.navigate_alert = true;
-      this.router.navigate(['/alert']);
     });
   }
   

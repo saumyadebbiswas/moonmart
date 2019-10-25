@@ -133,7 +133,7 @@ export class HomePage {
         // if(this.offers.length == 0) {
         //   this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});
         // }
-        console.log('Home offers list...', this.offers);
+        //console.log('Home offers list...', this.offers);
       } else {
         this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});
         console.log('Home offers empty: ', response.Message);

@@ -71,8 +71,6 @@ export class ProductsdetailsComponent implements OnInit {
             this.showLoader = true;
             //--- Get all other products under same category as populer products
             this.productService.products_by_categoryID(this.product.Category).subscribe(response => {
-              //--- After getting value - dismiss loader
-              this.showLoader = false;
               if(response.Result == true) {
                 //--- Discard the current product from populer products
                 response.Data.forEach(element => {
@@ -81,6 +79,8 @@ export class ProductsdetailsComponent implements OnInit {
                     this.populer_products.push(element);
                   }
                 });
+                //--- After getting value - dismiss loader
+                this.showLoader = false;
                 //console.log('Populer products list...', this.populer_products);
               } else {
                 this.showLoader = false;

@@ -59,7 +59,7 @@
 .search{
     z-index: 1;
     position: fixed;
-    top: 9%;
+    top: 58px;
 }
 
 .src-frm{
@@ -120,6 +120,7 @@
 
 .product-sec{
     width: 100%;
+    justify-content: left!important;
     // display: flex;
 }
 
@@ -233,7 +234,7 @@ hr{
     }
 
     .search{
-        top: 11%;
+        top:58px;
     }
 }
 
