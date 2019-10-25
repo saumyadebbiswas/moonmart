@@ -47,6 +47,8 @@ export class HomePage {
   error_message: string;
   showInfoAlert: boolean;
   info_message: string;
+  fill_blank: number = 0;
+  fill_blank_array: any = [];
 
   slideOptions = {
     initialSlide: 1,
@@ -106,6 +108,7 @@ export class HomePage {
   ionViewWillEnter() {
 
     document.getElementById("mySidenavHome").style.width = "0";
+    this.fill_blank_array = [];
     this.offers = [];
     this.showLoader = true;
 
@@ -148,12 +151,24 @@ export class HomePage {
     this.showLoader = true;
 
     this.categoryService.category_list_all().subscribe(response => {
-      //--- After getting value - dismiss loader
-      this.showLoader = false;
       if(response.Result == true) {
         this.catrgories = response.Data;
+
+        if(this.catrgories.length > 0) {
+          this.fill_blank = 3 - (this.catrgories.length % 3);
+
+          for(let i = 0; i < this.fill_blank; i++){
+            this.fill_blank_array.push(i);
+          }
+        }
+        //--- After getting value - dismiss loader
+        this.showLoader = false;
+        
         //console.log('Home categories list...', this.catrgories);
       } else {
+        //--- After getting value - dismiss loader
+        this.showLoader = false;
+        
         this.showInfoAlert = true;
         this.info_message = response.Message;
       }
