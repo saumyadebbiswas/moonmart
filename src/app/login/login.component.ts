@@ -22,14 +22,24 @@ export class LoginComponent implements OnInit {
     public userService: UserService
   ) {
     //--- Redirect to home/dashboard if already logged in
+    // if(this.userService.currentUserValue) { 
+    //   this.router.navigate(['/home']);
+    // } else {
+    //   console.log('Location: LoginComponent');
+    // }
+  }
+  
+
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    //--- Redirect to home/dashboard if already logged in
     if(this.userService.currentUserValue) { 
       this.router.navigate(['/home']);
     } else {
       console.log('Location: LoginComponent');
     }
   }
-
-  ngOnInit() {}
 
   hideErrorAlert() {
     this.showErrorAlert = false;
