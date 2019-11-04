@@ -19,9 +19,13 @@ export class ProductService {
   category_details(categoryID: any): Observable<any> {
     return this.http.post<any>(this.api_url+'/EditProductCategory?CategoryID='+categoryID, {headers: this.requestHeader});
   }
-	
-  products_by_categoryID(categoryID: any): Observable<any> {
-    return this.http.get<any>(this.api_url+'/ListProductCategorySearch?CategoryID='+categoryID, {headers: this.requestHeader});
+  
+  // Changed from 04-11-2019
+  // products_by_categoryID(categoryID: any): Observable<any> {
+  //   return this.http.get<any>(this.api_url+'/ListProductCategorySearch?CategoryID='+categoryID, {headers: this.requestHeader});
+  // }
+  products_by_categoryID(sendData: any): Observable<any> {
+    return this.http.post<any>(this.api_url+'/ListProductCategorySearch', sendData, {headers: this.requestHeader});
   }
 	
   product_details(productId: any): Observable<any> {

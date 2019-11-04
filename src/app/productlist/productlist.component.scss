@@ -183,6 +183,17 @@ hr{
     padding-right: 5px;
 }
 
+.overlay_spinner { 
+    width: 100%; 
+    position: fixed; 
+    background: rgba(255,255,255,0.6); 
+    top:0px; 
+    bottom: 0px; 
+    left: 0; 
+    z-index: 9999999999; 
+    text-align: center;
+  }
+
 // ---------footer section-----------
 
 .footer-sec{

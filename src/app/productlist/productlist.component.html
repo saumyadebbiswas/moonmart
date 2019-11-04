@@ -190,6 +190,14 @@ viewBox="0 0 482.9 482.9" style="enable-background:new 0 0 482.9 482.9;" xml:spa
   </ion-grid>
 </ion-content>
 
+<div class="overlay_spinner" *ngIf="showSpinner">
+  <div class="vertical-align-wrap2">
+    <div class="vertical-align vertical-align--middle">
+      <img src="/assets/spinner.gif" alt="" >
+    </div>
+  </div>
+</div>
+
 <div class="overlay_loader" *ngIf="showLoader">
   <div class="vertical-align-wrap2">
     <div class="vertical-align vertical-align--middle">

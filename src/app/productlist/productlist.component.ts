@@ -41,13 +41,15 @@ export class ProductlistComponent implements OnInit {
   no_of_notification: number = 0;
   barcodeScannerOptions: BarcodeScannerOptions;
   showLoader: boolean;
+  showSpinner: boolean;
   showErrorAlert: boolean;
   error_message: string;
   showInfoAlert: boolean;
   info_message: string;
   navigate_alert: boolean = false;
-  offset_length: number = 10; //--- Maximum value show each pagination
-  offset_val: number = 0;
+
+  maxRecord: number = 5; //--- Maximum value show each pagination
+  currentPageIndex: number = 1;
   is_searched: boolean = false;
   latest_products:any = [];
 
@@ -126,8 +128,9 @@ export class ProductlistComponent implements OnInit {
   ionViewWillEnter() {
     document.getElementById("mySidenavPL").style.width = "0";
 
+    this.products_fixed = [];
     this.products = [];
-    this.offset_val = 0;
+    this.currentPageIndex = 1;
     this.get_products();
   }
 
@@ -181,27 +184,27 @@ export class ProductlistComponent implements OnInit {
   get_products() {
     this.showLoader = true;
 
-    this.productService.products_by_categoryID(this.categoryID).subscribe(response => {
+    let sendData = {
+      Category: this.categoryID,
+      CurrentPageIndex: this.currentPageIndex,
+      MaxRecord: this.maxRecord
+    }
+
+    this.productService.products_by_categoryID(sendData).subscribe(response => {
       if(response.Result == true) {
-        this.products_fixed =  response.Data;
+        response.Data.Products.forEach(element => {
+          this.products_fixed.push(element);
+          this.products.push(element);
+        });
 
-        //--- Check wheather no of product is less than offset length
-        if(this.products_fixed.length < this.offset_length) {
-          //--- Set current no of product length as offset length
-          this.offset_length = this.products_fixed.length;
-        }
-
-        //--- Initialy show offset length no of products
-        for (let i = this.offset_val; i < this.offset_val+this.offset_length; i++) {
-          this.products.push(this.products_fixed[i]);
-        }
-
-        this.offset_val = this.offset_val+this.offset_length;
-
-        if (this.products.length == this.products_fixed.length) {
+        //--- Check wheather no of product return is less than maximum record
+        if(response.Data.Products.length < this.maxRecord) {
           this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
         }
-        //console.log('Product list...', this.products);
+
+        this.currentPageIndex += 1;
+
+        //console.log('Product list...', this.products, this.currentPageIndex);
 
         //this.showLoader = false;
         this.get_Category_Details();
@@ -226,42 +229,57 @@ export class ProductlistComponent implements OnInit {
   loadData(event) {
     
     setTimeout(() => {
-      let length = this.offset_val + this.offset_length;
-      if(length > this.products_fixed.length) {
-        length = this.products_fixed.length;
-      }
 
-      for (let i = this.offset_val; i < length; i++) { 
-        this.products.push(this.products_fixed[i]);
+      this.showSpinner = true;
+      
+      let sendData = {
+        Category: this.categoryID,
+        CurrentPageIndex: this.currentPageIndex,
+        MaxRecord: this.maxRecord
       }
-        
-      this.offset_val = length;
+      
+      this.productService.products_by_categoryID(sendData).subscribe(response => {
+        if(response.Result == true) {
+          response.Data.Products.forEach(element => {
+            this.products_fixed.push(element);
+            this.products.push(element);
+          });
+  
+          //--- Check wheather no of product return is less than maximum record
+          if(response.Data.Products.length < this.maxRecord) {
+            this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+          }
+  
+          this.currentPageIndex += 1;
+          console.log('...........', this.products, this.currentPageIndex);
+          
+
+          this.showSpinner = false;
+        } else {
+          this.showSpinner = false;
+        }
+      }, error => {
+        this.showSpinner = false;
+      });
 
       event.target.complete();
- 
-      // App logic to determine if all data is loaded
-      // and disable the infinite scroll
-      if (this.products.length == this.products_fixed.length) {
-        //this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
-        event.target.disabled = true;
-      }
-    }, 500);
+    });
   }
   
   searchProduct(event) {
     let search_value = event.target.value;
 
     if(search_value.length >= 3) {
+      this.showSpinner = true;
+
       if(this.is_searched == false) {
         this.latest_products = this.products;
       }
 
       this.is_searched = true;
-      //this.products = [];
       let search_content:any = [];
       this.products = this.latest_products;
 
-      //console.log('search value after 3 words...', search_value);
       this.products.forEach(element => {
         let product_name = element.ProductName.toLowerCase();
         search_value = search_value.toLowerCase();
@@ -273,15 +291,20 @@ export class ProductlistComponent implements OnInit {
       });
 
       this.products = search_content;
+      
+      this.showSpinner = false;
       //console.log('Product list after search...', this.products);
     } else {
       if(this.is_searched) {
+        this.showSpinner = true;
         this.is_searched = false;
+
         this.products = [];
-        //this.products = this.products_fixed;
-        for (let i = 0; i < this.offset_val; i++) { 
-          this.products.push(this.products_fixed[i]);
-        }
+        this.products_fixed.forEach(element => {
+          this.products.push(element);
+        });
+
+        this.showSpinner = false;
       }
     }
   }

@@ -70,10 +70,16 @@ export class ProductsdetailsComponent implements OnInit {
           if(this.product.Category != null) {
             this.showLoader = true;
             //--- Get all other products under same category as populer products
-            this.productService.products_by_categoryID(this.product.Category).subscribe(response => {
+
+            let sendData = {
+              Category: this.product.Category,
+              CurrentPageIndex: 1,
+              MaxRecord: 5
+            }
+            this.productService.products_by_categoryID(sendData).subscribe(response => {
               if(response.Result == true) {
                 //--- Discard the current product from populer products
-                response.Data.forEach(element => {
+                response.Data.Products.forEach(element => {
                   //--- Match by product id
                   if(element.ProductID != this.productId) {
                     this.populer_products.push(element);
