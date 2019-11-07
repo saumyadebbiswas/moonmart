@@ -57,7 +57,7 @@
 }
 
 .search{
-    z-index:9;
+    z-index:99;
     position: fixed;
     top: 58px;
 }
@@ -241,7 +241,7 @@ hr{
 @media (min-width: 160px) and (max-width: 360px){
 
     .offer-sec {
-        width: 40% !important;
+        width: 50% !important;
         
     }
 
