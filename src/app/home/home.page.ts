@@ -40,8 +40,7 @@ export class HomePage {
     {color: 'brown'},
     {color: 'green'},
     {color: 'gray'},
-    {color: 'purple'},
-    {color: 'blue'}];
+    {color: 'purple'}];
   showLoader: boolean;
   showErrorAlert: boolean;
   error_message: string;

@@ -57,7 +57,7 @@
 }
 
 .search{
-    z-index: 1;
+    z-index:9;
     position: fixed;
     top: 58px;
 }
@@ -125,16 +125,16 @@
 }
 
 .offer-sec{
-    width: 44% !important;
+    width:50% !important;
     // height: 205px;
-    background: #fff;
-    border-radius: 5px;
-    margin: 10px;
+    
     /* padding: 10px; */
-    margin-bottom: 10px;
-    box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.02), 0 -1px 4px 0 rgba(0, 0, 0, 0.13);
+    padding: 0 10px; 
+    margin-top: 10px; 
 }
-
+.offer-sec:nth-child(even) { padding-left:5px;}
+.offer-sec:nth-child(odd) {padding-right:5px;}
+.offer-col{ width: 100%; background: #fff;  border-radius: 5px; box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.02), 0 -1px 4px 0 rgba(0, 0, 0, 0.13);}
 .offer-price{
     color: #f73d42;
     border: 1px solid #f73d42;
@@ -167,6 +167,7 @@ hr{
     padding-bottom: 0;
     margin-bottom: 4px;
     font-weight: bold;
+    margin-top:5px;
 }
 
 .offer-sec p{

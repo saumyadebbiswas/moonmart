@@ -126,7 +126,7 @@ export class ProductlistComponent implements OnInit {
   }
 
   ionViewWillEnter() {
-    document.getElementById("mySidenavPL").style.width = "0";
+    document.getElementById("mySidenavPL"+this.categoryID).style.width = "0";
 
     this.products_fixed = [];
     this.products = [];
@@ -352,12 +352,12 @@ export class ProductlistComponent implements OnInit {
   openNav() {
     console.log('openNav..........');
     
-    document.getElementById("mySidenavPL").style.width = "100%";
+    document.getElementById("mySidenavPL"+this.categoryID).style.width = "100%";
   }
   
   /* Set the width of the side navigation to 0 */
   closeNav() {
-    document.getElementById("mySidenavPL").style.width = "0";
+    document.getElementById("mySidenavPL"+this.categoryID).style.width = "0";
   }
 
   movePage( pageURL ) {

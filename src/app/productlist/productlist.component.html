@@ -1,7 +1,6 @@
 <ion-header>
   <div class="head">
-    
-    <div id="mySidenavPL" class="sidenav" (click)="closeNav()">
+    <div id="mySidenavPL{{categoryID}}" class="sidenav" (click)="closeNav()">
       <div class="user-details">
         <!-- <span class="cross" (click)="hideMenu()"><i class="fa fa-times-circle"></i></span> -->
         <img src="{{ user_profile_image }}" alt="" />
@@ -64,7 +63,7 @@
       <ion-row class="justify-content-center product-sec">
 
         <div *ngFor="let product of products;" [ngClass]="product.IsActive == 'Y' ? 'no-pad offer-sec' : ''">
-          <div *ngIf="product.IsActive == 'Y'" (click)="moveProductDetails(product.ProductID)">
+          <div class="offer-col" *ngIf="product.IsActive == 'Y'" (click)="moveProductDetails(product.ProductID)">
             <!-- <a routerLink="/productsdetails" class="offer-price">20% OFF</a> -->
             <a>
               <img *ngIf="product.ImgPath != null" src="{{ site_url + product.ImgPath }}" alt="">

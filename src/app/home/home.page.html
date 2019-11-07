@@ -86,7 +86,7 @@
           <ion-row class="justify-content-center product-sec">
 
             <div *ngFor="let catrgory of catrgories; let i = index;" [ngClass]="catrgory.Status == 'Active' ? 'cata-box' : ''">
-              <div *ngIf="catrgory.Status == 'Active'" (click)="moveProductList( catrgory.CategoryID )" class="{{ bg_color[i % 10].color }}">
+              <div *ngIf="catrgory.Status == 'Active'" (click)="moveProductList( catrgory.CategoryID )" class="{{ bg_color[i % 7].color }}">
                 <img *ngIf="catrgory.ImgPath != null" src="{{ site_url + catrgory.ImgPath }}" alt="">
                 <img *ngIf="catrgory.ImgPath == null" src="/assets/images/no-image.jpeg" alt="">
                 <h4><a>{{ catrgory.CategoryName }}</a></h4>
