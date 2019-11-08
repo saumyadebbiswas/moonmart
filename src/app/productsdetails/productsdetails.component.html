@@ -73,13 +73,11 @@
               <!-- <a class="offer-price">20% OFF</a> -->
               <img *ngIf="product.ImgPath != null" src="{{ site_url + product.ImgPath }}" alt="">
               <img *ngIf="product.ImgPath == null" src="/assets/images/no-image.jpeg" alt="">
-              <h3>{{ product.ProductName }} 
-                <p>
-                  <span>₹{{ product.Price }}</span>
-                  ₹{{ product.OfferPrice }}
-                </p>
-                
-              </h3>
+              <h3>{{ product.ProductName }} </h3>
+              <p>
+                <span>₹{{ product.Price }}</span>
+                ₹{{ product.OfferPrice }}
+              </p>
               <hr>
               <!-- <h3 class="qty">
                 <p class="star2">

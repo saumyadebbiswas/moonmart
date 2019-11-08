@@ -249,17 +249,17 @@
   margin-top: 5px;
   margin-bottom: 7px;
   font-weight: bold;
-  text-align: left
+  text-align: center;
+  min-height: 23px;
   }
   
   .slider-box p{
-  padding-left: 12px;
-  // font-size: 12px;
+  font-size: 11px;
   color: #f73d42;
   font-weight: bold;
   text-decoration: none;
-  text-align: right;
-  float: right;
+  text-align: center;
+  margin-bottom: 5px;
   }
   
   .slider-box p span{
