@@ -7,6 +7,18 @@
     text-align: center;
     position: relative;
 }
+
+.back-bg2 {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    z-index: 9999;
+}
+
+.back img {
+    width: 30px;
+}
+
 .no-pad{
     padding: 0;
 }

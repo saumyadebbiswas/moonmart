@@ -126,6 +126,8 @@ export class HomePage {
           this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});
         }
         
+        this.get_all_category();
+        
         // response.Data.forEach(element => {
         //   if(element.IsActive == 'Y') {
         //     this.offers.push({ID: element.ID, ImgPathUrl: this.site_url + element.ImgPath, ImgPath: element.ImgPath});
@@ -139,14 +141,18 @@ export class HomePage {
       } else {
         this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});
         console.log('Home offers empty: ', response.Message);
+        this.get_all_category();
       }
     }, async error => {
       //--- In case of error - dismiss loader and show error message
       this.showLoader = false;
       this.offers.push({ID: 0, ImgPathUrl: "/assets/images/slider.png", ImgPath: ""});
       console.log('Home offers list error: ', error);
+      this.get_all_category();
     });
+  }
 
+  get_all_category() {
     this.showLoader = true;
 
     this.categoryService.category_list_all().subscribe(response => {

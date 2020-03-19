@@ -1,0 +1,41 @@
+<ion-header>
+  <div class="head">
+
+    <div id="mySidenavPP" class="sidenav" (click)="closeNav()">
+      <div class="user-details">
+        <img src="{{ user_profile_image }}" alt="" />
+        <h4>{{ user_username }}</h4>
+        <p>
+          <!-- This p tag is needed for design purpose -->
+        </p>
+
+        <ul class="manu-link">
+          <li *ngFor="let p of appPages">
+            <span (click)="movePage(p.url)"> {{p.title}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Use any element to open the sidenav -->
+    <span (click)="openNav()">
+      <img src="/assets/images/manu.png" alt="" class="manu-icon">
+    </span>
+
+    <ion-title class="text-center">
+      Privacy Policy
+    </ion-title>
+    <div class="notification"></div>
+  </div>
+</ion-header>
+
+<ion-content>
+  <div class='tandc'>
+    <div class="container">
+        <div class="no-pad no-scroll">
+          <h2>Improving quality of life with an integrated unified approach.</h2>
+          <p>Dummy text is also used to demonstrate the appearance of different typefaces and layouts, and in general the content of dummy text is nonsensical. Due to its widespread use texts. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputa cumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
+        </div>
+    </div>
+  </div>
+</ion-content>

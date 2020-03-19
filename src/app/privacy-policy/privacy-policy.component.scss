@@ -1,0 +1,74 @@
+
+// -------------start header-------------
+.head{
+    width: 100%;
+    // background: #f73d42;
+    background-image: url("/assets/images/header-back-img.png");
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: 6px;
+    color: #fff;
+  }
+  .text-center{
+    text-align: center;
+  }
+  .notification{
+    width: 48px;
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 18px;
+  }
+  .notification img{
+    width: 18px;
+    position: absolute;
+    right: 18px;
+    top: 25px;
+  }
+  .notification span{
+    background: #fff;
+    border-radius: 50%;
+    color: #f73d42;
+    font-size: 8px;
+    width: 13px;
+    font-weight: bold;
+    height: 13px;
+    position: absolute;
+    right: 12px;
+    top: 25px;
+    text-align: center;
+  }
+  
+  // -----end header------
+  
+  .no-pad{
+    padding: 0;
+  }
+  
+  .no-scroll{
+    height: 100%;
+    overflow-y: hidden;
+  }
+  
+  .back-bg-body{
+    background: #f1f1f1;
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    // height: 54vh;
+  }
+  
+  .ex-pad-bottom{
+    padding-bottom: 70px;
+  }
+
+  .tandc h2 {
+    display: inline-block;
+    padding: 25px 0px;
+    font-size: 28px;
+    position: relative;
+}

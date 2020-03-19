@@ -1,0 +1,124 @@
+<ion-header>
+  <div class="head">
+    <!-- <ion-buttons slot="start">
+      <ion-menu-button>
+        <img src="/assets/images/manu.png" alt="" class="manu-icon">
+      </ion-menu-button>
+    </ion-buttons> -->
+
+    <div id="mySidenavDB" class="sidenav" (click)="closeNav()">
+      <div class="user-details">
+        <!-- <span class="cross" (click)="hideMenu()"><i class="fa fa-times-circle"></i></span> -->
+        <img src="{{ user_profile_image }}" alt="" />
+        <h4>{{ user_username }}</h4>
+        <p>
+          <!-- This p tag is needed for design purpose -->
+        </p>
+
+        <ul class="manu-link">
+          <li *ngFor="let p of appPages">
+            <span (click)="movePage(p.url)"> {{p.title}}</span>
+          </li>
+
+          <!-- <li></li>
+          <li></li>
+          <li (click)="signOut()">Sign Out</li> -->
+        </ul>
+      </div>
+    </div>
+
+    <!-- Use any element to open the sidenav -->
+    <span (click)="openNav()">
+      <img src="/assets/images/manu.png" alt="" class="manu-icon">
+    </span>
+
+    <ion-title class="text-center">
+      Grocery Store
+    </ion-title>
+    <div class="notification">
+      <!-- <a routerLink="/notifications">
+        <img src="/assets/images/notification-icon.png" alt="">
+        <span *ngIf="no_of_notification > 0">{{ no_of_notification }}</span>
+      </a> -->
+    </div>
+  </div>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="no-pad no-scroll">
+    <!-- Slider images section -->
+    <ion-row class="justify-content-center">
+      <ion-col size-md="6" size-lg="5" size-xs="12" class="align-self-center no-pad">
+        <div class="banner">
+          <div id="demo" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad()">
+              <ion-slide *ngFor="let offer of offers; let i = index;">
+                <img src="{{ offer.ImgPathUrl }}" (click)="moveSignIn()">
+              </ion-slide>
+            </ion-slides>
+
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- Catrgories list section -->
+    <div class="back-bg-body">
+      <div class="category-sec">
+        <h2>Shop by Category</h2>
+        <div class="category-list-box">
+          <ion-row class="justify-content-center product-sec">
+
+            <div *ngFor="let catrgory of catrgories; let i = index;" [ngClass]="catrgory.Status == 'Active' ? 'cata-box' : ''">
+              <div *ngIf="catrgory.Status == 'Active'" (click)="moveSignIn()" class="{{ bg_color[i % 7].color }}">
+                <img *ngIf="catrgory.ImgPath != null" src="{{ site_url + catrgory.ImgPath }}" alt="">
+                <img *ngIf="catrgory.ImgPath == null" src="/assets/images/no-image.jpeg" alt="">
+                <h4><a>{{ catrgory.CategoryName }}</a></h4>
+              </div>
+            </div>
+
+            <div *ngFor="let blank of fill_blank_array;" class="cata-box">
+
+            </div>
+
+          </ion-row>
+        </div>
+      </div>
+    </div>
+  </ion-grid>
+</ion-content>
+
+<div class="overlay_loader" *ngIf="showLoader">
+  <div class="vertical-align-wrap2">
+    <div class="vertical-align vertical-align--middle">
+      <img src="/assets/spinner.gif" alt="">
+    </div>
+  </div>
+</div>
+
+<div class="overlay_alert" *ngIf="showErrorAlert">
+  <div class="vertical-align-wrap1">
+    <div class="vertical-align vertical-align--middle">
+      <div class="alert alert-danger">
+        <strong>ERROR!</strong> {{ error_message }}
+        <button type="button" (click)="hideErrorAlert()" class="close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay_alert" *ngIf="showInfoAlert">
+  <div class="vertical-align-wrap1">
+    <div class="vertical-align vertical-align--middle">
+      <div class="alert alert-primary">
+        {{ info_message }}
+        <button type="button" (click)="hideInfoAlert()" class="close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

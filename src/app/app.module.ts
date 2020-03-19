@@ -25,6 +25,9 @@ import { EnquiryComponent } from './enquiry/enquiry.component';
 import { AlertComponent } from './alert/alert.component';
 import { OfferproductsComponent } from './offerproducts/offerproducts.component';
 import { OfferproductdetailsComponent } from './offerproductdetails/offerproductdetails.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsNConditionComponent } from './terms-n-condition/terms-n-condition.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,10 @@ import { OfferproductdetailsComponent } from './offerproductdetails/offerproduct
     EnquiryComponent,
     AlertComponent,
     OfferproductsComponent,
-    OfferproductdetailsComponent
+    OfferproductdetailsComponent,
+    DashboardComponent,
+    PrivacyPolicyComponent,
+    TermsNConditionComponent
   ],
   entryComponents: [],
   imports: [

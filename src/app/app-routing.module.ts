@@ -13,11 +13,14 @@ import { EnquiryComponent } from './enquiry/enquiry.component';
 import { AlertComponent } from './alert/alert.component';
 import { OfferproductsComponent } from './offerproducts/offerproducts.component';
 import { OfferproductdetailsComponent } from './offerproductdetails/offerproductdetails.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsNConditionComponent } from './terms-n-condition/terms-n-condition.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   },
   {
@@ -28,6 +31,7 @@ const routes: Routes = [
     path: 'list',
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
   },
+  { path: "dashboard",  component: DashboardComponent},
   { path: "singup",  component: SignupComponent},
   { path: "login",  component: LoginComponent},
   { path: "forgot",  component: ForgotComponent},
@@ -40,7 +44,9 @@ const routes: Routes = [
   { path: "enquiry",  component: EnquiryComponent},
   { path: "alert",  component: AlertComponent},
   { path: "offerproducts",  component: OfferproductsComponent},
-  { path: "offerproductdetails",  component: OfferproductdetailsComponent}
+  { path: "offerproductdetails",  component: OfferproductdetailsComponent},
+  { path: "privacypolicy",  component: PrivacyPolicyComponent},
+  { path: "termncondition",  component: TermsNConditionComponent}
 ];
 
 @NgModule({
